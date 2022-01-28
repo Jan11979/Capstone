@@ -1,4 +1,4 @@
-package de.neuefische.backend.model;
+package de.jmpsoftware.backend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
