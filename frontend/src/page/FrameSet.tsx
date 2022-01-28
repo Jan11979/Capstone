@@ -1,8 +1,13 @@
+import './FrameSet.scss';
+
+import { Typography } from "@mui/material";
 import React, {useEffect, useState} from "react";
 
 import {FetchString} from "../controller/DataService";
 import {getInfo} from "../controller/Fetching";
 import DrawInfo from "./Info";
+import {HeadFrame} from "./HeadFrame";
+
 
 
 
@@ -20,9 +25,22 @@ function DrawFrameSet() {
             <div>
                 <header className="Header">
                     <div>
-                        < DrawInfo list={ info } />
+                        < HeadFrame />
                     </div>
                 </header>
+            </div>
+            <div className="Body">
+                <div className="LeftBody">
+                </div>
+                <div className="MidBody">
+                    < DrawInfo list={ info } />
+                </div>
+                <div className="RightBody">
+
+                </div>
+            </div>
+            <div className="BottomBody">
+                <Typography variant="h4">Ende</Typography>
             </div>
         </div>
     )

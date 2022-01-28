@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ToggleColorMode from "./App";
 
+//<App />
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <ToggleColorMode  />
   </React.StrictMode>,
   document.getElementById('root')
 );
