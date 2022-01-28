@@ -1,8 +1,8 @@
-package de.neuefische.backend.controller;
+package de.jmpsoftware.backend.controller;
 
 
-import de.neuefische.backend.model.Something;
-import de.neuefische.backend.service.SomethingService;
+import de.jmpsoftware.backend.model.Something;
+import de.jmpsoftware.backend.service.SomethingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

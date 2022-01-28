@@ -1,7 +1,7 @@
-package de.neuefische.backend.service;
+package de.jmpsoftware.backend.service;
 
-import de.neuefische.backend.model.Something;
-import de.neuefische.backend.repo.SomethingRepo;
+import de.jmpsoftware.backend.model.Something;
+import de.jmpsoftware.backend.repo.SomethingRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
