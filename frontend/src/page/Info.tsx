@@ -8,7 +8,7 @@ interface ElementPropsInfoText {
 function DrawInfoText({text}: ElementPropsInfoText) {
     return (
         <div>
-            <Typography variant="h5">{text}</Typography>
+            <Typography variant="h6">{text}</Typography>
         </div>
     )
 }
@@ -19,15 +19,11 @@ function DrawInfo({list}: ElementPropsInfo) {
     if( list.length === 0 )
         return (
             <div>
-                <p>Error</p>
+                <p>Empty</p>
             </div>
         )
-
-// {list.map( (elem, i) => {<text key={i}> {elem} </text> })}
     return (
         <div>
-            <p>Info:</p>
-
             <div>
                 {list.map( (elem, i) => < DrawInfoText key={i} text={ elem }/>)}
             </div>
