@@ -17,7 +17,6 @@ jobs:
         run: |
           cd frontend
           npm install
-#         CI=false ignore Warnings
           CI=false npm run build
 #          npm run build
       - uses: actions/upload-artifact@v2
