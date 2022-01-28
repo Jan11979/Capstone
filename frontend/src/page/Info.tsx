@@ -1,4 +1,5 @@
 import React from "react";
+import {Typography} from "@mui/material";
 
 
 interface ElementPropsInfoText {
@@ -7,7 +8,7 @@ interface ElementPropsInfoText {
 function DrawInfoText({text}: ElementPropsInfoText) {
     return (
         <div>
-            <p>{text}</p>
+            <Typography variant="h5">{text}</Typography>
         </div>
     )
 }
