@@ -7,6 +7,7 @@ import {FetchString} from "../controller/DataService";
 import {getInfo} from "../controller/Fetching";
 import DrawInfo from "./Info";
 import {HeadFrame} from "./HeadFrame";
+import {FaderPage} from "./Fader/FaderPage";
 
 
 
@@ -33,7 +34,7 @@ function DrawFrameSet() {
                 <div className="LeftBody">
                 </div>
                 <div className="MidBody">
-
+                    < FaderPage />
                 </div>
                 <div className="RightBody">
 
