@@ -39,18 +39,13 @@ public class SomethingController {
         List<String> tmpList = new ArrayList<>();
 
         if( principal == null )
-            tmpList.add("No User");
+            tmpList.add("No Principal");
         else
             tmpList.add("UserName: " + principal.getName());
 
-        tmpList.add("Miau um: " + formatter.format(date));
+        tmpList.add("Servertime: " + formatter.format(date));
         tmpList.add("Service: Deploy Test ");
-
-        somethingService.addNewSomething(Something.builder().name("I´ll be back!").build());
-        tmpList.add("DB Test: ");
-        tmpList.add( somethingService.getAll().toString() );
-
-
+        tmpList.add("DB: " + somethingService.getAll().toString().substring(0, 10) );
         return tmpList;
     }
 

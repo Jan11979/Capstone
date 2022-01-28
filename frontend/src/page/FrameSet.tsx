@@ -33,14 +33,14 @@ function DrawFrameSet() {
                 <div className="LeftBody">
                 </div>
                 <div className="MidBody">
-                    < DrawInfo list={ info } />
+
                 </div>
                 <div className="RightBody">
 
                 </div>
             </div>
             <div className="BottomBody">
-                <Typography variant="h4">Ende</Typography>
+                < DrawInfo list={ info } />
             </div>
         </div>
     )
