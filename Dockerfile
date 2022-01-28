@@ -1,6 +1,6 @@
 FROM openjdk:17
 
-MAINTAINER Jan <jan@gmail.com>
+MAINTAINER Jan <peltzer@jmpsoftware.com>
 
 ADD backend/target/wlc.jar wlc.jar
 
