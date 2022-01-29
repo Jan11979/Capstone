@@ -1,6 +1,6 @@
 import './Fader.scss';
 import React from "react";
-import {Box, Slider, SliderThumb, Typography} from "@mui/material";
+import {Box, Slider, SliderThumb} from "@mui/material";
 import {FaderItem} from "../../model/BackendConnection";
 
 interface PropsFader {
@@ -9,10 +9,8 @@ interface PropsFader {
 
 export function Fader({faderItem}: PropsFader) {
     const [value, setValue] = React.useState<number | string | Array<number | string>>(
-        30,
+        faderItem.value,
     );
-    const text:string = "Value " + faderItem.value;
-    const text2:string = "Channel " + faderItem.channel;
 
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue);
@@ -36,6 +34,7 @@ export function Fader({faderItem}: PropsFader) {
                 <Slider
                     sx={{
                         width: 3,
+                        height: 280,
                         color:  '#7aff38',
                         backgroundColor: 'rgba(122,122,122,0)',
                         '& .MuiSlider-thumb': {

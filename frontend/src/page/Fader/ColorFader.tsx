@@ -22,7 +22,7 @@ export function ColorFader({faderItem}: PropsColorFader) {
             width: 300,
             color: "rgb(0, 255, 0)",
             borderWidth: 1,
-            borderColor: "#fff",
+            borderColor: "#070707",
             layoutDirection: 'horizontal',
             handleRadius: 14,
             padding: 6,

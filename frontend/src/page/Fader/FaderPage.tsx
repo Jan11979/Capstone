@@ -2,9 +2,7 @@ import './FaderPage.scss';
 import React, {useEffect, useState} from "react";
 import { getSimpleFaderPage} from "../../controller/Fetching";
 import {FaderItem} from "../../model/BackendConnection";
-import {Fader} from "./Fader";
-import {ColorFader} from "./ColorFader";
-import {KelvinFader} from "./KelvinFader";
+import {FaderDistributor} from "./FaderDistributor";
 
 
 export function FaderPage() {
@@ -19,9 +17,7 @@ export function FaderPage() {
         <div className='FaderPage'>
 
             {/*<ColorTemperaturePicker color={kelvin} onChange={setKelvin} />*/}
-            {faderList.map((elem, i) => < Fader key={i} faderItem={elem}/>)}
-            {faderList.map((elem, i) => < ColorFader key={i} faderItem={elem}/>)}
-            {faderList.map((elem, i) => < KelvinFader key={i} faderItem={elem}/>)}
+            {faderList.map((elem, i) => < FaderDistributor key={i} faderItem={elem}/>)}
         </div>
     );
 

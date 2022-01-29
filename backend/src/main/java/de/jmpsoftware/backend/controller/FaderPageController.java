@@ -17,10 +17,13 @@ public class FaderPageController {
     @GetMapping(path = "/simplepage")
     public List<FaderItem> getSimplePage(Principal principal) {
         List<FaderItem> tmpList = new ArrayList<>();
-        for(int i=0; i<=10; i++)
-        {
-            FaderItem newItem = new FaderItem().builder()
-                    .channel(i).value(0).type(1).universe(1).build();
+        for (int i = 0, t = 1; i <= 10; i++, t++) {
+            if (t > 3) {
+                t = 1;
+            }
+
+            FaderItem newItem = FaderItem.builder()
+                    .channel(i).value(0).type(t).universe(1).build();
             tmpList.add(newItem);
         }
         return tmpList;

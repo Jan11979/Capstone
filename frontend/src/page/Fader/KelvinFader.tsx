@@ -18,7 +18,7 @@ export function KelvinFader({faderItem}: PropsKelvinFader) {
         kelvinPicker = new (iro.ColorPicker as any)("#" + kelvinPickerIdTable[faderItem ? faderItem.channel : 0], {
             width: 300,
             borderWidth: 2,
-            borderColor: "#fff",
+            borderColor: "#000000",
             layoutDirection: 'horizontal',
             handleRadius: 14,
             padding: 6,
