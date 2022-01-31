@@ -62,7 +62,7 @@ class PipeEntryTest {
     @Test
     void ValuesValid(){
         new PipeEntry();
-        PipeEntry pipeEntry = PipeEntry.builder().command(1).valueDMX(255).channel(511).universe(4).build();
+        PipeEntry pipeEntry = PipeEntry.builder().command(1).valueDMX(255).channel(511).universe(3).build();
         assertTrue( pipeEntry.getValuesValid() );
         pipeEntry.setChannel( 1 );
         assertTrue( pipeEntry.getValuesValid() );
@@ -72,7 +72,7 @@ class PipeEntryTest {
         pipeEntry.setUniverse( 5 );
         assertFalse( pipeEntry.getValuesValid() );
         pipeEntry.setUniverse( 0 );
-        assertFalse( pipeEntry.getValuesValid() );
+        assertTrue( pipeEntry.getValuesValid() );
         pipeEntry.setUniverse( 1 );
         pipeEntry.setChannel( -1 );
         assertFalse( pipeEntry.getValuesValid() );
