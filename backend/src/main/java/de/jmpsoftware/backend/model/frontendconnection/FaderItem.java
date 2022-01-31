@@ -10,8 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class FaderItem {
-    int     type;
-    int     value;
-    int     channel;
-    int     universe;
+    int type;
+    int value;
+    int channel;
+    int universe;
+
+    @Override
+    public String toString() {
+        return "{ t=" + type +
+                ", v=" + value +
+                ", c=" + channel +
+                ", u=" + universe + '}';
+    }
 }

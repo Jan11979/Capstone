@@ -2,6 +2,7 @@ import './Fader.scss';
 import {FaderItem} from "../../model/BackendConnection";
 import iro from "@jaames/iro";
 import React, {useEffect} from "react";
+import {postSingleFader} from "../../controller/Fetching";
 
 
 interface PropsColorFader {
@@ -9,10 +10,15 @@ interface PropsColorFader {
 }
 
 export function ColorFader({faderItem}: PropsColorFader) {
-
     let colorPickerIdTable: string[] = [];
     for (let i = 0; i < 20; i++) {
         colorPickerIdTable[i] = "ColorPickerId" + i;
+    }
+
+    const onChange = (hue:number, red:number, green:number, blue:number) => {
+        console.log("R:" + red + "  G:" + green + "  B:" + blue, "HUE:"+ hue)
+        faderItem.value = Number(hue);
+        postSingleFader(faderItem);
     }
 
     let colorPicker: iro.ColorPicker;
@@ -37,8 +43,7 @@ export function ColorFader({faderItem}: PropsColorFader) {
                 }]
         });
         colorPicker.on('input:change', (color: any) => {
-            console.log("R:" + color.red + "  G:" + color.green + "  B:" + color.blue)
-            console.log("hue:" + color.hue)
+            onChange( color.hue, color.red, color.green, color.blue );
         })
 
     }, [])

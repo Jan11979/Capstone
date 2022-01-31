@@ -45,7 +45,7 @@ public class SomethingController {
 
         tmpList.add("Servertime: " + formatter.format(date));
         tmpList.add("Service: Deploy Test ");
-        tmpList.add("DB: " + somethingService.getAll().toString().substring(0, 10) );
+        tmpList.add("DB: " + somethingService.getAll().toString().substring(1, 10) );
         return tmpList;
     }
 

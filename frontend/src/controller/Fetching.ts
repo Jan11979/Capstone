@@ -1,13 +1,22 @@
 import axios from "axios";
+import {FaderItem} from "../model/BackendConnection";
 
 export async function getSimpleFaderPage() {
     const rawResponse = await fetch(`/api/fp/simplepage`, {
         method: 'GET',
         headers: {"Authorization": "Bearer" + "No Token"},
     });
-    const content = await rawResponse.json();
-    return content;
+    return rawResponse.json();
 }
+
+export async function postSingleFader(faderItem: FaderItem) {
+    await fetch(`/api/fp/setvalue`, {
+        method: 'POST',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( faderItem )
+    });
+}
+
 
 
 export const getInfo = () =>

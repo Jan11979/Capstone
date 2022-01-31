@@ -1,20 +1,30 @@
 import './Fader.scss';
-import React from "react";
+import React, {useEffect} from "react";
 import {Box, Slider, SliderThumb} from "@mui/material";
 import {FaderItem} from "../../model/BackendConnection";
+import {postSingleFader} from "../../controller/Fetching";
 
 interface PropsFader {
     faderItem: FaderItem
 }
 
 export function Fader({faderItem}: PropsFader) {
-    const [value, setValue] = React.useState<number | string | Array<number | string>>(
-        faderItem.value,
-    );
+    const [value, setValue] = React.useState<number | Array<number> >(
+             faderItem.value / 255,
+        );
+    useEffect(() => {
+        faderItem.value = Number(value) * 255;
+        postSingleFader(faderItem);
+    }, [value]);
 
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue);
     };
+    const getThumbPrintValue = ( newValue: number | number[]) : number => {
+        let tmpValue:number = newValue as number;
+        return Number((tmpValue*100).toFixed(0));
+    }
+
 
     const iOSBoxShadow =
         '10 3px 1px rgba(0,99,0,0.1),0 4px 8px rgba(0,99,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
@@ -24,7 +34,7 @@ export function Fader({faderItem}: PropsFader) {
         return (
             <SliderThumb {...other}>
                 {children}
-                {value}
+                {getThumbPrintValue(value)}
             </SliderThumb>
         );
     }
