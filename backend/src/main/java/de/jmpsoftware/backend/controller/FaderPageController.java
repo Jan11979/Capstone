@@ -22,7 +22,6 @@ public class FaderPageController {
         artNetService = new ArtNetService();
     }
 
-
     @ResponseBody
     @PostMapping(path = "/setvalue")
     public void getSingleValue(@RequestBody FaderItem faderItem, Principal principal) throws IOException {
@@ -41,17 +40,23 @@ public class FaderPageController {
     @GetMapping(path = "/simplepage")
     public List<FaderItem> getSimplePage(Principal principal) {
         List<FaderItem> tmpList = new ArrayList<>();
-        for (int i = 0; i <= 10; i++ ) {
+        for (int i = 0; i <= 5; i++ ) {
             FaderItem newItem = FaderItem.builder()
-                    .channel(i).value(0).type(1).universe(0).build();
+                    .channel(i).value(0).type( ArtNetService.FADER_TYPE_VALUE ).universe(0).build();
             tmpList.add(newItem);
         }
-        FaderItem newItem = FaderItem.builder()
-                .channel(11).value(0).type(2).universe(0).build();
-        tmpList.add(newItem);
+
+        FaderItem newItem1 = FaderItem.builder()
+                .channel(6).value(0).type(ArtNetService.FADER_TYPE_RGB).universe(0).build();
+        tmpList.add(newItem1);
+
         FaderItem newItem2 = FaderItem.builder()
-                .channel(12).value(0).type(3).universe(0).build();
+                .channel(11).value(0).type(ArtNetService.FADER_TYPE_HUE).universe(0).build();
         tmpList.add(newItem2);
+        FaderItem newItem3 = FaderItem.builder()
+                .channel(12).value(0).type(ArtNetService.FADER_TYPE_KELVIN).universe(0).build();
+        tmpList.add(newItem3);
+
         return tmpList;
     }
 }

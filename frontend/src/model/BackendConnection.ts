@@ -6,3 +6,9 @@ export interface FaderItem {
     channel: number,
     universe: number
 }
+
+export interface RGBItem {
+    red: number,
+    green: number,
+    blue: number
+}

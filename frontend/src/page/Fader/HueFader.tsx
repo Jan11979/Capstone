@@ -6,17 +6,18 @@ import {postSingleFader} from "../../controller/Fetching";
 
 
 interface PropsColorFader {
-    faderItem: FaderItem
+    faderItem: FaderItem,
+    setRGBItem: Function
 }
 
-export function ColorFader({faderItem}: PropsColorFader) {
+export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
     let colorPickerIdTable: string[] = [];
     for (let i = 0; i < 20; i++) {
         colorPickerIdTable[i] = "ColorPickerId" + i;
     }
 
     const onChange = (hue:number, red:number, green:number, blue:number) => {
-        console.log("R:" + red + "  G:" + green + "  B:" + blue, "HUE:"+ hue)
+        setRGBItem({red, green, blue});
         faderItem.value = Number(hue);
         postSingleFader(faderItem);
     }
