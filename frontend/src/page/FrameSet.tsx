@@ -21,7 +21,7 @@ function DrawFrameSet() {
         console.log("getUserAuthoritie Called :", info);
     }, [])
 
-    let tmprgb: RGBItem = {red:255, green:255, blue:255};
+    const tmprgb: RGBItem = {red:255, green:255, blue:255};
     const [rgbItem, setRGBItem] = useState(tmprgb);
 
 
