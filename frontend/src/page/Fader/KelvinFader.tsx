@@ -16,7 +16,6 @@ export function KelvinFader({faderItem}: PropsKelvinFader) {
     }
 
     const onChange = (kelvin: number) => {
-        console.log("kelvin:" + kelvin)
         faderItem.value = Number(kelvin * 2.55 );
         postSingleFader(faderItem);
     }

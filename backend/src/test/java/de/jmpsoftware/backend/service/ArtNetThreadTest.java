@@ -2,15 +2,11 @@ package de.jmpsoftware.backend.service;
 
 import de.jmpsoftware.backend.model.PipeEntry;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.io.IOException;
 import java.io.PipedInputStream;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 class ArtNetThreadTest {
 

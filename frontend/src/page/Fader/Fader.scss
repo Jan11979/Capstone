@@ -5,3 +5,25 @@
   justify-content: space-around;
   margin: 0.5rem;
 }
+
+.RGBFaderBase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+.RGBColorBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+}
+.RGBFaderBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+}

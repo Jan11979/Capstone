@@ -25,12 +25,14 @@ public class PipeEntry {
         channel += (bytes[3] & 0x0F ) << 8;
         universe = (bytes[3] & 0xF0 ) >> 4;
     }
-    public void setBytePackFromValues(byte[] bytes) {
+    public byte[] getBytePackFromValues() {
+        byte[] bytes = new byte[4];
         bytes[0] = (byte)command;
         bytes[1] = (byte)valueDMX;
         bytes[2] = (byte)(channel & 0x00FF);
         bytes[3] = (byte)((channel & 0xFF00) >> 8);
         bytes[3] += (byte)((universe ) << 4);
+        return bytes;
     }
 
     public int getPackedIntegerByValues() {

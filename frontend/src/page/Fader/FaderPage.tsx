@@ -5,7 +5,11 @@ import {FaderItem} from "../../model/BackendConnection";
 import {FaderDistributor} from "./FaderDistributor";
 
 
-export function FaderPage() {
+interface PropsFaderPage {
+    setRGBItem: Function
+}
+
+export function FaderPage({setRGBItem }: PropsFaderPage) {
     let tmpFaderList: FaderItem[] = [];
     const [faderList, setFaderList] = useState(tmpFaderList);
     useEffect(() => {
@@ -15,9 +19,7 @@ export function FaderPage() {
 
     return (
         <div className='FaderPage'>
-
-            {/*<ColorTemperaturePicker color={kelvin} onChange={setKelvin} />*/}
-            {faderList.map((elem, i) => < FaderDistributor key={i} faderItem={elem}/>)}
+            {faderList.map((elem, i) => < FaderDistributor key={i} faderItem={elem} setRGBItem={setRGBItem} />)}
         </div>
     );
 

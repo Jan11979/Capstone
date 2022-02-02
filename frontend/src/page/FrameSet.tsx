@@ -1,6 +1,5 @@
 import './FrameSet.scss';
 
-import { Typography } from "@mui/material";
 import React, {useEffect, useState} from "react";
 
 import {FetchString} from "../controller/DataService";
@@ -8,7 +7,8 @@ import {getInfo} from "../controller/Fetching";
 import DrawInfo from "./Info";
 import {HeadFrame} from "./HeadFrame";
 import {FaderPage} from "./Fader/FaderPage";
-
+import {RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
+import {RGBItem} from "../model/BackendConnection";
 
 
 
@@ -20,6 +20,10 @@ function DrawFrameSet() {
             .then((data: any) => setInfo( FetchString(data) ))
         console.log("getUserAuthoritie Called :", info);
     }, [])
+
+    let tmprgb: RGBItem = {red:255, green:255, blue:255};
+    const [rgbItem, setRGBItem] = useState(tmprgb);
+
 
     return (
         <div>
@@ -34,10 +38,10 @@ function DrawFrameSet() {
                 <div className="LeftBody">
                 </div>
                 <div className="MidBody">
-                    < FaderPage />
+                    < FaderPage setRGBItem={setRGBItem}/>
                 </div>
                 <div className="RightBody">
-
+                    < RGBMixerCircle rgbItem={rgbItem} />
                 </div>
             </div>
             <div className="BottomBody">

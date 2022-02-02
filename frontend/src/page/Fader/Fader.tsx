@@ -6,15 +6,27 @@ import {postSingleFader} from "../../controller/Fetching";
 
 interface PropsFader {
     faderItem: FaderItem
+    color?: string;
+    overwritePostSingleFader?: (rgbFaderItem: FaderItem, color:string) => void
 }
 
-export function Fader({faderItem}: PropsFader) {
+export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) {
     const [value, setValue] = React.useState<number | Array<number> >(
              faderItem.value / 255,
         );
     useEffect(() => {
-        faderItem.value = Number(value) * 255;
-        postSingleFader(faderItem);
+        if (overwritePostSingleFader ) {
+            if(color) {
+//                faderItem.value = value as number;
+                faderItem.value = Number((Number(value)*255).toFixed(0));
+                overwritePostSingleFader(faderItem, color);
+            }
+        }
+        else
+        {
+            faderItem.value = Number(value) * 255;
+            postSingleFader(faderItem);
+        }
     }, [value]);
 
     const handleSliderChange = (event: Event, newValue: number | number[]) => {
