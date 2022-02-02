@@ -84,27 +84,27 @@ class PipeEntryTest {
         PipeEntry pipeEntry = PipeEntry.builder().command(111).valueDMX(255).channel(666).universe(1).build();
         new PipeEntry();
         PipeEntry newPipeEntry = PipeEntry.builder().command(0).valueDMX(0).channel(0).universe(0).build();
-        byte[] BytePack = new byte[4];
 
-        pipeEntry.setBytePackFromValues(BytePack);
-        newPipeEntry.setValuesFromBytePack(BytePack);
+
+        byte[] bytePack = pipeEntry.getBytePackFromValues();
+        newPipeEntry.setValuesFromBytePack(bytePack);
         assertEquals(pipeEntry, newPipeEntry);
 
         new PipeEntry();
         pipeEntry = PipeEntry.builder().command(1).valueDMX(255).channel(500).universe(4).build();
         new PipeEntry();
         newPipeEntry = PipeEntry.builder().command(0).valueDMX(0).channel(0).universe(0).build();
-        pipeEntry.setBytePackFromValues(BytePack);
-        newPipeEntry.setValuesFromBytePack(BytePack);
+        bytePack = pipeEntry.getBytePackFromValues();
+        newPipeEntry.setValuesFromBytePack(bytePack);
         assertEquals(pipeEntry, newPipeEntry);
 
         new PipeEntry();
         pipeEntry = PipeEntry.builder().command(1).valueDMX(255).channel(500).universe(4).build();
         new PipeEntry();
         newPipeEntry = PipeEntry.builder().command(0).valueDMX(0).channel(0).universe(0).build();
-        pipeEntry.setBytePackFromValues(BytePack);
-        BytePack[0] = 10;
-        newPipeEntry.setValuesFromBytePack(BytePack);
+        bytePack = pipeEntry.getBytePackFromValues();
+        bytePack[0] = 10;
+        newPipeEntry.setValuesFromBytePack(bytePack);
         assertNotEquals(pipeEntry, newPipeEntry);
 
 
