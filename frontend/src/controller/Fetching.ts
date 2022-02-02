@@ -2,7 +2,7 @@ import axios from "axios";
 import {FaderItem} from "../model/BackendConnection";
 
 export async function getSimpleFaderPage() {
-    const rawResponse = await fetch(`/api/fp/simplepage`, {
+    const rawResponse = await fetch(`/api/faderpage/simplepage`, {
         method: 'GET',
         headers: {"Authorization": "Bearer" + "No Token"},
     });
@@ -10,7 +10,7 @@ export async function getSimpleFaderPage() {
 }
 
 export async function postSingleFader(faderItem: FaderItem) {
-    await fetch(`/api/fp/setvalue`, {
+    await fetch(`/api/faderpage/setvalue`, {
         method: 'POST',
         headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
         body: JSON.stringify( faderItem )

@@ -3,6 +3,8 @@
 export interface FaderItem {
     type: number,
     value: number,
+    valueX1?: number,
+    valueX2?: number,
     channel: number,
     universe: number
 }

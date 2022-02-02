@@ -5,8 +5,14 @@ import {RGBMixerRectangle} from "../RGBMixerPicture/RGBMixerPicture";
 import {postSingleFader} from "../../controller/Fetching";
 
 function CreateRGBFaderItem(channeloffset:number, faderItem:FaderItem ) :FaderItem {
-    let newfaderItem:FaderItem = { channel:faderItem.channel + channeloffset, value:faderItem.value, type:faderItem.type, universe:faderItem.universe }
-    return newfaderItem;
+    let newFaderItem:FaderItem = { channel:faderItem.channel + channeloffset, value:faderItem.value, type:faderItem.type, universe:faderItem.universe }
+    if(( channeloffset === 1 )&&(faderItem.valueX1 !== undefined )){
+        newFaderItem.value = faderItem.valueX1;
+    }
+    else if(( channeloffset === 2 )&&(faderItem.valueX2 !== undefined )){
+        newFaderItem.value = faderItem.valueX2;
+    }
+    return newFaderItem;
 }
 
 export function CreateRGBItem( color:string, rgbItem:RGBItem, value:number) :RGBItem {
@@ -33,12 +39,14 @@ interface PropsColorFader {
 
 
 export function RGBFader({faderItem, setRGBItem}: PropsColorFader) {
-    let tmprgb: RGBItem = {red:0, green:255, blue:0};
-    const [localRgbItem, setLocalRGBItem] = useState(tmprgb);
 
     let redFader:FaderItem = CreateRGBFaderItem( 0,  faderItem );
     let greenFader:FaderItem = CreateRGBFaderItem( 1, faderItem );
     let blueFader:FaderItem = CreateRGBFaderItem(2, faderItem );
+
+    let tmprgb: RGBItem = {red:redFader.value, green:greenFader.value, blue:blueFader.value};
+    const [localRgbItem, setLocalRGBItem] = useState(tmprgb);
+
 
     const overwritePostSingleFader = ( overwriteFaderItem:FaderItem, color:string) => {
         let newRGB: RGBItem = CreateRGBItem( color, localRgbItem, overwriteFaderItem.value);

@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
+
 public class ArtNetService {
     public static final int SIZE_UNIVERSE = 512;
-    public static final int COUNT_UNIVERSE = 4;
+    public static final int COUNT_UNIVERSE = 4; // Only 2 Bits
 
-    //                      CommandArtNetDmx < 16!!
+    //                  CommandArtNetDmx < 16!! Only 4 Bits
     public static final int COMMAND_DMX = 0;         // DO Not change this Value
-    public static final int COMMANDO_DMX_NO_SEND = 1; // DO Not change this Value
+    public static final int COMMANDO_DMX_NO_SEND = 1; // DO Not change this Value vor using 1 or less in functions
 
     public static final int COMMAND_NO_START = 14;
     public static final int COMMAND_NO_STOP = 15;
@@ -56,9 +57,7 @@ public class ArtNetService {
         switch (faderItem.getType()) {
             case FADER_TYPE_VALUE, FADER_TYPE_RGB -> {
                 setPipeEntry(COMMAND_DMX, faderItem);
-                byte[] sendeByte = new byte[4];
-                pipeEntry.setBytePackFromValues(sendeByte);
-                outPipe.write(sendeByte);
+                outPipe.write( pipeEntry.getBytePackFromValues() );
             }
         }
     }
