@@ -15,7 +15,7 @@ function CreateRGBFaderItem(channeloffset:number, faderItem:FaderItem ) :FaderIt
     return newFaderItem;
 }
 
-export function CreateRGBItem( color:string, rgbItem:RGBItem, value:number) :RGBItem {
+export function UpdateRGBItem(color:string, rgbItem:RGBItem, value:number) :RGBItem {
    switch (color){
         case "red":
             rgbItem.red = value;
@@ -49,7 +49,7 @@ export function RGBFader({faderItem, setRGBItem}: PropsColorFader) {
 
 
     const overwritePostSingleFader = ( overwriteFaderItem:FaderItem, color:string) => {
-        let newRGB: RGBItem = CreateRGBItem( color, localRgbItem, overwriteFaderItem.value);
+        let newRGB: RGBItem = UpdateRGBItem( color, localRgbItem, overwriteFaderItem.value);
         setLocalRGBItem(newRGB);
         setRGBItem({red:newRGB.red, green:newRGB.green, blue:newRGB.blue});
         postSingleFader(overwriteFaderItem);

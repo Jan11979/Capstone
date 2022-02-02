@@ -17,12 +17,12 @@ public class ArtNetThread extends Thread {
     public static final int SLEEPING_ARTNET_DOZY_TIME = 1000;
 
 
-    final ArtNetClient artnet;
-    final byte[][] dmxData = new byte[ArtNetService.COUNT_UNIVERSE][ArtNetService.SIZE_UNIVERSE];
+    private final ArtNetClient artnet;
+    private final byte[][] dmxData = new byte[ArtNetService.COUNT_UNIVERSE][ArtNetService.SIZE_UNIVERSE];
     private final PipedInputStream pipe;
-    final PipeEntry pipeEntry;
-    final byte[] readByte = new byte[4];
-    long sendDMXTimeStamp;
+    private final PipeEntry pipeEntry;
+    private final byte[] readByte = new byte[4];
+    private long sendDMXTimeStamp;
 
     public ArtNetThread(PipedInputStream pipe) {
         this.pipe = pipe;
@@ -42,6 +42,7 @@ public class ArtNetThread extends Thread {
         this.artnet.start();
         sendDMXTimeStamp = ZonedDateTime.now().toInstant().toEpochMilli();
 
+        //noinspection InfiniteLoopStatement
         while (true) {
             while (pipe.available() > 0) {
                 if (checkPipeReadDoneCorrect(pipe.read(readByte, 0, 4))) {
@@ -104,7 +105,7 @@ public class ArtNetThread extends Thread {
             byte[] buffer = new byte[100];
             while (pipe.available() > 0)
             {
-                int trashIt = pipe.read(buffer,0,100);
+                @SuppressWarnings("unused") int trashIt = pipe.read(buffer,0,100);
             }
             return false;
         }

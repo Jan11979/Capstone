@@ -27,10 +27,10 @@ public class ArtNetService {
     public static final int FADER_TYPE_RGB = 4;
 
 
-    final PipedInputStream inPipe;
-    PipedOutputStream outPipe;
-    PipeEntry pipeEntry;
-    ArtNetThread artNetThread;
+    private final PipedInputStream inPipe;
+    private PipedOutputStream outPipe;
+    private PipeEntry pipeEntry;
+    private ArtNetThread artNetThread;
 
     public ArtNetService() throws IOException {
         inPipe = new PipedInputStream();

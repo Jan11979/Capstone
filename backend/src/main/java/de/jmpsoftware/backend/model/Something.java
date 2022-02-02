@@ -14,7 +14,7 @@ import org.springframework.data.annotation.Id;
 public class Something {
 
     @Id
-    String id;
-    String name;
+    private String id;
+    private String name;
 
 }

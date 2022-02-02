@@ -20,7 +20,7 @@ public class FaderPageController {
 
     private final DMXService dmxService;
 
-    final ArtNetService artNetService;
+    private final ArtNetService artNetService;
 
     public FaderPageController(DMXService dmxService) throws IOException {
         this.dmxService = dmxService;

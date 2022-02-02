@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class DMXTable {
-    int universe;
-    int[] table;
+    private int universe;
+    private int[] table;
 
     public DMXTable(int universe ) {
         this.universe = universe;

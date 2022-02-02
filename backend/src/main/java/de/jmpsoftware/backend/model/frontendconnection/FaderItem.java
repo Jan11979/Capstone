@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class FaderItem {
-    int type;
-    int value;
-    int valueX1;
-    int valueX2;
-    int channel;
-    int universe;
+    private int type;
+    private int value;
+    private int valueX1;
+    private int valueX2;
+    private int channel;
+    private int universe;
 
     @Override
     public String toString() {
