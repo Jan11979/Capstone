@@ -27,19 +27,4 @@ public class DMXTable {
         return table[channel];
     }
 
-    public int getUniverse() {
-        return universe;
-    }
-
-    public void setUniverse(int universe) {
-        this.universe = universe;
-    }
-
-    public int[] getTable() {
-        return table;
-    }
-
-    public void setTable(int[] table) {
-        this.table = table;
-    }
 }
