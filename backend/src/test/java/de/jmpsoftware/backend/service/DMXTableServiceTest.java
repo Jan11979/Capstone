@@ -2,13 +2,11 @@ package de.jmpsoftware.backend.service;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DMXTableServiceTest {
 
-    DMXTableService dmxTableService = new DMXTableService();
+    final DMXTableService dmxTableService = new DMXTableService();
 
     @Test
     void checkChannelUniverseValidTest(){

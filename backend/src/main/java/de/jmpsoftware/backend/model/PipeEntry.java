@@ -13,10 +13,10 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 public class PipeEntry {
-    int valueDMX;
-    int channel;
-    int universe;
-    int command;
+    private int valueDMX;
+    private int channel;
+    private int universe;
+    private int command;
 
     public void setValuesFromBytePack(byte[] bytes) {
         command = (bytes[0] & 0xff);
