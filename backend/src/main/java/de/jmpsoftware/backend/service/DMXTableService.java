@@ -45,4 +45,13 @@ public class DMXTableService {
         }
         return -1;
     }
+
+    public DMXTable getDMXTable( int universe) throws Exception {
+        if (checkChannelUniverseValid(0, universe)) {
+            return dmxTable[universe];
+        }
+        else {
+            throw new Exception("Try to touch DMX-Table with invalid UniverseID:"+universe);
+        }
+    }
 }

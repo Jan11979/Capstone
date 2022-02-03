@@ -26,5 +26,8 @@ public class DMXTable {
     public int getValue(int channel) {
         return table[channel];
     }
+    public int[] getValueTable() {
+        return table;
+    }
 
 }
