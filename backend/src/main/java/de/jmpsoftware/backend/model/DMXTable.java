@@ -29,5 +29,5 @@ public class DMXTable {
     public int[] getValueTable() {
         return table;
     }
-
+    public void setValueTable(int[] table) { this.table = table;}
 }

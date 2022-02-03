@@ -18,6 +18,7 @@ public class DMXTableService {
         }
     }
 
+
     boolean checkChannelUniverseValid(int channel, int universe) {
         if ((channel < 0) || (channel > ArtNetService.SIZE_UNIVERSE))
             return false;
@@ -51,7 +52,16 @@ public class DMXTableService {
             return dmxTable[universe];
         }
         else {
-            throw new Exception("Try to touch DMX-Table with invalid UniverseID:"+universe);
+            throw new Exception("Try to touch DMX-Table with invalid UniverseID:" + universe);
+        }
+    }
+
+    public void setDMXTable( DMXTable newDmxTable) throws Exception {
+        if (checkChannelUniverseValid(0, newDmxTable.getUniverse())) {
+            this.dmxTable[newDmxTable.getUniverse()] = newDmxTable;
+        }
+        else {
+            throw new Exception("Try to touch DMX-Table with invalid UniverseID:"+newDmxTable.getUniverse());
         }
     }
 }

@@ -28,9 +28,9 @@ public class ArtNetService {
 
 
     private final PipedInputStream inPipe;
-    private PipedOutputStream outPipe;
-    private PipeEntry pipeEntry;
-    private ArtNetThread artNetThread;
+    private final PipedOutputStream outPipe;
+    private final PipeEntry pipeEntry;
+    private final ArtNetThread artNetThread;
 
     public ArtNetService() throws IOException {
         inPipe = new PipedInputStream();
