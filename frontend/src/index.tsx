@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import ToggleColorMode from "./App";
+import {HashRouter} from 'react-router-dom';
 
-//<App />
+
 ReactDOM.render(
-  <React.StrictMode>
-      <ToggleColorMode  />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <HashRouter>
+            <ToggleColorMode/>
+        </HashRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
