@@ -14,26 +14,27 @@
     mix-blend-mode: lighten
   }
 
+  .rectangle {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: black;
+  }
+
   .BaseRectangle {
     fill: black;
     stroke: black;
     x: 0;
     y: 0;
-    rx: 5;
-    ry: 5;
   }
 
   .ColorRectangle {
     x: 2.5;
     y: 2.5;
-    rx: 5;
-    ry: 5;
   }
 }
 
 .canvasCircle {
-  $baseCircleBigR: 57.5;
-  $baseCircleSmallR: 55;
   $baseCircleRedX: 75;
   $baseCircleRedY: 75;
   $baseCircleGreenX: 110;
@@ -59,37 +60,31 @@
   .BaseRed {
     cx: $baseCircleRedX;
     cy: $baseCircleRedY;
-    r: $baseCircleBigR;
   }
 
   .BaseGreen {
     cx: $baseCircleGreenX;
     cy: $baseCircleGreenY;
-    r: $baseCircleBigR;
   }
 
   .BaseBlue {
     cx: $baseCircleBlueX;
     cy: $baseCircleBlueY;
-    r: $baseCircleBigR;
   }
 
   .RedCircle {
     cx: $baseCircleRedX;
     cy: $baseCircleRedY;
-    r: $baseCircleSmallR;
   }
 
   .GreenCircle {
     cx: $baseCircleGreenX;
     cy: $baseCircleGreenY;
-    r: $baseCircleSmallR;
   }
 
   .BlueCircle {
     cx: $baseCircleBlueX;
     cy: $baseCircleBlueY;
-    r: $baseCircleSmallR;
   }
 }
 

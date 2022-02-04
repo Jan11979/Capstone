@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("api/data")
 public class DataController {
-    private static final Log LOG = LogFactory.getLog(FaderPageController.class);
+    private static final Log LOG = LogFactory.getLog(DataController.class);
 
     private final DMXService dmxService;
 

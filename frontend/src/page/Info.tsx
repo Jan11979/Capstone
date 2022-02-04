@@ -16,6 +16,8 @@ interface ElementPropsInfo {
     list: string[]
 }
 function DrawInfo({list}: ElementPropsInfo) {
+    let sUsrAg = navigator.userAgent;
+
     if( list.length === 0 )
         return (
             <div>
@@ -24,6 +26,7 @@ function DrawInfo({list}: ElementPropsInfo) {
         )
     return (
         <div>
+            {sUsrAg}
             <div>
                 {list.map( (elem, i) => < DrawInfoText key={i} text={ elem }/>)}
             </div>
