@@ -43,7 +43,7 @@ public class ArtNetThread extends Thread {
         sendDMXTimeStamp = ZonedDateTime.now().toInstant().toEpochMilli();
 
         //noinspection InfiniteLoopStatement
-        while (true) {
+        while (true) { // ToDo check newSingleThreadScheduledExecutor
             while (pipe.available() > 0) {
                 if (checkPipeReadDoneCorrect(pipe.read(readByte, 0, 4))) {
 

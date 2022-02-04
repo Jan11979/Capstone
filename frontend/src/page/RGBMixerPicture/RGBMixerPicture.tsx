@@ -11,11 +11,11 @@ export function RGBMixerRectangle({rgbItem, rectangleWidth}: PropsRGBMixerRectan
     if(rectangleWidth === undefined)
         rectangleWidth = 30;
     return (
-            <div className="canvas">
-                <svg width={rectangleWidth} height="30" viewBox={`0 0 ${rectangleWidth} 30`} >
-                    <rect className="BaseRectangle" width={rectangleWidth} height="30" />
+            <div className="canvasRectangle">
+                <svg width={rectangleWidth} height="30" viewBox={`0 0 ${rectangleWidth} 30`} xmlns="http://www.w3.org/2000/svg" >
+                    <rect className="BaseRectangle" width={rectangleWidth} height="30"  />
                     <g>
-                        <rect className="ColorRectangle"  width={rectangleWidth-5} height="25" fill={`rgb(${rgbItem.red}, 0, 0)`}/>
+                        <rect className="ColorRectangle" width={rectangleWidth-5} height="25" fill={`rgb(${rgbItem.red}, 0, 0)`}/>
                     </g>
                     <g>
                         <rect className="ColorRectangle" width={rectangleWidth-5} height="25" fill={`rgb(0, ${rgbItem.green}, 0)`}/>
@@ -25,7 +25,6 @@ export function RGBMixerRectangle({rgbItem, rectangleWidth}: PropsRGBMixerRectan
                     </g>
                 </svg>
             </div>
-
     )
 }
 
@@ -34,9 +33,9 @@ interface PropsRGBMixerPicture {
 }
 export function RGBMixerCircle({rgbItem}: PropsRGBMixerPicture) {
     return (
-        // <div className="container">
-            <div className="canvas">
-                <svg width="200" height="200" viewBox="0 0 190 165">
+            <div className="canvasCircle">
+                <svg width="200" height="200" viewBox="0 0 190 165" xmlns="http://www.w3.org/2000/svg" >
+
                     <circle className="BaseRed BaseCircle"/>
                     <circle className="BaseGreen BaseCircle"/>
                     <circle className="BaseBlue BaseCircle"/>
@@ -51,6 +50,5 @@ export function RGBMixerCircle({rgbItem}: PropsRGBMixerPicture) {
                     </g>
                 </svg>
             </div>
-        // </div>
     )
 }
