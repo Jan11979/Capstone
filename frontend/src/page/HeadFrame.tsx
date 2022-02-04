@@ -59,12 +59,9 @@ export function HeadFrame() {
     return (
         <div className="Head">
             <div className="HeadMenu">
-                <IconButton sx={{ml: 1}}>
-                    <SaveIcon onClick={onClickLoadSave} fontSize="large"/>
-                </IconButton>
+                <IconButton sx={{ml: 1}} onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
                 <IconButton sx={{ml: 1}} onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickOutputSettings}><SettingsInputSvideoIcon
-                    fontSize="large"/></IconButton>
+                <IconButton sx={{ml: 1}} onClick={onClickOutputSettings}><SettingsInputSvideoIcon fontSize="large"/></IconButton>
                 <IconButton sx={{ml: 1}} onClick={onClickChart}><BarChartIcon fontSize="large"/></IconButton>
                 <IconButton sx={{ml: 1}} onClick={onClickChart}><StackedBarChartIcon fontSize="large"/></IconButton>
             </div>
