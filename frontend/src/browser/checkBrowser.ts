@@ -1,7 +1,7 @@
 
 export const CheckCromeAndSafari = () : boolean  =>{
     let sUsrAg = navigator.userAgent;
-    if ((sUsrAg.indexOf("Chrome") > -1) || (sUsrAg.indexOf("Safari"))) {
+    if ((sUsrAg.indexOf("Chrome") > -1) || (sUsrAg.indexOf("Safari") > -1)) {
         return true;
     }
     return false

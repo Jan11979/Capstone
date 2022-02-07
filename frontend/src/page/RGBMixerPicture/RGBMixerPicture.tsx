@@ -57,7 +57,7 @@ export function RGBMixerRectangle({rgbItem, rectangleWidth}: PropsRGBMixerRectan
     } else {
         return (
             <div>
-                R:{rgbItem.red} G:{rgbItem.green} B:{rgbItem.blue}
+                <div style={{width:'${rectangleWidth}px', height:"30px", color: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`, background: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`}}>##########</div>
             </div>
         )
     }
@@ -68,7 +68,7 @@ interface PropsRGBMixerPicture {
 }
 
 //
-export function RGBMixerCircle({rgbItem}: PropsRGBMixerPicture) {
+export function RGBMixerCircle({rgbItem}: PropsRGBMixerPicture)  {
     if (CheckCromeAndSafari()) {
         return (
             <div className="canvasCircle">
@@ -112,8 +112,11 @@ export function RGBMixerCircle({rgbItem}: PropsRGBMixerPicture) {
     } else {
         return(
             <div>
-                <p>Sorry, No Support for your Browser</p>
+                <p>No Support for your Browser</p>
+                <div style={{ width:'100px', height:"100px", background: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`}}/>
+                R:{rgbItem.red} G:{rgbItem.green} B:{rgbItem.blue}
             </div>
         )
     }
 }
+//<div style={{width:'${rectangleWidth}px', height:"30px", color: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`, background: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`}}>##########</div>
