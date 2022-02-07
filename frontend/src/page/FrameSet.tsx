@@ -17,6 +17,7 @@ import {RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
 import {RGBItem} from "../model/BackendConnection";
 import {Route, Routes} from "react-router-dom";
 import {Typography} from "@mui/material";
+import {LoadSaveUniverse} from "./LoadSaveUniverse";
 
 
 
@@ -45,7 +46,7 @@ function DrawFrameSet() {
             <div className="Body">
                 <div className="LeftBody">
                     <Routes>
-                        <Route path={LOCATION_LOAD_SAVE} element={<Typography variant="h1">L&S</Typography>}/>
+                        <Route path={LOCATION_LOAD_SAVE} element={< LoadSaveUniverse  />}/>
                         <Route path={LOCATION_SETTINGS} element={<Typography variant="h1">SET</Typography>}/>
                         <Route path={LOCATION_EDIT_CHART} element={<Typography variant="h1">Edit</Typography>}/>
                         <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>

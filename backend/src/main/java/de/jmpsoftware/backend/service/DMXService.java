@@ -9,19 +9,25 @@ import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Service
 public class DMXService {
     private static final Log LOG = LogFactory.getLog(DMXService.class);
 
     private final DMXTableService dmxTableService;
     private final UniverseRepo universeRepo;
+    private final ArtNetService artNetService;
 
-
-    public DMXService(UniverseRepo universeRepo) {
+    public DMXService(UniverseRepo universeRepo) throws IOException {
         this.universeRepo = universeRepo;
         this.dmxTableService = new DMXTableService();
+        artNetService = new ArtNetService();
     }
 
+    public ArtNetService getArtNetService() {
+        return artNetService;
+    }
 
     public int getValueFromTable(int channel) {
         return dmxTableService.getValueFromTable(channel);
@@ -67,6 +73,7 @@ public class DMXService {
                 .orElseThrow(() -> new IllegalStateException("No Database Item ID: " + dbItem.getName()));
 
         storeUniverseItemDBInLocalTable(universeItemDB);
+        artNetService.broadcastUniverse(dmxTableService.getDMXTable(universeItemDB.getUniverse()));
 
         LOG.info("Load Universe" + dbItem.getName() + universeItemDB);
     }

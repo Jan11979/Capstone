@@ -6,6 +6,8 @@ import de.jmpsoftware.backend.repo.UniverseRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DMXServiceTest {
@@ -13,6 +15,9 @@ class DMXServiceTest {
     @Autowired
     UniverseRepo universeRepo;
     private final DMXService dmxService = new DMXService(universeRepo);
+
+    DMXServiceTest() throws IOException {
+    }
 
     @Test
     void createAndStoreUniverseTest() throws Exception {
