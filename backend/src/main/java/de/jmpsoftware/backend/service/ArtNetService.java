@@ -26,6 +26,10 @@ public class ArtNetService {
     public static final int FADER_TYPE_HUE = 2;
     public static final int FADER_TYPE_KELVIN = 3;
     public static final int FADER_TYPE_RGB = 4;
+    public static final int FADER_TYPE_MASTER_HUE = 5;
+    public static final int FADER_TYPE_MASTER_HUE2RGB = 6;
+    public static final int FADER_TYPE_MASTER_KELVIN = 7;
+
 
 
     private final PipedInputStream inPipe;
@@ -48,11 +52,11 @@ public class ArtNetService {
         pipeEntry.setChannel(faderItem.getChannel());
         pipeEntry.setUniverse(faderItem.getUniverse());
     }
-    private void setPipeEntry(int command, int Value, int Channel, int Universe) {
+    private void setPipeEntry(int command, int value, int channel, int universe) {
         pipeEntry.setCommand(command);
-        pipeEntry.setValueDMX(Value);
-        pipeEntry.setChannel(Channel);
-        pipeEntry.setUniverse(Universe);
+        pipeEntry.setValueDMX(value);
+        pipeEntry.setChannel(channel);
+        pipeEntry.setUniverse(universe);
     }
 
     public void broadcastValue(FaderItem faderItem) throws IOException {

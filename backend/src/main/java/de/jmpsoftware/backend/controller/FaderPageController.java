@@ -46,6 +46,21 @@ public class FaderPageController {
     @GetMapping(path = "/simplepage")
     public List<FaderItem> getSimplePage(Principal principal) {
         List<FaderItem> tmpList = new ArrayList<>();
+
+
+
+
+//        FaderItem newItemMH = FaderItem.builder().channel(0)
+//                .value(dmxService.getValueFromTable(0))
+//                        .type( ArtNetService.FADER_TYPE_MASTER_HUE2RGB ).universe(0).build();
+//        tmpList.add(newItemMH);
+//
+//        FaderItem newItemMK = FaderItem.builder().channel(1)
+//                .value(dmxService.getValueFromTable(1))
+//                .type( ArtNetService.FADER_TYPE_MASTER_KELVIN ).universe(0).build();
+//        tmpList.add(newItemMK);
+
+
         for (int i = 0; i <= 5; i++ ) {
             FaderItem newItem = FaderItem.builder()
                     .channel(i).value(0).type( ArtNetService.FADER_TYPE_VALUE ).universe(0).build();

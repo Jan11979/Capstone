@@ -2,6 +2,8 @@ package de.jmpsoftware.backend.service;
 
 import de.jmpsoftware.backend.model.db.UniverseItemDB;
 import de.jmpsoftware.backend.model.frontendconnection.DbCommandItem;
+import de.jmpsoftware.backend.repo.FixtureRepo;
+import de.jmpsoftware.backend.repo.FixtureTamplateRepo;
 import de.jmpsoftware.backend.repo.UniverseRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ class DMXServiceTest {
 
     @Autowired
     UniverseRepo universeRepo;
-    private final DMXService dmxService = new DMXService(universeRepo);
+    private FixtureRepo fixtureRepo;
+    private FixtureTamplateRepo fixtureTamplateRepo;
+    private final DMXService dmxService = new DMXService(universeRepo, fixtureRepo, fixtureTamplateRepo);
 
     DMXServiceTest() throws IOException {
     }
