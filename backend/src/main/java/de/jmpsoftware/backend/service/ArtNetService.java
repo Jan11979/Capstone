@@ -21,7 +21,7 @@ public class ArtNetService {
     public static final int COMMAND_NO_STOP = 15;
 
 
-
+    public static final int FADER_TYPE_EMPTY = 0;
     public static final int FADER_TYPE_VALUE = 1;
     public static final int FADER_TYPE_HUE = 2;
     public static final int FADER_TYPE_KELVIN = 3;

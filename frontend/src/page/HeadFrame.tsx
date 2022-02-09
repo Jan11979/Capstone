@@ -12,6 +12,7 @@ import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 import {ColorModeContext} from "../App";
 import {useLocation, useNavigate} from "react-router-dom";
 import {
+    LOCATION_BASIC_CHART,
     LOCATION_CONNECTION,
     LOCATION_EDIT_CHART,
     LOCATION_LOAD_SAVE,
@@ -47,13 +48,21 @@ export function HeadFrame() {
             navigate(LOCATION_CONNECTION, {replace: true});
         }
     }
-    const onClickChart = () => {
+    const onClickChartEdit = () => {
         if (location.pathname.includes(LOCATION_EDIT_CHART)) {
             navigate(LOCATION_ROOT, {replace: true});
         } else {
             navigate(LOCATION_EDIT_CHART, {replace: true});
         }
     }
+    const onClickChartBasic = () => {
+        if (location.pathname.includes(LOCATION_BASIC_CHART)) {
+            navigate(LOCATION_ROOT, {replace: true});
+        } else {
+            navigate(LOCATION_BASIC_CHART, {replace: true});
+        }
+    }
+
 
 
     return (
@@ -62,8 +71,8 @@ export function HeadFrame() {
                 <IconButton sx={{ml: 1}} onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
                 <IconButton sx={{ml: 1}} onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>
                 <IconButton sx={{ml: 1}} onClick={onClickOutputSettings}><SettingsInputSvideoIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickChart}><BarChartIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickChart}><StackedBarChartIcon fontSize="large"/></IconButton>
+                <IconButton sx={{ml: 1}} onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
+                <IconButton sx={{ml: 1}} onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton>
             </div>
             <div className="DarkMode">
                 <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">

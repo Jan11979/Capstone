@@ -6,7 +6,9 @@ export interface FaderItem {
     valueX1?: number,
     valueX2?: number,
     channel: number,
-    universe: number
+    universe: number,
+    fixtureName: string,
+    fixtureID: number
 }
 
 export interface RGBItem {
@@ -18,4 +20,9 @@ export interface RGBItem {
 export interface DbCommandItem {
     name: string,
     universe: number
+}
+
+export interface ActiveFixtureList {
+    name: string,
+    checked: number
 }

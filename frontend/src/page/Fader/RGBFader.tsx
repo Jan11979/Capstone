@@ -5,7 +5,7 @@ import {RGBMixerRectangle} from "../RGBMixerPicture/RGBMixerPicture";
 import {postSingleFader} from "../../controller/Fetching";
 
 function CreateRGBFaderItem(channeloffset:number, faderItem:FaderItem ) :FaderItem {
-    let newFaderItem:FaderItem = { channel:faderItem.channel + channeloffset, value:faderItem.value, type:faderItem.type, universe:faderItem.universe }
+    let newFaderItem:FaderItem = { channel:faderItem.channel + channeloffset, value:faderItem.value, type:faderItem.type, universe:faderItem.universe, fixtureID:faderItem.fixtureID, fixtureName:faderItem.fixtureName }
     if(( channeloffset === 1 )&&(faderItem.valueX1 !== undefined )){
         newFaderItem.value = faderItem.valueX1;
     }

@@ -4,6 +4,7 @@ import {Fader} from "./Fader";
 import {HueFader} from "./HueFader";
 import {KelvinFader} from "./KelvinFader";
 import {RGBFader} from "./RGBFader";
+import {FADER_TYPE_EMPTY} from "../../controller/DataService";
 
 
 
@@ -22,8 +23,11 @@ export function FaderDistributor({faderItem, setRGBItem}: PropsFaderDistributor)
         case FADER_TYPE_HUE:
             return (<div>< HueFader faderItem={faderItem} setRGBItem={setRGBItem}/></div>);
         case FADER_TYPE_VALUE:
-        default:
             return (<div>< Fader faderItem={faderItem} /></div>);
+        case FADER_TYPE_EMPTY:
+        default:
+            return (<div></div>);
+
     }
 }
 export const FADER_TYPE_VALUE = 1;

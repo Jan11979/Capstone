@@ -33,8 +33,38 @@ export async function putSaveUniverse(dbCommandItem: DbCommandItem) {
     });
 }
 
+export async function getActiveFixtureList() {
+    const rawResponse = await fetch(`/api/fixture/allactivefixture`, {
+        method: 'GET',
+        headers: {"Authorization": "Bearer" + "No Token"},
+    });
+    return rawResponse.json();
+}
+
+export async function putLoadActiveFaderList(list: String[]) {
+    const rawResponse = await fetch(`/api/fixture/getfixture`, {
+        method: 'PUT',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( list )
+    });
+    return rawResponse.json();
+}
+
+export async function postFixtureFader(faderItem: FaderItem) {
+    await fetch(`/api/fixture/setfixturevalue`, {
+        method: 'POST',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( faderItem )
+    });
+}
+
+
+
 
 export const getInfo = () =>
     axios.get(`/api/info`).then(response => response.data)
+
+export const getTest = () =>
+    axios.get(`/api/fixture/allactivefixture`).then(response => response.data)
 
 
