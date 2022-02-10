@@ -2,6 +2,7 @@ package de.jmpsoftware.backend.controller;
 
 
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
+import de.jmpsoftware.backend.model.frontendconnection.FaderPageSelect;
 import de.jmpsoftware.backend.service.ArtNetService;
 import de.jmpsoftware.backend.service.DMXService;
 import org.apache.juli.logging.Log;
@@ -35,9 +36,24 @@ public class FaderPageController {
 
         LOG.info("NewSingleValue" + faderItem );
         dmxService.setValueToTable(faderItem);
-        //artNetService.broadcastValue(faderItem);
     }
 
+    @ResponseBody
+    @PostMapping(path = "/simpleselectpage")
+    public List<FaderItem> postGenerateSelectFaderPage(@RequestBody FaderPageSelect faderPageSelect) {
+        List<FaderItem> tmpList = new ArrayList<>();
+        if( faderPageSelect == null)
+            return tmpList;
+        LOG.info("postGenerateSelectFaderPage" + faderPageSelect );
+
+        for (int i = faderPageSelect.getStartAddress()-1; i < faderPageSelect.getStartAddress()+faderPageSelect.getQuantity()-1; i++ ) {
+            FaderItem newItem = FaderItem.builder()
+                    .channel(i).value(0).type( ArtNetService.FADER_TYPE_VALUE ).universe(0).fixtureName("STD").build();
+            newItem.setValue(dmxService.getValueFromTable(i));
+            tmpList.add(newItem);
+        }
+        return tmpList;
+    }
 
 
     /**
@@ -47,18 +63,6 @@ public class FaderPageController {
     public List<FaderItem> getSimplePage(Principal principal) {
         List<FaderItem> tmpList = new ArrayList<>();
 
-
-
-
-//        FaderItem newItemMH = FaderItem.builder().channel(0)
-//                .value(dmxService.getValueFromTable(0))
-//                        .type( ArtNetService.FADER_TYPE_MASTER_HUE2RGB ).universe(0).build();
-//        tmpList.add(newItemMH);
-//
-//        FaderItem newItemMK = FaderItem.builder().channel(1)
-//                .value(dmxService.getValueFromTable(1))
-//                .type( ArtNetService.FADER_TYPE_MASTER_KELVIN ).universe(0).build();
-//        tmpList.add(newItemMK);
 
 
         for (int i = 0; i <= 5; i++ ) {

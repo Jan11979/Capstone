@@ -1,5 +1,5 @@
 import axios from "axios";
-import {DbCommandItem, FaderItem} from "../model/BackendConnection";
+import {DbCommandItem, FaderItem, FaderPageSelect} from "../model/BackendConnection";
 
 export async function getSimpleFaderPage() {
     const rawResponse = await fetch(`/api/faderpage/simplepage`, {
@@ -58,6 +58,15 @@ export async function postFixtureFader(faderItem: FaderItem) {
     });
 }
 
+
+export async function postCreateSelectFaderPage(faderPageSelect: FaderPageSelect) {
+    const rawResponse = await fetch(`/api/faderpage/simpleselectpage`, {
+        method: 'POST',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( faderPageSelect )
+    });
+    return rawResponse.json();
+}
 
 
 

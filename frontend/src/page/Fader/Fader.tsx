@@ -4,6 +4,7 @@ import {Box, Slider, SliderThumb} from "@mui/material";
 import {FaderItem} from "../../model/BackendConnection";
 import {postFixtureFader, postSingleFader} from "../../controller/Fetching";
 
+
 interface PropsFader {
     faderItem: FaderItem
     color?: string;
@@ -83,6 +84,10 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
                     //valueLabelDisplay="on"
                     onChange={handleSliderChange}
                 />
+                { faderItem.fixtureName === "STD" &&
+                    <p>{faderItem.channel+1}</p>
+                }
+
             </Box>
         </div>
     );

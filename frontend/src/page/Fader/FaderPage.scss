@@ -5,3 +5,18 @@
   justify-content: space-between;
   margin: 1rem;
 }
+
+.FixtureNamePack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem;
+  border: 1px solid #239a7a;
+}
+.FixtureFaderPack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

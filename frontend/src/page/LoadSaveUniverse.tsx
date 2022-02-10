@@ -6,14 +6,10 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import {putLoadUniverse, putSaveUniverse} from "../controller/Fetching";
 import {DbCommandItem} from "../model/BackendConnection";
 
-interface PropsLoadSaveUniverse {
 
-}
 export function LoadSaveUniverse( ) {
     const [name, setSaveName] = useState("");
-    // const handleFocusSaveName = (event: React.FocusEvent<HTMLInputElement>) => {
-    //     console.log(event.target.value);
-    // }; onBlur={handleFocusSaveName}
+
     const handleOnChangeSaveName = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredName = event.target.value;
         setSaveName(enteredName);

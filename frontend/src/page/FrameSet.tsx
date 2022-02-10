@@ -9,20 +9,31 @@ import {
     LOCATION_LOAD_SAVE,
     LOCATION_SETTINGS
 } from "../controller/DataService";
-import {getActiveFixtureList, getInfo, getSimpleFaderPage, getTest} from "../controller/Fetching";
+import {getActiveFixtureList, getInfo} from "../controller/Fetching";
 import DrawInfo from "./Info";
 import {HeadFrame} from "./HeadFrame";
 import {FaderPage} from "./Fader/FaderPage";
 import {RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
 import {ActiveFixtureList, RGBItem} from "../model/BackendConnection";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {Typography} from "@mui/material";
 import {LoadSaveUniverse} from "./LoadSaveUniverse";
 import {ActiveFixtureSelect} from "./ActiveFixtureSelect";
 import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
+import {ActiveSliderSelect} from "./ActiveFliderSelect";
 
 
 function DrawFrameSet() {
+    let navigate = useNavigate();
+    const location = useLocation();
+    useEffect(() => {
+        let navString="&fbtype="+"basic";
+        navigate({ pathname: location.pathname, search: navString, });
+    }, [])
+
+    const [searchParams] = useSearchParams();
+    const idParam = searchParams.get('fbtype')
+
     let tmpInfo: string[] = ["No Info"];
     const [info, setInfo] = useState(tmpInfo);
     useEffect(() => {
@@ -46,7 +57,7 @@ function DrawFrameSet() {
 
     useEffect(() => {
         const listSelected: string[] = [];
-        activeFixtureList.map((value, key) => {
+        activeFixtureList.map((value) => {
             if (value.checked !== -1) {
                 listSelected.push(value.name);
             }
@@ -68,20 +79,23 @@ function DrawFrameSet() {
             <div className="Body">
                 <div className="LeftBody">
                     <Routes>
-
                         <Route path={LOCATION_LOAD_SAVE} element={< LoadSaveUniverse/>}/>
-                        <Route path={LOCATION_SETTINGS} element={<Typography variant="h1">SET</Typography>}/>
-                        <Route path={LOCATION_EDIT_CHART} element={< ActiveFixtureSelect list={activeFixtureList}
-                                                                                         setListfunc={setActiveFixtureList}
-                                                                                         listSelectedfunc={setActiveFixtureListSelected}/>}/>
+                        <Route path={LOCATION_SETTINGS} element={<div>
+                            { idParam === "basic" && <ActiveSliderSelect /> }
+                            {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}
+                                                                            setListfunc={setActiveFixtureList}
+                            listSelectedfunc={setActiveFixtureListSelected}/>}
+                        </div>}/>
                         <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
                 </div>
                 <div className="MidBody">
-                    <Routes>
-                    <Route path={LOCATION_EDIT_CHART} element={< FixtureFaderPage setRGBItem={setRGBItem} list={activeFixtureListSelected} />}/>
-                    <Route path={"*"} element={< FaderPage setRGBItem={setRGBItem}/>}/>
-                    </Routes>
+                    { idParam === "basic" &&
+                    < FaderPage setRGBItem={setRGBItem}/>
+                    }
+                    { idParam === "edit" &&
+                    < FixtureFaderPage setRGBItem={setRGBItem} list={activeFixtureListSelected} />
+                    }
                 </div>
                 <div className="RightBody">
                     < RGBMixerCircle rgbItem={rgbItem}/>
@@ -96,3 +110,10 @@ function DrawFrameSet() {
 
 // activeFixtureListSelected list
 export default DrawFrameSet;
+/*
+<Routes>
+                    <Route path={LOCATION_EDIT_CHART} element={< FixtureFaderPage setRGBItem={setRGBItem} list={activeFixtureListSelected} />}/>
+                    <Route path={"*"} element={< FaderPage setRGBItem={setRGBItem}/>}/>
+                    </Routes>
+
+ */

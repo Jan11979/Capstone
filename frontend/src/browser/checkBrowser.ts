@@ -1,17 +1,13 @@
 
 export const CheckCromeAndSafari = () : boolean  =>{
     let sUsrAg = navigator.userAgent;
-    if ((sUsrAg.indexOf("Chrome") > -1) || (sUsrAg.indexOf("Safari") > -1)) {
-        return true;
-    }
-    return false
+    return (sUsrAg.indexOf("Chrome") > -1) || (sUsrAg.indexOf("Safari") > -1);
+
 }
 
 // Add Samsung because of Testing Samsung Device in Firefox Mode (No local Test Possible)
 export const CheckFirefox = () : boolean  =>{
     let sUsrAg = navigator.userAgent;
-    if ((sUsrAg.indexOf("Firefox") > -1) || (sUsrAg.indexOf("Samsung"))){
-        return true
-    }
-    return false
+    return !!((sUsrAg.indexOf("Firefox") > -1) || (sUsrAg.indexOf("Samsung")));
+
 }

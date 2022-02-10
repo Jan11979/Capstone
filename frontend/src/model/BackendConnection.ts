@@ -26,3 +26,8 @@ export interface ActiveFixtureList {
     name: string,
     checked: number
 }
+
+export interface FaderPageSelect {
+    startAddress: number,
+    quantity: number
+}

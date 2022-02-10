@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {ActiveFixtureList, DbCommandItem} from "../model/BackendConnection";
-import {getActiveFixtureList, putLoadUniverse, putSaveUniverse} from "../controller/Fetching";
-import {Button, Checkbox, List, ListItem, ListItemText, TextField} from "@mui/material";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
+import React from "react";
+import {ActiveFixtureList} from "../model/BackendConnection";
+
+import { Checkbox, List, ListItem, ListItemText} from "@mui/material";
+
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
@@ -16,7 +13,6 @@ interface PropsActiveFixtureSelect {
 }
 
 export function ActiveFixtureSelect({list, setListfunc, listSelectedfunc}: PropsActiveFixtureSelect) {
-    const [checked, setChecked] = React.useState([-1]);
 
     const handleToggle = (tiggleName: string) => () => {
         let newActiveFixtureList:ActiveFixtureList[] = [];
@@ -38,15 +34,7 @@ export function ActiveFixtureSelect({list, setListfunc, listSelectedfunc}: Props
                 {list.map((value, key) => {
                     const labelId = `checkbox-list-label-${key}`;
                     return (
-                        <ListItem
-                            key={key}
-                            secondaryAction={
-                                <IconButton edge="end" aria-label="comments">
-                                    <CommentIcon/>
-                                </IconButton>
-                            }
-                            disablePadding
-                        >
+                        <ListItem key={key} disablePadding >
                             <ListItemButton role={undefined} onClick={handleToggle(value.name)} dense>
                                 <ListItemIcon>
                                     <Checkbox

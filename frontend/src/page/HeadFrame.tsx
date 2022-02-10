@@ -10,7 +10,7 @@ import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 import {ColorModeContext} from "../App";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {
     LOCATION_BASIC_CHART,
     LOCATION_CONNECTION,
@@ -27,40 +27,42 @@ export function HeadFrame() {
     let navigate = useNavigate();
     const location = useLocation();
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    searchParams.get('startaddresse')
+    searchParams.get('faderquantity')
+    searchParams.get('fbtype')
+
+    let navString = "&fbtype=" + searchParams.get('fbtype') +
+                    "&startaddresse=" + searchParams.get('startaddresse') +
+                    "&faderquantity=" + searchParams.get('faderquantity');
     const onClickLoadSave = () => {
         if (location.pathname.includes(LOCATION_LOAD_SAVE)) {
-            navigate(LOCATION_ROOT, {replace: true});
+            navigate({ pathname: LOCATION_ROOT, search: navString });
         } else {
-            navigate(LOCATION_LOAD_SAVE, {replace: true});
+            navigate({ pathname: LOCATION_LOAD_SAVE, search: navString, });
         }
     }
     const onClickSettings = () => {
         if (location.pathname.includes(LOCATION_SETTINGS)) {
-            navigate(LOCATION_ROOT, {replace: true});
+            navigate({ pathname: LOCATION_ROOT, search: navString, });
         } else {
-            navigate(LOCATION_SETTINGS, {replace: true});
+            navigate({ pathname: LOCATION_SETTINGS, search: navString, });
         }
     }
     const onClickOutputSettings = () => {
         if (location.pathname.includes(LOCATION_CONNECTION)) {
-            navigate(LOCATION_ROOT, {replace: true});
+            navigate({ pathname: LOCATION_ROOT, search: navString, });
         } else {
-            navigate(LOCATION_CONNECTION, {replace: true});
+            navigate({ pathname: LOCATION_CONNECTION, search: navString, });
         }
     }
     const onClickChartEdit = () => {
-        if (location.pathname.includes(LOCATION_EDIT_CHART)) {
-            navigate(LOCATION_ROOT, {replace: true});
-        } else {
-            navigate(LOCATION_EDIT_CHART, {replace: true});
-        }
+        searchParams.set("fbtype", "edit");
+        setSearchParams(searchParams);
     }
     const onClickChartBasic = () => {
-        if (location.pathname.includes(LOCATION_BASIC_CHART)) {
-            navigate(LOCATION_ROOT, {replace: true});
-        } else {
-            navigate(LOCATION_BASIC_CHART, {replace: true});
-        }
+        searchParams.set("fbtype", "basic");
+        setSearchParams(searchParams);
     }
 
 

@@ -2,7 +2,7 @@ import './Fader.scss';
 import {FaderItem} from "../../model/BackendConnection";
 import iro from "@jaames/iro";
 import React, {useEffect} from "react";
-import {postSingleFader} from "../../controller/Fetching";
+import {postFixtureFader, postSingleFader} from "../../controller/Fetching";
 
 
 interface PropsKelvinFader {
@@ -17,7 +17,11 @@ export function KelvinFader({faderItem}: PropsKelvinFader) {
 
     const onChange = (kelvin: number) => {
         faderItem.value = Number(kelvin * 2.55 );
-        postSingleFader(faderItem);
+        if( faderItem.fixtureName === "STD" ){
+            postSingleFader(faderItem);
+        }else{
+            postFixtureFader(faderItem);
+        }
     }
 
 
@@ -43,7 +47,7 @@ export function KelvinFader({faderItem}: PropsKelvinFader) {
                 },
             ]
         });
-        kelvinPicker.color.set({kelvin: 6600});
+        kelvinPicker.color.set({kelvin: (((faderItem.value / 255) * 8000)+2000) });
         kelvinPicker.on('input:change', (color: any) => {
 //            Keep old version in mind!
 //            onChange(color.kelvin + ( (color.kelvin-2000)  * 0.0019 ) );
