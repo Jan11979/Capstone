@@ -86,6 +86,9 @@ function DrawFrameSet() {
                                                                             setListfunc={setActiveFixtureList}
                             listSelectedfunc={setActiveFixtureListSelected}/>}
                         </div>}/>
+                        <Route path={LOCATION_LOAD_SAVE} element={< LoadSaveUniverse  />}/>
+                        <Route path={LOCATION_SETTINGS} element={<Typography variant="h1">SET</Typography>}/>
+                        <Route path={LOCATION_EDIT_CHART} element={<Typography variant="h1">Edit</Typography>}/>
                         <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
                 </div>

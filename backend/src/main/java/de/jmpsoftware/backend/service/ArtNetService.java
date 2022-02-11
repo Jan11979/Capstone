@@ -54,11 +54,11 @@ public class ArtNetService {
         pipeEntry.setChannel(faderItem.getChannel());
         pipeEntry.setUniverse(faderItem.getUniverse());
     }
-    private void setPipeEntry(int command, int value, int channel, int universe) {
+    private void setPipeEntry(int command, int Value, int Channel, int Universe) {
         pipeEntry.setCommand(command);
-        pipeEntry.setValueDMX(value);
-        pipeEntry.setChannel(channel);
-        pipeEntry.setUniverse(universe);
+        pipeEntry.setValueDMX(Value);
+        pipeEntry.setChannel(Channel);
+        pipeEntry.setUniverse(Universe);
     }
 
     public void broadcastValue(FaderItem faderItem) throws IOException {
