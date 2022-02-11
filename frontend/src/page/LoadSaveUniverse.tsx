@@ -25,6 +25,7 @@ export function LoadSaveUniverse( ) {
         console.log("handleOnClickLoad");
         let dbCommandItem: DbCommandItem = { name, universe:0}
         putLoadUniverse(dbCommandItem);
+        window.location.reload();
     }
     const handleOnClickSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         console.log("handleOnClickSave");
