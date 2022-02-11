@@ -28,9 +28,6 @@ export function HeadFrame() {
     const location = useLocation();
 
     const [searchParams, setSearchParams] = useSearchParams();
-    searchParams.get('startaddresse')
-    searchParams.get('faderquantity')
-    searchParams.get('fbtype')
 
     let navString = "&fbtype=" + searchParams.get('fbtype') +
                     "&startaddresse=" + searchParams.get('startaddresse') +

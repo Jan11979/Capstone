@@ -27,8 +27,16 @@ function DrawFrameSet() {
     let navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
-        let navString="&fbtype="+"basic";
-        navigate({ pathname: location.pathname, search: navString, });
+        if(searchParams.get('fbtype') === null )
+        {
+            let navString = "&fbtype=" + "basic" +
+                "&startaddresse=" + "1" +
+                "&faderquantity=" + "12";
+            navigate({ pathname: location.pathname, search: navString, });
+        }
+        else {
+            navigate({pathname: location.pathname, search: location.search,});
+        }
     }, [])
 
     const [searchParams] = useSearchParams();
