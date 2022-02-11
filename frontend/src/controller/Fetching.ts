@@ -1,4 +1,3 @@
-import axios from "axios";
 import {DbCommandItem, FaderItem, FaderPageSelect} from "../model/BackendConnection";
 
 export async function getSimpleFaderPage() {
@@ -41,7 +40,7 @@ export async function getActiveFixtureList() {
     return rawResponse.json();
 }
 
-export async function putLoadActiveFaderList(list: String[]) {
+export async function putLoadActiveFaderList(list: string[]) {
     const rawResponse = await fetch(`/api/fixture/getfixture`, {
         method: 'PUT',
         headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
@@ -67,13 +66,5 @@ export async function postCreateSelectFaderPage(faderPageSelect: FaderPageSelect
     });
     return rawResponse.json();
 }
-
-
-
-export const getInfo = () =>
-    axios.get(`/api/info`).then(response => response.data)
-
-export const getTest = () =>
-    axios.get(`/api/fixture/allactivefixture`).then(response => response.data)
 
 

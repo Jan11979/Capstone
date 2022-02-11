@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.scss';
-import DrawFrameSet from "./page/FrameSet";
+import FrameSet from "./page/FrameSet";
 import Box from '@mui/material/Box';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {CssBaseline, useMediaQuery} from "@mui/material";
@@ -24,7 +24,7 @@ function App() {
             }}
         >
             <div className="App">
-                < DrawFrameSet />
+                < FrameSet />
             </div>
         </Box>
 
