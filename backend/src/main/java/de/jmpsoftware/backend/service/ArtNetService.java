@@ -1,5 +1,6 @@
 package de.jmpsoftware.backend.service;
 
+import de.jmpsoftware.backend.model.DMXTable;
 import de.jmpsoftware.backend.model.PipeEntry;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
 
@@ -47,6 +48,12 @@ public class ArtNetService {
         pipeEntry.setChannel(faderItem.getChannel());
         pipeEntry.setUniverse(faderItem.getUniverse());
     }
+    private void setPipeEntry(int command, int Value, int Channel, int Universe) {
+        pipeEntry.setCommand(command);
+        pipeEntry.setValueDMX(Value);
+        pipeEntry.setChannel(Channel);
+        pipeEntry.setUniverse(Universe);
+    }
 
     public void broadcastValue(FaderItem faderItem) throws IOException {
 
@@ -61,4 +68,12 @@ public class ArtNetService {
             }
         }
     }
+
+    public void broadcastUniverse(DMXTable dmxTabe) throws IOException {
+        for(int i=0; i < ArtNetService.SIZE_UNIVERSE; i++ ){
+            setPipeEntry(COMMANDO_DMX_NO_SEND, dmxTabe.getValue(i), i, dmxTabe.getUniverse() );
+            outPipe.write( pipeEntry.getBytePackFromValues() );
+        }
+    }
+
 }

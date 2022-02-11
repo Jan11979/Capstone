@@ -14,3 +14,8 @@ export interface RGBItem {
     green: number,
     blue: number
 }
+
+export interface DbCommandItem {
+    name: string,
+    universe: number
+}

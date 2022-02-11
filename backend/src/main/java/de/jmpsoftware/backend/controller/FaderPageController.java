@@ -24,7 +24,7 @@ public class FaderPageController {
 
     public FaderPageController(DMXService dmxService) throws IOException {
         this.dmxService = dmxService;
-        artNetService = new ArtNetService();
+        artNetService = dmxService.getArtNetService();
     }
 
     @ResponseBody
