@@ -17,9 +17,9 @@ export async function postSingleFader(faderItem: FaderItem) {
     });
 }
 
-export async function putLoadUniverse(dbCommandItem: DbCommandItem) {
+export async function postLoadUniverse(dbCommandItem: DbCommandItem) {
     await fetch(`/api/data/load`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
         body: JSON.stringify( dbCommandItem )
     });

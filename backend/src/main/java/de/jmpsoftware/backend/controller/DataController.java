@@ -37,7 +37,7 @@ public class DataController {
     }
 
     @ResponseBody
-    @PutMapping(path = "/load")
+    @PostMapping(path = "/load")
     public void loadUniverse(@RequestBody DbCommandItem dbItem) throws Exception {
         checkDbCommandItemAndThrowException( dbItem );
         if(!dmxService.isDbItemDMXTableInDatabase( dbItem )){
