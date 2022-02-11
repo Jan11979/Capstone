@@ -19,6 +19,8 @@ import {
     LOCATION_ROOT,
     LOCATION_SETTINGS
 } from "../controller/DataService";
+import {LogoRGBMixerCircle, RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
+import {RGBItem} from "../model/BackendConnection";
 
 
 export function HeadFrame() {
@@ -62,10 +64,11 @@ export function HeadFrame() {
         setSearchParams(searchParams);
     }
 
-
-
     return (
         <div className="Head">
+            <div className="Logo">
+                < LogoRGBMixerCircle />
+            </div>
             <div className="HeadMenu">
                 <IconButton sx={{ml: 1}} onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
                 <IconButton sx={{ml: 1}} onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>

@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: stretch;
   flex: 1;
+
+  --colorone: red;
 }
 
 .canvasRectangle {
@@ -88,7 +90,57 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .RedCircleLogo, .GreenCircleLogo, .BlueCircleLogo {
+    animation-duration: 20s;
+    animation-delay: 10s;
+    animation-iteration-count: infinite;
+  }
+  .RedCircleLogo {
+    animation-name: fadeRed;
+  }
+  .GreenCircleLogo {
+    animation-name: fadeGreen;
+  }
+  .BlueCircleLogo {
+    animation-name: fadeBlue;
+  }
+}
 
+@keyframes fadeRed {
+  0%   {fill: red;}
+  25%  {fill: blue;}
+  75% {fill: green;}
+  100%   {fill: red;}
+}
+@keyframes fadeGreen {
+  0%   {fill: green;}
+  25%  {fill: red;}
+  75% {fill: blue;}
+  100%   {fill: green;}
+}
+@keyframes fadeBlue {
+  0%   {fill: blue;}
+  25%  {fill: green;}
+  75% {fill: red;}
+  100%   {fill: blue;}
+}
+
+.canvasCircleLogo{
+  g {
+    mix-blend-mode: lighten
+  }
+  .RedCircleLogo {
+    fill: red;
+  }
+  .GreenCircleLogo {
+    fill: green;
+  }
+  .BlueCircleLogo {
+    fill: blue;
+  }
+
+}
 
 
 
