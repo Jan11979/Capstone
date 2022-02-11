@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
 @Service
 public class DMXService {
     private static final Log LOG = LogFactory.getLog(DMXService.class);
@@ -35,6 +33,10 @@ public class DMXService {
 //  Merge ??
 
     public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTamplateRepo fixtureTamplateRepo) throws IOException {
+    private final ArtNetService artNetService;
+
+    public DMXService(UniverseRepo universeRepo) throws IOException {
+
         this.universeRepo = universeRepo;
         this.fixtureRepo = fixtureRepo;
         this.fixtureTamplateRepo = fixtureTamplateRepo;

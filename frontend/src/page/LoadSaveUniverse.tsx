@@ -17,7 +17,6 @@ export function LoadSaveUniverse( ) {
     let navigate = useNavigate();
     const location = useLocation();
 
-
     const handleOnChangeSaveName = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredName = event.target.value;
         setSaveName(enteredName);
@@ -26,9 +25,6 @@ export function LoadSaveUniverse( ) {
         console.log("handleOnClickLoad");
         let dbCommandItem: DbCommandItem = { name, universe:0}
         putLoadUniverse(dbCommandItem);
-
-        // searchParams.set("reload", "true");
-        // setSearchParams(searchParams);
         window.location.reload();
     }
     const handleOnClickSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {

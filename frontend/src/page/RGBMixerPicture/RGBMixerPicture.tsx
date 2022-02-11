@@ -151,5 +151,3 @@ export function LogoRGBMixerCircle() {
     )
 
 }
-
-//<div style={{width:'${rectangleWidth}px', height:"30px", color: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`, background: `rgb(${rgbItem.red}, ${rgbItem.green}, ${rgbItem.blue})`}}>##########</div>
