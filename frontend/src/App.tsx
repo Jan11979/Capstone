@@ -2,14 +2,13 @@ import React, {useEffect} from 'react';
 import './App.scss';
 import DrawFrameSet from "./page/FrameSet";
 import Box from '@mui/material/Box';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {CssBaseline, useMediaQuery} from "@mui/material";
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 function App() {
-    const theme = useTheme();
-    const colorMode = React.useContext(ColorModeContext);
+
     return (
         <div>
         <Box

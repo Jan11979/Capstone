@@ -2,7 +2,10 @@ import './Fader.scss';
 import {FaderItem} from "../../model/BackendConnection";
 import iro from "@jaames/iro";
 import React, {useEffect} from "react";
-import {postSingleFader} from "../../controller/Fetching";
+import {postFixtureFader, postSingleFader} from "../../controller/Fetching";
+import {FADER_TYPE_MASTER_HUE2RGB} from "../../controller/DataService";
+import {FADER_TYPE_HUE} from "./FaderDistributor";
+
 
 
 interface PropsColorFader {
@@ -18,8 +21,20 @@ export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
 
     const onChange = (hue:number, red:number, green:number, blue:number) => {
         setRGBItem({red, green, blue});
-        faderItem.value = Number(hue);
-        postSingleFader(faderItem);
+
+        if( faderItem.type === FADER_TYPE_HUE){
+            faderItem.value = Number(hue);
+        }else if( faderItem.type === FADER_TYPE_MASTER_HUE2RGB){
+            faderItem.value = red;
+            faderItem.valueX1 = green;
+            faderItem.valueX2 = blue;
+        }
+
+        if( faderItem.fixtureName === "STD" ){
+            postSingleFader(faderItem);
+        }else{
+            postFixtureFader(faderItem);
+        }
     }
 
     let colorPicker: iro.ColorPicker;
@@ -27,7 +42,8 @@ export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
 
         colorPicker = new (iro.ColorPicker as any)("#" + colorPickerIdTable[faderItem ? faderItem.channel : 0], {
             width: 300,
-            color: "rgb(0, 255, 0)",
+            color: "rgb(255, 0, 0)",
+            //color: `rgb(${red}, ${green}, ${blue})`,
             borderWidth: 1,
             borderColor: "#070707",
             layoutDirection: 'horizontal',
@@ -43,6 +59,7 @@ export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
                     }
                 }]
         });
+
         colorPicker.on('input:change', (color: any) => {
             onChange( color.hue, color.red, color.green, color.blue );
         })

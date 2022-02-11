@@ -16,6 +16,8 @@ public class FaderItem {
     private int valueX2;
     private int channel;
     private int universe;
+    private String fixtureName;
+    private int fixtureID;
 
     @Override
     public String toString() {
@@ -25,6 +27,8 @@ public class FaderItem {
                 ", Universe=" + universe +
                 ", x1=" + valueX1 +
                 ", x2=" + valueX2 +
+                ", Name=" + fixtureName +
+                ", ID=" + fixtureID +
                 '}';
     }
 }

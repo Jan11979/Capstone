@@ -2,10 +2,10 @@ import {FaderItem, RGBItem} from "../../model/BackendConnection";
 import {Fader} from "./Fader";
 import React, {useState} from "react";
 import {RGBMixerRectangle} from "../RGBMixerPicture/RGBMixerPicture";
-import {postSingleFader} from "../../controller/Fetching";
+import {postFixtureFader, postSingleFader} from "../../controller/Fetching";
 
 function CreateRGBFaderItem(channeloffset:number, faderItem:FaderItem ) :FaderItem {
-    let newFaderItem:FaderItem = { channel:faderItem.channel + channeloffset, value:faderItem.value, type:faderItem.type, universe:faderItem.universe }
+    let newFaderItem:FaderItem = { channel:faderItem.channel + channeloffset, value:faderItem.value, type:faderItem.type, universe:faderItem.universe, fixtureID:faderItem.fixtureID, fixtureName:faderItem.fixtureName }
     if(( channeloffset === 1 )&&(faderItem.valueX1 !== undefined )){
         newFaderItem.value = faderItem.valueX1;
     }
@@ -52,7 +52,14 @@ export function RGBFader({faderItem, setRGBItem}: PropsColorFader) {
         let newRGB: RGBItem = UpdateRGBItem( color, localRgbItem, overwriteFaderItem.value);
         setLocalRGBItem(newRGB);
         setRGBItem({red:newRGB.red, green:newRGB.green, blue:newRGB.blue});
-        postSingleFader(overwriteFaderItem);
+
+        if( faderItem.fixtureName === "STD" ){
+            postSingleFader(overwriteFaderItem);
+        }else{
+            postFixtureFader(overwriteFaderItem);
+        }
+
+
     }
 
     return (

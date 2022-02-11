@@ -2,7 +2,8 @@ import './Fader.scss';
 import React, {useEffect} from "react";
 import {Box, Slider, SliderThumb} from "@mui/material";
 import {FaderItem} from "../../model/BackendConnection";
-import {postSingleFader} from "../../controller/Fetching";
+import {postFixtureFader, postSingleFader} from "../../controller/Fetching";
+
 
 interface PropsFader {
     faderItem: FaderItem
@@ -25,7 +26,11 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
         else
         {
             faderItem.value = Number(value) * 255;
-            postSingleFader(faderItem);
+            if( faderItem.fixtureName === "STD" ){
+                postSingleFader(faderItem);
+            }else{
+                postFixtureFader(faderItem);
+            }
         }
     }, [value]);
 
@@ -79,6 +84,10 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
                     //valueLabelDisplay="on"
                     onChange={handleSliderChange}
                 />
+                { faderItem.fixtureName === "STD" &&
+                    <p>{faderItem.channel+1}</p>
+                }
+
             </Box>
         </div>
     );

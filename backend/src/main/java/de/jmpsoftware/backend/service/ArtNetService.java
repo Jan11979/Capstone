@@ -21,12 +21,18 @@ public class ArtNetService {
     public static final int COMMAND_NO_STOP = 15;
 
 
-
+    public static final int FADER_TYPE_EMPTY = 0;
     public static final int FADER_TYPE_VALUE = 1;
     public static final int FADER_TYPE_HUE = 2;
-    public static final int FADER_TYPE_KELVIN = 3;
+    public static final int FADER_TYPE_KELVIN2C = 3;
     public static final int FADER_TYPE_RGB = 4;
+    public static final int FADER_TYPE_MASTER_HUE = 5;
+    public static final int FADER_TYPE_MASTER_HUE2RGB = 6;
 
+    public static final int FADER_TYPE_MASTER_KELVIN = 7;
+    public static final int FADER_TYPE_MASTER_RGB = 8;
+
+    public static final int FADER_TYPE_KELVIN = 10;
 
     private final PipedInputStream inPipe;
     private final PipedOutputStream outPipe;
@@ -57,15 +63,34 @@ public class ArtNetService {
 
     public void broadcastValue(FaderItem faderItem) throws IOException {
 
-        /**
-         * Only Type 1,4
-         * All other will be Ignored "at the moment"
-         */
+
         switch (faderItem.getType()) {
             case FADER_TYPE_VALUE, FADER_TYPE_RGB -> {
                 setPipeEntry(COMMAND_DMX, faderItem);
                 outPipe.write( pipeEntry.getBytePackFromValues() );
             }
+            case FADER_TYPE_MASTER_HUE2RGB -> {
+                setPipeEntry(COMMAND_DMX, faderItem);
+                outPipe.write( pipeEntry.getBytePackFromValues() );
+
+                pipeEntry.setValueDMX( faderItem.getValueX1() );
+                pipeEntry.setChannel( faderItem.getChannel()+1 );
+                outPipe.write( pipeEntry.getBytePackFromValues() );
+
+                pipeEntry.setValueDMX( faderItem.getValueX2() );
+                pipeEntry.setChannel( faderItem.getChannel()+2 );
+                outPipe.write( pipeEntry.getBytePackFromValues() );
+            }
+
+            case FADER_TYPE_KELVIN2C  -> {
+                setPipeEntry(COMMAND_DMX, faderItem);
+                pipeEntry.setValueDMX( faderItem.getValueX1() );
+                outPipe.write( pipeEntry.getBytePackFromValues() );
+                pipeEntry.setValueDMX( faderItem.getValueX2() );
+                pipeEntry.setChannel( faderItem.getChannel()+1 );
+                outPipe.write( pipeEntry.getBytePackFromValues() );
+            }
+
         }
     }
 
