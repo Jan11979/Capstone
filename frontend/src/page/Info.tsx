@@ -21,14 +21,14 @@ function DrawInfo({list}: ElementPropsInfo) {
     if( list.length === 0 )
         return (
             <div>
-                <p>Empty</p>
+                <p>Load...</p>
             </div>
         )
     return (
         <div>
             {sUsrAg}
             <div>
-                {list.map( (elem, i) => < DrawInfoText key={i} text={ elem }/>)}
+                {/*{list.map( (elem, i) => < DrawInfoText key={i} text={ elem }/>)}*/}
             </div>
         </div>
 

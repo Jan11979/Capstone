@@ -15,10 +15,13 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
     const [value, setValue] = React.useState<number | Array<number> >(
              faderItem.value / 255,
         );
+     useEffect(() => {
+         setValue(faderItem.value / 255);
+     }, [faderItem.channel]);
+
     useEffect(() => {
         if (overwritePostSingleFader ) {
             if(color) {
-//                faderItem.value = value as number;
                 faderItem.value = Number((Number(value)*255).toFixed(0));
                 overwritePostSingleFader(faderItem, color);
             }
@@ -78,7 +81,7 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
                     max={1}
                     components={{ Thumb: AirbnbThumbComponent }}
                     aria-label="ios slider"
-                    defaultValue={60}
+                    defaultValue={0}
                     value={typeof value === 'number' ? value : 0}
                     orientation="vertical"
                     //valueLabelDisplay="on"

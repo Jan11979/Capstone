@@ -23,9 +23,6 @@ class DMXServiceTest {
     DMXServiceTest() throws IOException {
     }
 
-    DMXServiceTest() throws IOException {
-    }
-
     @Test
     void createAndStoreUniverseTest() throws Exception {
 

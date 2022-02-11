@@ -20,15 +20,23 @@ import {Typography} from "@mui/material";
 import {LoadSaveUniverse} from "./LoadSaveUniverse";
 import {ActiveFixtureSelect} from "./ActiveFixtureSelect";
 import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
-import {ActiveSliderSelect} from "./ActiveFliderSelect";
+import {ActiveSliderSelect} from "./ActiveSliderSelect";
 
 
 function DrawFrameSet() {
     let navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
-        let navString="&fbtype="+"basic";
-        navigate({ pathname: location.pathname, search: navString, });
+        if(searchParams.get('fbtype') === null )
+        {
+            let navString = "&fbtype=" + "basic" +
+                "&startaddresse=" + "1" +
+                "&faderquantity=" + "12";
+            navigate({ pathname: location.pathname, search: navString, });
+        }
+        else {
+            navigate({pathname: location.pathname, search: location.search,});
+        }
     }, [])
 
     const [searchParams] = useSearchParams();
@@ -86,10 +94,6 @@ function DrawFrameSet() {
                                                                             setListfunc={setActiveFixtureList}
                             listSelectedfunc={setActiveFixtureListSelected}/>}
                         </div>}/>
-                        <Route path={LOCATION_LOAD_SAVE} element={< LoadSaveUniverse  />}/>
-                        <Route path={LOCATION_SETTINGS} element={<Typography variant="h1">SET</Typography>}/>
-                        <Route path={LOCATION_EDIT_CHART} element={<Typography variant="h1">Edit</Typography>}/>
-                        <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
                 </div>
                 <div className="MidBody">
