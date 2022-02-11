@@ -12,15 +12,12 @@ import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 import {ColorModeContext} from "../App";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {
-    LOCATION_BASIC_CHART,
     LOCATION_CONNECTION,
-    LOCATION_EDIT_CHART,
     LOCATION_LOAD_SAVE,
     LOCATION_ROOT,
     LOCATION_SETTINGS
 } from "../controller/DataService";
-import {LogoRGBMixerCircle, RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
-import {RGBItem} from "../model/BackendConnection";
+import {LogoRGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
 
 
 export function HeadFrame() {

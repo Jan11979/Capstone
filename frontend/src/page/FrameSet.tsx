@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 
 import {
     LOCATION_CONNECTION,
-    LOCATION_EDIT_CHART,
     LOCATION_LOAD_SAVE,
     LOCATION_SETTINGS
 } from "../controller/DataService";
@@ -82,8 +81,7 @@ function FrameSet() {
                         <Route path={LOCATION_SETTINGS} element={<div>
                             { idParam === "basic" && <ActiveSliderSelect /> }
                             {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}
-                                                                            setListfunc={setActiveFixtureList}
-                            listSelectedfunc={setActiveFixtureListSelected}/>}
+                                                                            setListfunc={setActiveFixtureList}/>}
                         </div>}/>
                         <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
@@ -101,7 +99,7 @@ function FrameSet() {
                 </div>
             </div>
             <div className="BottomBody">
-                < DrawInfo list={activeFixtureListSelected}/>
+                < DrawInfo />
             </div>
         </div>
     )

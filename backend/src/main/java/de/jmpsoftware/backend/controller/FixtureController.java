@@ -15,6 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 
+@SuppressWarnings("SameReturnValue")
 @RestController
 @RequestMapping("api/fixture")
 public class FixtureController {
@@ -27,8 +28,8 @@ public class FixtureController {
     }
 
     @GetMapping(path = "/allactivefixture")
-    public List<ActiveFixtureList> returnAllActivFixture() {
-        return dmxService.getAllActivFixture();
+    public List<ActiveFixtureList> returnAllActiveFixture() {
+        return dmxService.getAllActiveFixture();
     }
 
     @ResponseBody
@@ -63,11 +64,12 @@ public class FixtureController {
     @GetMapping(path = "/createdummytemplates")
     public String createDummyTemplates() {
         dmxService.createDummyTemplates();
-        return "Done";
+        return "Done dummy Templates";
     }
+    @SuppressWarnings("SameReturnValue")
     @GetMapping(path = "/createdummyfixtures")
     public String createDummyFixtures() {
         dmxService.createDummyFixtures();
-        return "Done";
+        return "Done dummy Fixtures";
     }
 }

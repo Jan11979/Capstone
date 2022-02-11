@@ -14,16 +14,16 @@ export function LoadSaveUniverse( ) {
         const enteredName = event.target.value;
         setSaveName(enteredName);
     };
-    const handleOnClickLoad: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    const handleOnClickLoad: React.MouseEventHandler<HTMLButtonElement> = () => {
         console.log("handleOnClickLoad");
         let dbCommandItem: DbCommandItem = { name, universe:0}
-        postLoadUniverse(dbCommandItem);
+        postLoadUniverse(dbCommandItem).then();
         window.location.reload();
     }
-    const handleOnClickSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    const handleOnClickSave: React.MouseEventHandler<HTMLButtonElement> = () => {
         console.log("handleOnClickSave");
         let dbCommandItem: DbCommandItem = { name, universe:0}
-        putSaveUniverse(dbCommandItem);
+        putSaveUniverse(dbCommandItem).then();
     }
 
 

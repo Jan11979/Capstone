@@ -2,14 +2,14 @@ package de.jmpsoftware.backend.service;
 
 import de.jmpsoftware.backend.model.DMXTable;
 import de.jmpsoftware.backend.model.db.FixtureDB;
-import de.jmpsoftware.backend.model.db.FixtureTamplate;
+import de.jmpsoftware.backend.model.db.FixtureTemplate;
 import de.jmpsoftware.backend.model.db.UniverseItemDB;
 import de.jmpsoftware.backend.model.fader.*;
 import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureList;
 import de.jmpsoftware.backend.model.frontendconnection.DbCommandItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
 import de.jmpsoftware.backend.repo.FixtureRepo;
-import de.jmpsoftware.backend.repo.FixtureTamplateRepo;
+import de.jmpsoftware.backend.repo.FixtureTemplateRepo;
 import de.jmpsoftware.backend.repo.UniverseRepo;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -27,12 +27,12 @@ public class DMXService {
     private final DMXTableService dmxTableService;
     private final UniverseRepo universeRepo;
     private final FixtureRepo fixtureRepo;
-    private final FixtureTamplateRepo fixtureTamplateRepo;
+    private final FixtureTemplateRepo fixtureTamplateRepo;
     private final ArtNetService artNetService;
     private final List<FixtureDB> fixtureList;
 
 
-    public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTamplateRepo fixtureTamplateRepo) throws IOException {
+    public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTemplateRepo fixtureTamplateRepo) throws IOException {
 
         this.universeRepo = universeRepo;
         this.fixtureRepo = fixtureRepo;
@@ -42,6 +42,10 @@ public class DMXService {
         fixtureList = new ArrayList<>();
     }
 
+    public void initService(){
+        LOG.info("Init DMX Service");
+        createDummyFixtures();
+    }
     public ArtNetService getArtNetService() {
         return artNetService;
     }
@@ -103,7 +107,7 @@ public class DMXService {
         dmxTableService.setDMXTable(newDmxTable);
     }
 
-    public List<ActiveFixtureList> getAllActivFixture() {
+    public List<ActiveFixtureList> getAllActiveFixture() {
         return fixtureList.stream().map(e -> new ActiveFixtureList(e.getIdName(), 0)).collect(Collectors.toList());
     }
 
@@ -114,35 +118,34 @@ public class DMXService {
         newItem.setUniverse(universe);
 
         switch (faderBase.getFaderType()) {
-            case ArtNetService.FADER_TYPE_VALUE:
+            case ArtNetService.FADER_TYPE_VALUE -> {
                 newItem.setValue(((SingleFader) faderBase).getValue());
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
-                break;
-            case ArtNetService.FADER_TYPE_MASTER_RGB:
+            }
+            case ArtNetService.FADER_TYPE_MASTER_RGB -> {
                 newItem.setValue(((MasterRGBFader) faderBase).getValueMaster());
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
-                break;
-            case ArtNetService.FADER_TYPE_MASTER_HUE2RGB:
-            case ArtNetService.FADER_TYPE_RGB:
+            }
+            case ArtNetService.FADER_TYPE_MASTER_HUE2RGB, ArtNetService.FADER_TYPE_RGB -> {
                 newItem.setValue(((RGBFader) faderBase).getValueRed());
                 newItem.setValueX1(((RGBFader) faderBase).getValueGreen());
                 newItem.setValueX2(((RGBFader) faderBase).getValueBlue());
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
-                break;
-            case ArtNetService.FADER_TYPE_MASTER_KELVIN:
+            }
+            case ArtNetService.FADER_TYPE_MASTER_KELVIN -> {
                 newItem.setValue(((MasterKelvinFader) faderBase).getValueMaster());
                 newItem.setValueX1(((MasterKelvinFader) faderBase).getValueKelvin());
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
-                break;
-            case ArtNetService.FADER_TYPE_KELVIN2C:
+            }
+            case ArtNetService.FADER_TYPE_KELVIN2C -> {
                 newItem.setValue(((KelvinFader) faderBase).getValueKelvin());
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
-                break;
+            }
         }
         return newItem;
     }
@@ -156,7 +159,8 @@ public class DMXService {
                 .findAny()
                 .orElse(null);
 
-        fixtureDB.getFaderList().stream().forEach(fader -> tmpList.add(getFaderFromFixtureFaderList(fader, fixtureDB.getAddress(), fixtureDB.getUniverse(), name)));
+        assert fixtureDB != null;
+        fixtureDB.getFaderList().forEach(fader -> tmpList.add(getFaderFromFixtureFaderList(fader, fixtureDB.getAddress(), fixtureDB.getUniverse(), name)));
 
         return tmpList;
     }
@@ -164,7 +168,7 @@ public class DMXService {
     public List<FaderItem> getFaderFromFixtureList(List<String> nameList) {
         List<FaderItem> tmpList = new ArrayList<>();
 
-        nameList.stream().forEach(name -> tmpList.addAll(getFaderFromFixture(name)));
+        nameList.forEach(name -> tmpList.addAll(getFaderFromFixture(name)));
 
         return tmpList;
     }
@@ -183,9 +187,9 @@ public class DMXService {
     public void createDummyTemplates() {
         LOG.info("createDummyTemplates");
         SingleFader singleFader = SingleFader.builder().value(0).build();
-        singleFader.setFaderType(artNetService.FADER_TYPE_VALUE);
+        singleFader.setFaderType(ArtNetService.FADER_TYPE_VALUE);
 
-        FixtureTamplate fixtureTemplate = new FixtureTamplate();
+        FixtureTemplate fixtureTemplate = new FixtureTemplate();
         fixtureTemplate.setIdName("Dimmer1");
         fixtureTemplate.setFaderList(new ArrayList<>());
         fixtureTemplate.getFaderList().add(singleFader);
@@ -194,9 +198,9 @@ public class DMXService {
     }
 
     public void createDummyFixtures() {
-        LOG.info("createDummyFixturese");
+        LOG.info("createDummyFixtures");
         SingleFader singleFader = SingleFader.builder().value(0).build();
-        singleFader.setFaderType(artNetService.FADER_TYPE_VALUE);
+        singleFader.setFaderType(ArtNetService.FADER_TYPE_VALUE);
         singleFader.setFaderID(1);
 
         FixtureDB fixtureDB1 = FixtureDB.builder().idName("1kwOpenFace").address(10).build();
@@ -207,7 +211,7 @@ public class DMXService {
 
 
         RGBFader rgbFader = RGBFader.builder().valueRed(0).valueGreen(0).valueBlue(0).build();
-        rgbFader.setFaderType(artNetService.FADER_TYPE_RGB);
+        rgbFader.setFaderType(ArtNetService.FADER_TYPE_RGB);
         rgbFader.setFaderID(1);
 
         FixtureDB fixtureDB2 = FixtureDB.builder().idName("ParSpotRGB").address(6).build();
@@ -219,11 +223,11 @@ public class DMXService {
 
 
         MasterKelvinFader mkFader = MasterKelvinFader.builder().valueMaster(0).valueKelvin(0).minKelvin(2000).maxKelvin(8000).build();
-        mkFader.setFaderType(artNetService.FADER_TYPE_MASTER_KELVIN);
+        mkFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_KELVIN);
         mkFader.setFaderID(1);
 
         KelvinFader mkFader2 = KelvinFader.builder().valueKelvin(0).build();
-        mkFader2.setFaderType(artNetService.FADER_TYPE_KELVIN2C);
+        mkFader2.setFaderType(ArtNetService.FADER_TYPE_KELVIN2C);
         mkFader2.setFaderID(2);
 
         FixtureDB fixtureDB3 = FixtureDB.builder().idName("FlaecheDT").address(3).build();
@@ -235,11 +239,11 @@ public class DMXService {
         fixtureList.add(fixtureDB3);
 
         MasterRGBFader mrgbFader = MasterRGBFader.builder().valueMaster(0).build();
-        mrgbFader.setFaderType(artNetService.FADER_TYPE_MASTER_RGB);
+        mrgbFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_RGB);
         mrgbFader.setFaderID(1);
 
         RGBFader rgbFader2 = RGBFader.builder().valueRed(0).valueGreen(0).valueBlue(0).build();
-        rgbFader2.setFaderType(artNetService.FADER_TYPE_MASTER_HUE2RGB);
+        rgbFader2.setFaderType(ArtNetService.FADER_TYPE_MASTER_HUE2RGB);
         rgbFader2.setFaderID(2);
 
         FixtureDB fixtureDB4 = FixtureDB.builder().idName("FlaecheRGB").address(0).build();

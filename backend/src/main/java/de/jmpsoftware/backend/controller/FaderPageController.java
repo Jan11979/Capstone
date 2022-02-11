@@ -21,11 +21,8 @@ public class FaderPageController {
 
     private final DMXService dmxService;
 
-    private final ArtNetService artNetService;
-
-    public FaderPageController(DMXService dmxService) throws IOException {
+    public FaderPageController(DMXService dmxService) {
         this.dmxService = dmxService;
-        artNetService = dmxService.getArtNetService();
     }
 
     @ResponseBody

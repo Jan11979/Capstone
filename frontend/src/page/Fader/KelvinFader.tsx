@@ -18,9 +18,9 @@ export function KelvinFader({faderItem}: PropsKelvinFader) {
     const onChange = (kelvin: number) => {
         faderItem.value = Number(kelvin * 2.55 );
         if( faderItem.fixtureName === "STD" ){
-            postSingleFader(faderItem);
+            postSingleFader(faderItem).then();
         }else{
-            postFixtureFader(faderItem);
+            postFixtureFader(faderItem).then();
         }
     }
 

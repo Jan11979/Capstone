@@ -47,58 +47,51 @@ public class FixtureDB {
 
     public FaderItem update(FaderItem faderItem) {
         switch (faderItem.getType()) {
-            case ArtNetService.FADER_TYPE_VALUE:
+            case ArtNetService.FADER_TYPE_VALUE -> {
                 SingleFader singleFader = (SingleFader) getFader(faderItem.getFixtureID());
                 singleFader.setValue(faderItem.getValue());
                 return faderItem;
-            case ArtNetService.FADER_TYPE_RGB: {
+            }
+            case ArtNetService.FADER_TYPE_RGB -> {
                 RGBFader rgbFader = (RGBFader) getFader(faderItem.getFixtureID());
                 switch (faderItem.getChannel() - address) {
-                    case 0:
-                        rgbFader.setValueRed(faderItem.getValue());
-                        break;
-                    case 1:
-                        rgbFader.setValueGreen(faderItem.getValue());
-                        break;
-                    case 2:
-                        rgbFader.setValueBlue(faderItem.getValue());
-                        break;
-
+                    case 0 -> rgbFader.setValueRed(faderItem.getValue());
+                    case 1 -> rgbFader.setValueGreen(faderItem.getValue());
+                    case 2 -> rgbFader.setValueBlue(faderItem.getValue());
                 }
                 return faderItem;
             }
-            case ArtNetService.FADER_TYPE_MASTER_KELVIN: {
+            case ArtNetService.FADER_TYPE_MASTER_KELVIN -> {
                 MasterKelvinFader mkFader = (MasterKelvinFader) getFader(faderItem.getFixtureID());
                 KelvinFader kFader = (KelvinFader) getFader(faderItem.getFixtureID() + 1);
                 mkFader.setValueMaster(faderItem.getValue());
 
-                return updateFaderItemKelvin2ChannelSettings(faderItem, kFader.getValueKelvin(), getFloatingMasterFrom255Value(mkFader.getValueMaster()) );
+                return updateFaderItemKelvin2ChannelSettings(faderItem, kFader.getValueKelvin(), getFloatingMasterFrom255Value(mkFader.getValueMaster()));
             }
-            case ArtNetService.FADER_TYPE_KELVIN2C: {
+            case ArtNetService.FADER_TYPE_KELVIN2C -> {
                 MasterKelvinFader mkFader = (MasterKelvinFader) getFader(faderItem.getFixtureID() - 1);
                 KelvinFader kFader = (KelvinFader) getFader(faderItem.getFixtureID());
                 kFader.setValueKelvin(faderItem.getValue());
 
-                return updateFaderItemKelvin2ChannelSettings(faderItem, faderItem.getValue(), getFloatingMasterFrom255Value(mkFader.getValueMaster()) );
+                return updateFaderItemKelvin2ChannelSettings(faderItem, faderItem.getValue(), getFloatingMasterFrom255Value(mkFader.getValueMaster()));
             }
-
-            case ArtNetService.FADER_TYPE_MASTER_RGB:{
+            case ArtNetService.FADER_TYPE_MASTER_RGB -> {
                 MasterRGBFader mrgbFader = (MasterRGBFader) getFader(faderItem.getFixtureID());
-                RGBFader rgbFader = (RGBFader) getFader(faderItem.getFixtureID()+1);
+                RGBFader rgbFader = (RGBFader) getFader(faderItem.getFixtureID() + 1);
                 mrgbFader.setValueMaster(faderItem.getValue());
 
                 faderItem.setType(ArtNetService.FADER_TYPE_MASTER_HUE2RGB);
-                return updateFaderItemRGBMasterSettings(faderItem, rgbFader, getFloatingMasterFrom255Value(mrgbFader.getValueMaster()) );
+                return updateFaderItemRGBMasterSettings(faderItem, rgbFader, getFloatingMasterFrom255Value(mrgbFader.getValueMaster()));
             }
-            case ArtNetService.FADER_TYPE_MASTER_HUE2RGB: {
-                MasterRGBFader mrgbFader = (MasterRGBFader) getFader(faderItem.getFixtureID()-1);
+            case ArtNetService.FADER_TYPE_MASTER_HUE2RGB -> {
+                MasterRGBFader mrgbFader = (MasterRGBFader) getFader(faderItem.getFixtureID() - 1);
                 RGBFader rgbFader = (RGBFader) getFader(faderItem.getFixtureID());
 
                 rgbFader.setValueRed(faderItem.getValue());
                 rgbFader.setValueGreen(faderItem.getValueX1());
                 rgbFader.setValueBlue(faderItem.getValueX2());
 
-                return updateFaderItemRGBMasterSettings(faderItem, rgbFader, getFloatingMasterFrom255Value(mrgbFader.getValueMaster()) );
+                return updateFaderItemRGBMasterSettings(faderItem, rgbFader, getFloatingMasterFrom255Value(mrgbFader.getValueMaster()));
             }
         }
         return faderItem;

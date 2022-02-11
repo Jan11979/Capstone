@@ -34,16 +34,14 @@ public class ArtNetService {
 
     public static final int FADER_TYPE_KELVIN = 10;
 
-    private final PipedInputStream inPipe;
     private final PipedOutputStream outPipe;
     private final PipeEntry pipeEntry;
-    private final ArtNetThread artNetThread;
 
     public ArtNetService() throws IOException {
-        inPipe = new PipedInputStream();
+        PipedInputStream inPipe = new PipedInputStream();
         outPipe = new PipedOutputStream(inPipe);
         pipeEntry = new PipeEntry();
-        artNetThread = new ArtNetThread(inPipe);
+        ArtNetThread artNetThread = new ArtNetThread(inPipe);
 
         artNetThread.start();
     }
@@ -90,13 +88,12 @@ public class ArtNetService {
                 pipeEntry.setChannel( faderItem.getChannel()+1 );
                 outPipe.write( pipeEntry.getBytePackFromValues() );
             }
-
         }
     }
 
-    public void broadcastUniverse(DMXTable dmxTabe) throws IOException {
+    public void broadcastUniverse(DMXTable dmxTable) throws IOException {
         for(int i=0; i < ArtNetService.SIZE_UNIVERSE; i++ ){
-            setPipeEntry(COMMANDO_DMX_NO_SEND, dmxTabe.getValue(i), i, dmxTabe.getUniverse() );
+            setPipeEntry(COMMANDO_DMX_NO_SEND, dmxTable.getValue(i), i, dmxTable.getUniverse() );
             outPipe.write( pipeEntry.getBytePackFromValues() );
         }
     }
