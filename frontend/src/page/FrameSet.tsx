@@ -94,7 +94,6 @@ function DrawFrameSet() {
                                                                             setListfunc={setActiveFixtureList}
                             listSelectedfunc={setActiveFixtureListSelected}/>}
                         </div>}/>
-                        <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
                 </div>
                 <div className="MidBody">

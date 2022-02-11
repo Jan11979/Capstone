@@ -32,6 +32,9 @@ public class DMXService {
     private final List<FixtureDB> fixtureList;
 
     public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTamplateRepo fixtureTamplateRepo) throws IOException {
+    private final ArtNetService artNetService;
+
+    public DMXService(UniverseRepo universeRepo) throws IOException {
         this.universeRepo = universeRepo;
         this.fixtureRepo = fixtureRepo;
         this.fixtureTamplateRepo = fixtureTamplateRepo;
