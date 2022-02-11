@@ -20,7 +20,7 @@ import {Typography} from "@mui/material";
 import {LoadSaveUniverse} from "./LoadSaveUniverse";
 import {ActiveFixtureSelect} from "./ActiveFixtureSelect";
 import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
-import {ActiveSliderSelect} from "./ActiveFliderSelect";
+import {ActiveSliderSelect} from "./ActiveSliderSelect";
 
 
 function DrawFrameSet() {
