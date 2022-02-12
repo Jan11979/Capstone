@@ -25,17 +25,17 @@ public class DMXService {
     private static final Log LOG = LogFactory.getLog(DMXService.class);
 
     private final DMXTableService dmxTableService;
-    private final FixtureTemplateRepo fixtureTamplateRepo;
+    private final FixtureTemplateRepo fixtureTemplateRepo;
     private final FixtureRepo fixtureRepo;
     private final UniverseRepo universeRepo;
     private final ArtNetService artNetService;
     private final List<FixtureDB> fixtureList;
 
 
-    public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTemplateRepo fixtureTamplateRepo) throws IOException {
+    public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTemplateRepo fixtureTemplateRepo) throws IOException {
         this.universeRepo = universeRepo;
         this.fixtureRepo = fixtureRepo;
-        this.fixtureTamplateRepo = fixtureTamplateRepo;
+        this.fixtureTemplateRepo = fixtureTemplateRepo;
         this.dmxTableService = new DMXTableService();
         artNetService = new ArtNetService();
         fixtureList = new ArrayList<>();
@@ -193,7 +193,7 @@ public class DMXService {
         fixtureTemplate.setFaderList(new ArrayList<>());
         fixtureTemplate.getFaderList().add(singleFader);
 
-        fixtureTamplateRepo.save(fixtureTemplate);
+        fixtureTemplateRepo.save(fixtureTemplate);
     }
 
     public void createDummyFixtures() {
