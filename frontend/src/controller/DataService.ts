@@ -13,6 +13,4 @@ export const FADER_TYPE_MASTER_RGB = 8;
 export const LOCATION_ROOT = "/";
 export const LOCATION_LOAD_SAVE = "/data";
 export const LOCATION_SETTINGS = "/edit";
-export const LOCATION_BASIC_CHART = "/chartbasic";
-export const LOCATION_EDIT_CHART = "/chartedit";
 export const LOCATION_CONNECTION = "/connection";
