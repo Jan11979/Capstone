@@ -31,3 +31,10 @@ export interface FaderPageSelect {
     startAddress: number,
     quantity: number
 }
+
+export interface CreateFixtureItem {
+    templateName: string,
+    fixtureName: string,
+    address: number,
+    universe: number
+}

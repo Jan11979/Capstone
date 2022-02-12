@@ -1,6 +1,7 @@
 package de.jmpsoftware.backend.controller;
 
 import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureList;
+import de.jmpsoftware.backend.model.frontendconnection.CreateFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
 import de.jmpsoftware.backend.model.frontendconnection.FixtureItem;
 import de.jmpsoftware.backend.service.DMXService;
@@ -27,6 +28,25 @@ public class FixtureController {
         this.dmxService = dmxService;
     }
 
+
+    @GetMapping(path = "/allfixturetemplatelist")
+    public List<String> returnAllFixtureTemplateList() {
+        return dmxService.getAllFixtureTemplateList();
+    }
+
+    @ResponseBody
+    @PostMapping(path = "/createfixture")
+    public void postFixtureFader(@RequestBody CreateFixtureItem fixtureItem) {
+        if (fixtureItem == null)
+            return;
+
+        dmxService.createFixtureFromTemplateList(fixtureItem.getTemplateName(),  fixtureItem.getFixtureName(), fixtureItem.getAddress(), fixtureItem.getUniverse());
+
+    }
+
+
+
+
     @GetMapping(path = "/allactivefixture")
     public List<ActiveFixtureList> returnAllActiveFixture() {
         return dmxService.getAllActiveFixture();
@@ -50,8 +70,6 @@ public class FixtureController {
         LOG.info("valueFixtureFader" + faderItem );
         dmxService.updateFixture(faderItem);
     }
-
-
 
 
     @ResponseBody

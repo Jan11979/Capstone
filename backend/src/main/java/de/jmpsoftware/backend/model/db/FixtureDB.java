@@ -19,6 +19,7 @@ import java.util.List;
 public class FixtureDB {
     @Id
     private String idName;
+    private String templateName;
     private int universe;
     private int address;
     private List<FaderBase> faderList = new ArrayList<>();
@@ -26,6 +27,11 @@ public class FixtureDB {
     private FaderBase getFader(int faderId) {
         return faderList.stream().filter(fader -> faderId == fader.getFaderID())
                 .findAny().orElse(null);
+    }
+
+    public void switchIdToTemplateNameAndSetIdName(String name){
+        setTemplateName( getIdName() );
+        setIdName( name );
     }
 
     private double getFloatingMasterFrom255Value(int value) {
