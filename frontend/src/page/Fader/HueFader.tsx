@@ -31,9 +31,9 @@ export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
         }
 
         if( faderItem.fixtureName === "STD" ){
-            postSingleFader(faderItem);
+            postSingleFader(faderItem).then();
         }else{
-            postFixtureFader(faderItem);
+            postFixtureFader(faderItem).then();
         }
     }
 

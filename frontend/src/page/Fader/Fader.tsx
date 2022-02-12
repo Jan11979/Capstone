@@ -30,9 +30,9 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
         {
             faderItem.value = Number(value) * 255;
             if( faderItem.fixtureName === "STD" ){
-                postSingleFader(faderItem);
+                postSingleFader(faderItem).then();
             }else{
-                postFixtureFader(faderItem);
+                postFixtureFader(faderItem).then();
             }
         }
     }, [value]);

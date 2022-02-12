@@ -9,14 +9,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 interface PropsActiveFixtureSelect {
     list: ActiveFixtureList[],
     setListfunc: Function
-    listSelectedfunc: Function
+
 }
 
-export function ActiveFixtureSelect({list, setListfunc, listSelectedfunc}: PropsActiveFixtureSelect) {
+export function ActiveFixtureSelect({list, setListfunc}: PropsActiveFixtureSelect) {
 
     const handleToggle = (tiggleName: string) => () => {
         let newActiveFixtureList:ActiveFixtureList[] = [];
-        list.map((value, key) => {
+        list.forEach((value) => {
             if (value.name === tiggleName) {
                 if( value.checked === -1 )
                     value.checked = 0;

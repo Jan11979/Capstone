@@ -3,13 +3,11 @@ import './FrameSet.scss';
 import React, {useEffect, useState} from "react";
 
 import {
-    FetchString,
     LOCATION_CONNECTION,
-    LOCATION_EDIT_CHART,
     LOCATION_LOAD_SAVE,
     LOCATION_SETTINGS
 } from "../controller/DataService";
-import {getActiveFixtureList, getInfo} from "../controller/Fetching";
+import {getActiveFixtureList} from "../controller/Fetching";
 import DrawInfo from "./Info";
 import {HeadFrame} from "./HeadFrame";
 import {FaderPage} from "./Fader/FaderPage";
@@ -23,7 +21,7 @@ import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
 import {ActiveSliderSelect} from "./ActiveSliderSelect";
 
 
-function DrawFrameSet() {
+function FrameSet() {
     let navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
@@ -42,21 +40,13 @@ function DrawFrameSet() {
     const [searchParams] = useSearchParams();
     const idParam = searchParams.get('fbtype')
 
-    let tmpInfo: string[] = ["No Info"];
-    const [info, setInfo] = useState(tmpInfo);
-    useEffect(() => {
-        getInfo()
-            .then((data: any) => setInfo(FetchString(data)))
-        console.log("getUserAuthoritie Called :", info);
-    }, [])
-
     const tmprgb: RGBItem = {red: 255, green: 255, blue: 255};
     const [rgbItem, setRGBItem] = useState(tmprgb);
 
 
     let tmpActiveFixtureList: ActiveFixtureList[] = [];
     const [activeFixtureList, setActiveFixtureList] = useState(tmpActiveFixtureList);
-    let tmpActiveFixtureListSelected: string[] = [];//["Empty"];
+    let tmpActiveFixtureListSelected: string[] = [];
     const [activeFixtureListSelected, setActiveFixtureListSelected] = useState(tmpActiveFixtureListSelected);
     useEffect(() => {
         getActiveFixtureList()
@@ -65,7 +55,7 @@ function DrawFrameSet() {
 
     useEffect(() => {
         const listSelected: string[] = [];
-        activeFixtureList.map((value) => {
+        activeFixtureList.forEach((value) => {
             if (value.checked !== -1) {
                 listSelected.push(value.name);
             }
@@ -91,8 +81,7 @@ function DrawFrameSet() {
                         <Route path={LOCATION_SETTINGS} element={<div>
                             { idParam === "basic" && <ActiveSliderSelect /> }
                             {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}
-                                                                            setListfunc={setActiveFixtureList}
-                            listSelectedfunc={setActiveFixtureListSelected}/>}
+                                                                            setListfunc={setActiveFixtureList}/>}
                         </div>}/>
                         <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
@@ -110,18 +99,9 @@ function DrawFrameSet() {
                 </div>
             </div>
             <div className="BottomBody">
-                < DrawInfo list={activeFixtureListSelected}/>
+                < DrawInfo />
             </div>
         </div>
     )
 }
-
-// activeFixtureListSelected list
-export default DrawFrameSet;
-/*
-<Routes>
-                    <Route path={LOCATION_EDIT_CHART} element={< FixtureFaderPage setRGBItem={setRGBItem} list={activeFixtureListSelected} />}/>
-                    <Route path={"*"} element={< FaderPage setRGBItem={setRGBItem}/>}/>
-                    </Routes>
-
- */
+export default FrameSet;

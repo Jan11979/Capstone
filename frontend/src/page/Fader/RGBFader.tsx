@@ -54,9 +54,9 @@ export function RGBFader({faderItem, setRGBItem}: PropsColorFader) {
         setRGBItem({red:newRGB.red, green:newRGB.green, blue:newRGB.blue});
 
         if( faderItem.fixtureName === "STD" ){
-            postSingleFader(overwriteFaderItem);
+            postSingleFader(overwriteFaderItem).then();
         }else{
-            postFixtureFader(overwriteFaderItem);
+            postFixtureFader(overwriteFaderItem).then();
         }
 
 

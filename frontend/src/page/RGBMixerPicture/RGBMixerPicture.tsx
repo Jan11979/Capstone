@@ -133,7 +133,6 @@ export function RGBMixerCircle({rgbItem}: PropsRGBMixerPicture) {
 }
 
 export function LogoRGBMixerCircle() {
-    const rgbItem: RGBItem = {red: 255, green: 255, blue: 255};
     return (
         <div className="canvasCircleLogo">
             <svg width="50" height="50" viewBox="0 0 190 165" xmlns="http://www.w3.org/2000/svg">
