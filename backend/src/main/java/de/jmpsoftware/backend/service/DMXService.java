@@ -1,15 +1,15 @@
 package de.jmpsoftware.backend.service;
 
 import de.jmpsoftware.backend.model.DMXTable;
-import de.jmpsoftware.backend.model.db.FixtureDB;
-import de.jmpsoftware.backend.model.db.FixtureTemplate;
-import de.jmpsoftware.backend.model.db.UniverseItemDB;
 import de.jmpsoftware.backend.model.fader.*;
 import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureList;
 import de.jmpsoftware.backend.model.frontendconnection.DbCommandItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
+import de.jmpsoftware.backend.model.db.FixtureDB;
 import de.jmpsoftware.backend.repo.FixtureRepo;
+import de.jmpsoftware.backend.model.db.FixtureTemplate;
 import de.jmpsoftware.backend.repo.FixtureTemplateRepo;
+import de.jmpsoftware.backend.model.db.UniverseItemDB;
 import de.jmpsoftware.backend.repo.UniverseRepo;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -25,15 +25,14 @@ public class DMXService {
     private static final Log LOG = LogFactory.getLog(DMXService.class);
 
     private final DMXTableService dmxTableService;
-    private final UniverseRepo universeRepo;
-    private final FixtureRepo fixtureRepo;
     private final FixtureTemplateRepo fixtureTamplateRepo;
+    private final FixtureRepo fixtureRepo;
+    private final UniverseRepo universeRepo;
     private final ArtNetService artNetService;
     private final List<FixtureDB> fixtureList;
 
 
     public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTemplateRepo fixtureTamplateRepo) throws IOException {
-
         this.universeRepo = universeRepo;
         this.fixtureRepo = fixtureRepo;
         this.fixtureTamplateRepo = fixtureTamplateRepo;
