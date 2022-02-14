@@ -15,10 +15,10 @@ import {RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
 import {ActiveFixtureList, RGBItem} from "../model/BackendConnection";
 import {Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {Typography} from "@mui/material";
-import {LoadSaveUniverse} from "./LoadSaveUniverse";
-import {ActiveFixtureSelect} from "./ActiveFixtureSelect";
+import {LoadSaveUniverse} from "./OptionsSider/LoadSaveUniverse";
+import {ActiveFixtureSelect} from "./OptionsSider/ActiveFixtureSelect";
 import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
-import {ActiveSliderSelect} from "./ActiveSliderSelect";
+import {ActiveSliderSelect} from "./OptionsSider/ActiveSliderSelect";
 
 
 function FrameSet() {
