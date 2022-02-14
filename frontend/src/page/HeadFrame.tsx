@@ -30,7 +30,9 @@ export function HeadFrame() {
 
     let navString = "&fbtype=" + searchParams.get('fbtype') +
                     "&startaddresse=" + searchParams.get('startaddresse') +
-                    "&faderquantity=" + searchParams.get('faderquantity');
+                    "&faderquantity=" + searchParams.get('faderquantity') +
+                    "&RGBMixer=" + searchParams.get('RGBMixer');
+
     const onClickLoadSave = () => {
         if (location.pathname.includes(LOCATION_LOAD_SAVE)) {
             navigate({ pathname: LOCATION_ROOT, search: navString });
@@ -61,17 +63,34 @@ export function HeadFrame() {
         setSearchParams(searchParams);
     }
 
+    const onClickLogo = () => {
+        if( searchParams.get('RGBMixer') === "on" ){
+            searchParams.set("RGBMixer", "off");
+            setSearchParams(searchParams);
+        }
+        else{
+            searchParams.set("RGBMixer", "on");
+            setSearchParams(searchParams);
+        }
+
+    }
+
+    const idParam = searchParams.get('fbtype')
+
     return (
         <div className="Head">
-            <div className="Logo">
+            <div className="Logo" onClick={onClickLogo} >
                 < LogoRGBMixerCircle />
             </div>
             <div className="HeadMenu">
                 <IconButton  onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
                 <IconButton  onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>
                 <IconButton  onClick={onClickOutputSettings}><SettingsInputSvideoIcon fontSize="large"/></IconButton>
-                <IconButton  onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
-                <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton>
+                { idParam === "basic" && <div><IconButton  onClick={onClickChartBasic}><BarChartIcon color="success" fontSize="large"/></IconButton>
+                    <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton></div> }
+                { idParam === "edit" && <div><IconButton  onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
+                    <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon color="success" fontSize="large"/></IconButton></div> }
+
             </div>
             <div className="DarkMode">
                 <IconButton  onClick={colorMode.toggleColorMode} color="inherit">
