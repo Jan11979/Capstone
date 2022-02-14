@@ -3,7 +3,6 @@ import {getActiveFixtureTemplateList, postCreateFixture} from "../../controller/
 import AddIcon from '@mui/icons-material/Add';
 import {ActiveFixtureList, CreateFixtureItem} from "../../model/BackendConnection";
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
-import {useSearchParams} from "react-router-dom";
 
 
 function checkFixtureNameAllowed(list: ActiveFixtureList[], name: string): string {
@@ -73,7 +72,6 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
         }
         setFixtureAddress(address);
     };
-    const [searchParams, setSearchParams] = useSearchParams();
     const handleOnClickCreate: React.MouseEventHandler<HTMLButtonElement> = () => {
         console.log("handleOnClickCreate");
         let createfixture: CreateFixtureItem = { fixtureName:fixtureName, templateName:templateName, address:fixtureAddress, universe:universe };
@@ -133,11 +131,11 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
                     helperText={fixtureNameErrorText}/>
             </FormControl>
             <FormControl sx={{m: 1, minWidth: 120}}>
-                {createButtonAllowed === true &&
+                {createButtonAllowed &&
                 <Button variant="outlined" startIcon={<AddIcon/>}
                         onClick={handleOnClickCreate}> Create </Button>
                 }
-                {createButtonAllowed === false &&
+                {!createButtonAllowed &&
                 <Button disabled variant="outlined" startIcon={<AddIcon/>}
                         onClick={handleOnClickCreate}> Create </Button>
                 }
