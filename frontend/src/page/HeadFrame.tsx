@@ -18,6 +18,7 @@ import {
     LOCATION_SETTINGS
 } from "../controller/DataService";
 import {LogoRGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
+import {ActiveSliderSelect} from "./OptionsSider/ActiveSliderSelect";
 
 
 export function HeadFrame() {
@@ -61,6 +62,8 @@ export function HeadFrame() {
         setSearchParams(searchParams);
     }
 
+    const idParam = searchParams.get('fbtype')
+
     return (
         <div className="Head">
             <div className="Logo">
@@ -70,8 +73,11 @@ export function HeadFrame() {
                 <IconButton  onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
                 <IconButton  onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>
                 <IconButton  onClick={onClickOutputSettings}><SettingsInputSvideoIcon fontSize="large"/></IconButton>
-                <IconButton  onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
-                <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton>
+                { idParam === "basic" && <div><IconButton  onClick={onClickChartBasic}><BarChartIcon color="success" fontSize="large"/></IconButton>
+                    <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton></div> }
+                { idParam === "edit" && <div><IconButton  onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
+                    <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon color="success" fontSize="large"/></IconButton></div> }
+
             </div>
             <div className="DarkMode">
                 <IconButton  onClick={colorMode.toggleColorMode} color="inherit">
