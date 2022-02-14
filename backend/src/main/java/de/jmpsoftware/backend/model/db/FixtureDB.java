@@ -22,6 +22,7 @@ public class FixtureDB {
     private String templateName;
     private int universe;
     private int address;
+    private int checked;
     private List<FaderBase> faderList = new ArrayList<>();
 
     private FaderBase getFader(int faderId) {

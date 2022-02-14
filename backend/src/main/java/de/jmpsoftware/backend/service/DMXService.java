@@ -2,7 +2,7 @@ package de.jmpsoftware.backend.service;
 
 import de.jmpsoftware.backend.model.DMXTable;
 import de.jmpsoftware.backend.model.fader.*;
-import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureList;
+import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.DbCommandItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
 import de.jmpsoftware.backend.model.db.FixtureDB;
@@ -109,8 +109,13 @@ public class DMXService {
         dmxTableService.setDMXTable(newDmxTable);
     }
 
-    public List<ActiveFixtureList> getAllActiveFixture() {
-        return fixtureList.stream().map(e -> new ActiveFixtureList(e.getIdName(), 0)).collect(Collectors.toList());
+    public void setActiveFixtureChecked(ActiveFixtureItem activeFixtureItem) {
+        FixtureDB fixtureDB = getFixtureFromList( activeFixtureItem.getName() );
+        fixtureDB.setChecked( activeFixtureItem.getChecked() );
+    }
+
+    public List<ActiveFixtureItem> getAllActiveFixture() {
+        return fixtureList.stream().map(e -> new ActiveFixtureItem(e.getIdName(), e.getChecked())).collect(Collectors.toList());
     }
 
     public FaderItem getFaderFromFixtureFaderList(FaderBase faderBase, int address, int universe, String fixtureName) {
@@ -152,9 +157,7 @@ public class DMXService {
         return newItem;
     }
 
-
-    public List<FaderItem> getFaderFromFixture(String name) {
-        List<FaderItem> tmpList = new ArrayList<>();
+    public FixtureDB getFixtureFromList(String name) {
 
         FixtureDB fixtureDB = fixtureList.stream()
                 .filter(fixture -> name.equals(fixture.getIdName()))
@@ -162,6 +165,15 @@ public class DMXService {
                 .orElse(null);
 
         assert fixtureDB != null;
+
+        return fixtureDB;
+    }
+
+    public List<FaderItem> getFaderFromFixture(String name) {
+        List<FaderItem> tmpList = new ArrayList<>();
+
+        FixtureDB fixtureDB = getFixtureFromList( name );
+
         fixtureDB.getFaderList().forEach(fader -> tmpList.add(getFaderFromFixtureFaderList(fader, fixtureDB.getAddress(), fixtureDB.getUniverse(), name)));
 
         return tmpList;

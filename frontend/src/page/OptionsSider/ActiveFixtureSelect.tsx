@@ -1,6 +1,6 @@
 import './ActiveFixtureSelect.scss';
 import React from "react";
-import {ActiveFixtureList} from "../../model/BackendConnection";
+import {ActiveFixtureItem} from "../../model/BackendConnection";
 
 import {Button, Checkbox, List, ListItem, ListItemText} from "@mui/material";
 
@@ -9,9 +9,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import {AddFixture} from "./AddFixture";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import {putSetActiveFixtureChecked} from "../../controller/Fetching";
 
 interface PropsActiveFixtureSelect {
-    list: ActiveFixtureList[],
+    list: ActiveFixtureItem[],
     setListfunc: Function,
     setReload: Function
 
@@ -20,13 +21,15 @@ interface PropsActiveFixtureSelect {
 export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveFixtureSelect) {
 
     const handleToggle = (tiggleName: string) => () => {
-        let newActiveFixtureList: ActiveFixtureList[] = [];
+        let newActiveFixtureList: ActiveFixtureItem[] = [];
         list.forEach((value) => {
             if (value.name === tiggleName) {
                 if (value.checked === -1)
                     value.checked = 0;
                 else
                     value.checked = -1;
+
+                putSetActiveFixtureChecked(value).then();
             }
             newActiveFixtureList.push(value);
         })

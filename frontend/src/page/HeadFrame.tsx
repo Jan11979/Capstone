@@ -31,6 +31,7 @@ export function HeadFrame() {
     let navString = "&fbtype=" + searchParams.get('fbtype') +
                     "&startaddresse=" + searchParams.get('startaddresse') +
                     "&faderquantity=" + searchParams.get('faderquantity') +
+                    "&universe=" + searchParams.get('universe') +
                     "&RGBMixer=" + searchParams.get('RGBMixer');
 
     const onClickLoadSave = () => {
@@ -64,12 +65,12 @@ export function HeadFrame() {
     }
 
     const onClickLogo = () => {
-        if( searchParams.get('RGBMixer') === "on" ){
-            searchParams.set("RGBMixer", "off");
+        if( searchParams.get('RGBMixer') === "true" ){
+            searchParams.set("RGBMixer", "false");
             setSearchParams(searchParams);
         }
         else{
-            searchParams.set("RGBMixer", "on");
+            searchParams.set("RGBMixer", "true");
             setSearchParams(searchParams);
         }
 

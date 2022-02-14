@@ -12,12 +12,13 @@ interface PropsFader {
 }
 
 export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) {
+    const universe = faderItem.universe;
     const [value, setValue] = React.useState<number | Array<number> >(
              faderItem.value / 255,
         );
      useEffect(() => {
          setValue(faderItem.value / 255);
-     }, [faderItem.channel]);
+     }, [faderItem.channel, faderItem.universe]);
 
     useEffect(() => {
         if (overwritePostSingleFader ) {
@@ -83,12 +84,13 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
                     aria-label="ios slider"
                     defaultValue={0}
                     value={typeof value === 'number' ? value : 0}
+                    //value={typeof universe === 'number' ? universe : 0}
                     orientation="vertical"
                     //valueLabelDisplay="on"
                     onChange={handleSliderChange}
                 />
                 { faderItem.fixtureName === "STD" &&
-                    <p>{faderItem.channel+1}</p>
+                    <p>{faderItem.channel+1}/{universe+1}</p>
                 }
 
             </Box>

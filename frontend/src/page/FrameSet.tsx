@@ -12,7 +12,7 @@ import DrawInfo from "./Info";
 import {HeadFrame} from "./HeadFrame";
 import {FaderPage} from "./Fader/FaderPage";
 import {RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
-import {ActiveFixtureList, RGBItem} from "../model/BackendConnection";
+import {ActiveFixtureItem, RGBItem} from "../model/BackendConnection";
 import {Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {Typography} from "@mui/material";
 import {LoadSaveUniverse} from "./OptionsSider/LoadSaveUniverse";
@@ -28,8 +28,11 @@ function FrameSet() {
         if(searchParams.get('fbtype') === null )
         {
             let navString = "&fbtype=" + "basic" +
-                "&startaddresse=" + "1" +
-                "&faderquantity=" + "12";
+                            "&startaddresse=" + "1" +
+                            "&faderquantity=" + "12"+
+                            "&universe=" + "0" +
+                            "&RGBMixer=" + "false";
+
             navigate({ pathname: location.pathname, search: navString, });
         }
         else {
@@ -44,14 +47,14 @@ function FrameSet() {
     const tmprgb: RGBItem = {red: 255, green: 255, blue: 255};
     const [rgbItem, setRGBItem] = useState(tmprgb);
 
-    const [reloadFixtureList, setReloadFixtureList] = React.useState("NO");
-    let tmpActiveFixtureList: ActiveFixtureList[] = [];
+    const [reloadFixtureList, setReloadFixtureList] = React.useState(false);
+    let tmpActiveFixtureList: ActiveFixtureItem[] = [];
     const [activeFixtureList, setActiveFixtureList] = useState(tmpActiveFixtureList);
     let tmpActiveFixtureListSelected: string[] = [];
     const [activeFixtureListSelected, setActiveFixtureListSelected] = useState(tmpActiveFixtureListSelected);
     useEffect(() => {
-        if(reloadFixtureList !== "NO"){
-            setReloadFixtureList("NO");
+        if(reloadFixtureList !== true){
+            setReloadFixtureList(false);
         }
         getActiveFixtureList()
             .then((data: any) => setActiveFixtureList(data));
@@ -100,7 +103,7 @@ function FrameSet() {
                     }
                 </div>
                 <div className="RightBody">
-                    { rgbMixParam === "on" && < RGBMixerCircle rgbItem={rgbItem}/> }
+                    { rgbMixParam === "true" && < RGBMixerCircle rgbItem={rgbItem}/> }
                 </div>
             </div>
             <div className="BottomBody">

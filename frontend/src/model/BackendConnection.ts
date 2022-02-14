@@ -22,14 +22,15 @@ export interface DbCommandItem {
     universe: number
 }
 
-export interface ActiveFixtureList {
+export interface ActiveFixtureItem {
     name: string,
     checked: number
 }
 
 export interface FaderPageSelect {
     startAddress: number,
-    quantity: number
+    quantity: number,
+    universe: number
 }
 
 export interface CreateFixtureItem {

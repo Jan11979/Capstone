@@ -1,4 +1,10 @@
-import {DbCommandItem, FaderItem, FaderPageSelect, CreateFixtureItem} from "../model/BackendConnection";
+import {
+    DbCommandItem,
+    FaderItem,
+    FaderPageSelect,
+    CreateFixtureItem,
+    ActiveFixtureItem
+} from "../model/BackendConnection";
 
 
 export async function postSingleFader(faderItem: FaderItem) {
@@ -32,6 +38,15 @@ export async function getActiveFixtureList() {
     });
     return rawResponse.json();
 }
+
+export async function putSetActiveFixtureChecked(activeFixtureItem: ActiveFixtureItem) {
+    await fetch(`/api/fixture/setactivefixturechecked`, {
+        method: 'PUT',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( activeFixtureItem )
+    });
+}
+
 
 
 export async function getActiveFixtureTemplateList() {

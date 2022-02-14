@@ -45,8 +45,8 @@ public class FaderPageController {
 
         for (int i = faderPageSelect.getStartAddress()-1; i < faderPageSelect.getStartAddress()+faderPageSelect.getQuantity()-1; i++ ) {
             FaderItem newItem = FaderItem.builder()
-                    .channel(i).value(0).type( ArtNetService.FADER_TYPE_VALUE ).universe(0).fixtureName("STD").build();
-            newItem.setValue(dmxService.getValueFromTable(i));
+                    .channel(i).value(0).type( ArtNetService.FADER_TYPE_VALUE ).universe(faderPageSelect.getUniverse()).fixtureName("STD").build();
+            newItem.setValue(dmxService.getValueFromTable(i, faderPageSelect.getUniverse()) );
             tmpList.add(newItem);
         }
         return tmpList;

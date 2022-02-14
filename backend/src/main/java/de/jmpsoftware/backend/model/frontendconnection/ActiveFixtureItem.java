@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Builder
-public class ActiveFixtureList {
+public class ActiveFixtureItem {
     private String name;
     private int checked;
 
-    public ActiveFixtureList(String name, int checked) {
+    public ActiveFixtureItem(String name, int checked) {
         this.name = name;
         this.checked = checked;
     }
