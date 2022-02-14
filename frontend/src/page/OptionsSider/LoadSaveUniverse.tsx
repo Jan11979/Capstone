@@ -3,8 +3,8 @@ import {Button, TextField} from "@mui/material";
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import {postLoadUniverse, putSaveUniverse} from "../controller/Fetching";
-import {DbCommandItem} from "../model/BackendConnection";
+import {postLoadUniverse, putSaveUniverse} from "../../controller/Fetching";
+import {DbCommandItem} from "../../model/BackendConnection";
 
 
 export function LoadSaveUniverse( ) {

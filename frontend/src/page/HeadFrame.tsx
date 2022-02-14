@@ -67,14 +67,14 @@ export function HeadFrame() {
                 < LogoRGBMixerCircle />
             </div>
             <div className="HeadMenu">
-                <IconButton sx={{ml: 1}} onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickOutputSettings}><SettingsInputSvideoIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
-                <IconButton sx={{ml: 1}} onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton>
+                <IconButton  onClick={onClickLoadSave} ><SaveIcon fontSize="large"/></IconButton>
+                <IconButton  onClick={onClickSettings}><SettingsIcon fontSize="large"/></IconButton>
+                <IconButton  onClick={onClickOutputSettings}><SettingsInputSvideoIcon fontSize="large"/></IconButton>
+                <IconButton  onClick={onClickChartBasic}><BarChartIcon fontSize="large"/></IconButton>
+                <IconButton  onClick={onClickChartEdit}><StackedBarChartIcon fontSize="large"/></IconButton>
             </div>
             <div className="DarkMode">
-                <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">
+                <IconButton  onClick={colorMode.toggleColorMode} color="inherit">
                     {theme.palette.mode === 'dark' ? <Brightness7Icon fontSize="large"/> :
                         <Brightness4Icon fontSize="large"/>}
                 </IconButton>

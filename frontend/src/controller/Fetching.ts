@@ -1,4 +1,4 @@
-import {DbCommandItem, FaderItem, FaderPageSelect} from "../model/BackendConnection";
+import {DbCommandItem, FaderItem, FaderPageSelect, CreateFixtureItem} from "../model/BackendConnection";
 
 
 export async function postSingleFader(faderItem: FaderItem) {
@@ -32,6 +32,25 @@ export async function getActiveFixtureList() {
     });
     return rawResponse.json();
 }
+
+
+export async function getActiveFixtureTemplateList() {
+    const rawResponse = await fetch(`/api/fixture/allfixturetemplatelist`, {
+        method: 'GET',
+        headers: {"Authorization": "Bearer" + "No Token"},
+    });
+    return rawResponse.json();
+}
+
+export async function postCreateFixture(createfixture: CreateFixtureItem) {
+    await fetch(`/api/fixture/createfixture`, {
+        method: 'POST',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( createfixture )
+    });
+}
+
+
 
 export async function putLoadActiveFaderList(list: string[]) {
     const rawResponse = await fetch(`/api/fixture/getfixture`, {

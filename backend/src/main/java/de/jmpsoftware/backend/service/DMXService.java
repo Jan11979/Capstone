@@ -42,8 +42,11 @@ public class DMXService {
         fixtureList = new ArrayList<>();
     }
 
+
+
     public void initService(){
         LOG.info("Init DMX Service");
+        createDummyTemplates();
         createDummyFixtures();
     }
     public ArtNetService getArtNetService() {
@@ -183,80 +186,110 @@ public class DMXService {
         }
     }
 
-
-    public void createDummyTemplates() {
-        LOG.info("createDummyTemplates");
-        SingleFader singleFader = SingleFader.builder().value(0).build();
-        singleFader.setFaderType(ArtNetService.FADER_TYPE_VALUE);
-
-        FixtureTemplate fixtureTemplate = new FixtureTemplate();
-        fixtureTemplate.setIdName("Dimmer1");
-        fixtureTemplate.setFaderList(new ArrayList<>());
-        fixtureTemplate.getFaderList().add(singleFader);
-
-        fixtureTemplateRepo.save(fixtureTemplate);
+    public List<String> getAllFixtureTemplateList() {
+        List<String> tmpNameList = new ArrayList<>();
+        fixtureTemplateRepo.findAll().forEach(fixtureTemplate -> tmpNameList.add( fixtureTemplate.getIdName() ) );
+        return tmpNameList;
     }
+
+    private FixtureDB getFixtureFromRepo(String name){
+        FixtureTemplate fixtureTemplate = fixtureTemplateRepo.findByIdName( name );
+        assert fixtureTemplate != null;
+        return fixtureTemplate;
+    }
+
+    public void createFixtureFromTemplateList(String templateName, String fixtureName, int address, int universe){
+        FixtureDB fixtureDB = getFixtureFromRepo( templateName );
+        fixtureDB.switchIdToTemplateNameAndSetIdName( fixtureName );
+        fixtureDB.setAddress( address );
+        fixtureDB.setUniverse( universe );
+        fixtureList.add(fixtureDB);
+    }
+
+
 
     public void createDummyFixtures() {
         LOG.info("createDummyFixtures");
-        SingleFader singleFader = SingleFader.builder().value(0).build();
-        singleFader.setFaderType(ArtNetService.FADER_TYPE_VALUE);
-        singleFader.setFaderID(1);
-
-        FixtureDB fixtureDB1 = FixtureDB.builder().idName("1kwOpenFace").address(10).build();
-        fixtureDB1.setFaderList(new ArrayList<>());
-        fixtureDB1.getFaderList().add(singleFader);
-        fixtureRepo.save(fixtureDB1);
-        fixtureList.add(fixtureDB1);
-
-
-        RGBFader rgbFader = RGBFader.builder().valueRed(0).valueGreen(0).valueBlue(0).build();
-        rgbFader.setFaderType(ArtNetService.FADER_TYPE_RGB);
-        rgbFader.setFaderID(1);
-
-        FixtureDB fixtureDB2 = FixtureDB.builder().idName("ParSpotRGB").address(6).build();
-        fixtureDB2.setFaderList(new ArrayList<>());
-        fixtureDB2.getFaderList().add(rgbFader);
-
-        fixtureRepo.save(fixtureDB2);
-        fixtureList.add(fixtureDB2);
-
-
-        MasterKelvinFader mkFader = MasterKelvinFader.builder().valueMaster(0).valueKelvin(0).minKelvin(2000).maxKelvin(8000).build();
-        mkFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_KELVIN);
-        mkFader.setFaderID(1);
-
-        KelvinFader mkFader2 = KelvinFader.builder().valueKelvin(0).build();
-        mkFader2.setFaderType(ArtNetService.FADER_TYPE_KELVIN2C);
-        mkFader2.setFaderID(2);
-
-        FixtureDB fixtureDB3 = FixtureDB.builder().idName("FlaecheDT").address(3).build();
-        fixtureDB3.setFaderList(new ArrayList<>());
-        fixtureDB3.getFaderList().add(mkFader);
-        fixtureDB3.getFaderList().add(mkFader2);
-
-        fixtureRepo.save(fixtureDB3);
-        fixtureList.add(fixtureDB3);
-
-        MasterRGBFader mrgbFader = MasterRGBFader.builder().valueMaster(0).build();
-        mrgbFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_RGB);
-        mrgbFader.setFaderID(1);
-
-        RGBFader rgbFader2 = RGBFader.builder().valueRed(0).valueGreen(0).valueBlue(0).build();
-        rgbFader2.setFaderType(ArtNetService.FADER_TYPE_MASTER_HUE2RGB);
-        rgbFader2.setFaderID(2);
-
-        FixtureDB fixtureDB4 = FixtureDB.builder().idName("FlaecheRGB").address(0).build();
-        fixtureDB4.setFaderList(new ArrayList<>());
-        fixtureDB4.getFaderList().add(mrgbFader);
-        fixtureDB4.getFaderList().add(rgbFader2);
-
-        fixtureRepo.save(fixtureDB4);
-        fixtureList.add(fixtureDB4);
+        List<String> tmpNameList = getAllFixtureTemplateList();
+        tmpNameList.forEach( name ->{
+            if( name.equals("Dimmer1") ){
+                createFixtureFromTemplateList(name,  "1kwOpenFace", 10, 0);
+            }
+            if( name.equals("SimpleRGB") ){
+                createFixtureFromTemplateList(name,  "ParSpotRGB", 6, 0);
+            }
+            if( name.equals("2ChanelKelvin") ){
+                createFixtureFromTemplateList(name,  "FlaecheDT", 3, 0);
+            }
+            if( name.equals("MasterHUE2RGB") ){
+                createFixtureFromTemplateList(name,  "FlaecheRGB", 0, 0);
+            }
+        });
+    }
 
 
 
 
+    public void createDummyTemplates() {
+        if( fixtureTemplateRepo.existsById( "Version" ) ){
+            LOG.info("DummyTemplates already exists");
+            return;
+        }
+        LOG.info("createDummyTemplates");
+
+        {
+            FixtureTemplate fixtureTemplate = new FixtureTemplate();
+            fixtureTemplate.setIdName("Version");
+            fixtureTemplateRepo.save(fixtureTemplate);
+        }
+        {
+            SingleFader singleFader = SingleFader.builder().value(0).build();
+            singleFader.setFaderType(ArtNetService.FADER_TYPE_VALUE);
+            singleFader.setFaderID(1);
+            FixtureTemplate fixtureTemplate = new FixtureTemplate();
+            fixtureTemplate.setIdName("Dimmer1");
+            fixtureTemplate.setFaderList(new ArrayList<>());
+            fixtureTemplate.getFaderList().add(singleFader);
+            fixtureTemplateRepo.save(fixtureTemplate);
+        }
+        {
+            RGBFader rgbFader = RGBFader.builder().valueRed(0).valueGreen(0).valueBlue(0).build();
+            rgbFader.setFaderType(ArtNetService.FADER_TYPE_RGB);
+            rgbFader.setFaderID(1);
+            FixtureTemplate fixtureTemplate = new FixtureTemplate();
+            fixtureTemplate.setIdName("SimpleRGB");
+            fixtureTemplate.setFaderList(new ArrayList<>());
+            fixtureTemplate.getFaderList().add(rgbFader);
+            fixtureTemplateRepo.save(fixtureTemplate);
+        }
+        {
+            MasterKelvinFader masterKelvinFader = MasterKelvinFader.builder().valueMaster(0).valueKelvin(0).minKelvin(2000).maxKelvin(8000).build();
+            masterKelvinFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_KELVIN);
+            masterKelvinFader.setFaderID(1);
+            KelvinFader kelvinFader = KelvinFader.builder().valueKelvin(0).build();
+            kelvinFader.setFaderType(ArtNetService.FADER_TYPE_KELVIN2C);
+            kelvinFader.setFaderID(2);
+            FixtureTemplate fixtureTemplate = new FixtureTemplate();
+            fixtureTemplate.setIdName("2ChanelKelvin");
+            fixtureTemplate.setFaderList(new ArrayList<>());
+            fixtureTemplate.getFaderList().add(masterKelvinFader);
+            fixtureTemplate.getFaderList().add(kelvinFader);
+            fixtureTemplateRepo.save(fixtureTemplate);
+        }
+        {
+            MasterRGBFader mrgbFader = MasterRGBFader.builder().valueMaster(0).build();
+            mrgbFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_RGB);
+            mrgbFader.setFaderID(1);
+            RGBFader rgbFader = RGBFader.builder().valueRed(0).valueGreen(0).valueBlue(0).build();
+            rgbFader.setFaderType(ArtNetService.FADER_TYPE_MASTER_HUE2RGB);
+            rgbFader.setFaderID(2);
+            FixtureTemplate fixtureTemplate = new FixtureTemplate();
+            fixtureTemplate.setIdName("MasterHUE2RGB");
+            fixtureTemplate.setFaderList(new ArrayList<>());
+            fixtureTemplate.getFaderList().add(mrgbFader);
+            fixtureTemplate.getFaderList().add(rgbFader);
+            fixtureTemplateRepo.save(fixtureTemplate);
+        }
     }
 }
 

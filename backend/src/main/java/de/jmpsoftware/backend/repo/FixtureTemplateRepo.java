@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FixtureTemplateRepo extends MongoRepository<FixtureTemplate,String> {
+    FixtureTemplate findByIdName(String name);
 }
