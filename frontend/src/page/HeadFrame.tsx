@@ -31,7 +31,9 @@ export function HeadFrame() {
 
     let navString = "&fbtype=" + searchParams.get('fbtype') +
                     "&startaddresse=" + searchParams.get('startaddresse') +
-                    "&faderquantity=" + searchParams.get('faderquantity');
+                    "&faderquantity=" + searchParams.get('faderquantity') +
+                    "&RGBMixer=" + searchParams.get('RGBMixer');
+
     const onClickLoadSave = () => {
         if (location.pathname.includes(LOCATION_LOAD_SAVE)) {
             navigate({ pathname: LOCATION_ROOT, search: navString });
@@ -62,11 +64,23 @@ export function HeadFrame() {
         setSearchParams(searchParams);
     }
 
+    const onClickLogo = () => {
+        if( searchParams.get('RGBMixer') === "on" ){
+            searchParams.set("RGBMixer", "off");
+            setSearchParams(searchParams);
+        }
+        else{
+            searchParams.set("RGBMixer", "on");
+            setSearchParams(searchParams);
+        }
+
+    }
+
     const idParam = searchParams.get('fbtype')
 
     return (
         <div className="Head">
-            <div className="Logo">
+            <div className="Logo" onClick={onClickLogo} >
                 < LogoRGBMixerCircle />
             </div>
             <div className="HeadMenu">

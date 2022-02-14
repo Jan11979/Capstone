@@ -39,6 +39,7 @@ function FrameSet() {
 
     const [searchParams] = useSearchParams();
     const idParam = searchParams.get('fbtype')
+    const rgbMixParam = searchParams.get('RGBMixer')
 
     const tmprgb: RGBItem = {red: 255, green: 255, blue: 255};
     const [rgbItem, setRGBItem] = useState(tmprgb);
@@ -99,7 +100,7 @@ function FrameSet() {
                     }
                 </div>
                 <div className="RightBody">
-                    < RGBMixerCircle rgbItem={rgbItem}/>
+                    { rgbMixParam === "on" && < RGBMixerCircle rgbItem={rgbItem}/> }
                 </div>
             </div>
             <div className="BottomBody">

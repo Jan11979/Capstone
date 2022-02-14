@@ -37,12 +37,12 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
         setListfunc(newActiveFixtureList);
     };
 
-    const [addFixtureDialog, setAddFixtureDialog] = React.useState("OFF");
+    const [addFixtureDialog, setAddFixtureDialog] = React.useState(false);
     const onClickAddFixtures = () => {
-        if (addFixtureDialog === "OFF") {
-            setAddFixtureDialog("ON")
+        if (addFixtureDialog === false) {
+            setAddFixtureDialog(true)
         } else {
-            setAddFixtureDialog("OFF")
+            setAddFixtureDialog(false)
         }
     }
 
@@ -51,10 +51,10 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
             <p>Select Fixture</p>
             <div className="ActiveFixtureSelectBase">
                 <div>
-                    {addFixtureDialog === "ON" &&
+                    {addFixtureDialog === true &&
                     <Button variant="outlined" endIcon={<ArrowBackIosIcon fontSize="large"/>}
                             onClick={onClickAddFixtures}> Hide </Button> }
-                    {addFixtureDialog === "OFF" &&
+                    {addFixtureDialog === false &&
                     <Button variant="outlined" endIcon={<ArrowForwardIosIcon fontSize="large"/>}
                             onClick={onClickAddFixtures}> Add Fixture </Button> }
                     <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
@@ -80,9 +80,9 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
                     </List>
                 </div>
                 <div>
-                    {addFixtureDialog === "ON" &&
+                    {addFixtureDialog === true &&
                     < AddFixture list={list} setReload={setReload} />}
-                    {addFixtureDialog === "OFF" &&
+                    {addFixtureDialog === false &&
                     <div/>}
                 </div>
             </div>

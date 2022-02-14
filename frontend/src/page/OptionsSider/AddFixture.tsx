@@ -22,12 +22,11 @@ interface PropsAddFixture {
     setReload: Function
 }
 export function AddFixture({list, setReload}: PropsAddFixture) {
-    const [touchList, setTouchList] = React.useState("touch"); //"Incorrect entry."
     const [templateName, setTemplateName] = React.useState('');
     const [universe, setUniverse] = React.useState(0);
     const [fixtureName, setFixtureName] = React.useState('');
     const [fixtureAddress, setFixtureAddress] = React.useState(1);
-    const [createButtonAllowed, setCreateButtonAllowed] = React.useState("NO");
+    const [createButtonAllowed, setCreateButtonAllowed] = React.useState(false);
     const [fixtureNameErrorText, setFixtureNameErrorText] = React.useState("small"); //"Incorrect entry."
 
     let tmpTemplateFixtureList: string[] = [];
@@ -36,25 +35,22 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
     useEffect(() => {
         getActiveFixtureTemplateList()
             .then((data: any) => setTemplateFixtureList(data));
-    }, [touchList])
+    }, [])
 
 
     const checkCreateAllowed = (tmpFixtureName:string) =>{
         let nameAllowedErrorText = checkFixtureNameAllowed(list, tmpFixtureName);
         if (nameAllowedErrorText === "") {
-        //    setFixtureNameAllowed("YES");
             setFixtureNameErrorText("");
 
         } else {
-       //     setFixtureNameAllowed("NO");
             setFixtureNameErrorText(nameAllowedErrorText);
         }
 
         if ((templateName !== '') && ( nameAllowedErrorText === "") ) {
-            setCreateButtonAllowed("YES");
-            console.log("setCreateButtonAllowed(\"YES\")");
+            setCreateButtonAllowed(true);
         } else {
-            setCreateButtonAllowed("NO");
+            setCreateButtonAllowed(false);
         }
     }
     const handleChange = (event: SelectChangeEvent) => {
@@ -83,7 +79,7 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
         console.log("handleOnClickCreate");
         let createfixture: CreateFixtureItem = { fixtureName:fixtureName, templateName:templateName, address:fixtureAddress, universe:universe };
         postCreateFixture(createfixture).then();
-        setCreateButtonAllowed("NO")
+        setCreateButtonAllowed(false)
         setReload("TRUE");
     }
 
@@ -138,11 +134,11 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
                     helperText={fixtureNameErrorText}/>
             </FormControl>
             <FormControl sx={{m: 1, minWidth: 120}}>
-                {createButtonAllowed === "YES" &&
+                {createButtonAllowed === true &&
                 <Button variant="outlined" startIcon={<AddIcon/>}
                         onClick={handleOnClickCreate}> Create </Button>
                 }
-                {createButtonAllowed === "NO" &&
+                {createButtonAllowed === false &&
                 <Button disabled variant="outlined" startIcon={<AddIcon/>}
                         onClick={handleOnClickCreate}> Create </Button>
                 }
