@@ -35,7 +35,6 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
             .then((data: any) => setTemplateFixtureList(data));
     }, [])
 
-
     const checkCreateAllowed = (tmpFixtureName:string) =>{
         let nameAllowedErrorText = checkFixtureNameAllowed(list, tmpFixtureName);
         if (nameAllowedErrorText === "") {
