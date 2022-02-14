@@ -1,4 +1,3 @@
-//import './AddFixture.scss';
 import React, {useEffect, useState} from "react";
 import {getActiveFixtureTemplateList, postCreateFixture} from "../../controller/Fetching";
 import AddIcon from '@mui/icons-material/Add';

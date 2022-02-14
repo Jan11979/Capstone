@@ -7,12 +7,8 @@ import {Button, Checkbox, List, ListItem, ListItemText} from "@mui/material";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import {AddFixture} from "./AddFixture";
-import SaveIcon from "@mui/icons-material/Save";
-import IconButton from "@mui/material/IconButton";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import {LOCATION_LOAD_SAVE, LOCATION_ROOT} from "../../controller/DataService";
-import AddIcon from "@mui/icons-material/Add";
 
 interface PropsActiveFixtureSelect {
     list: ActiveFixtureList[],

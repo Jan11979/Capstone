@@ -18,7 +18,6 @@ import {
     LOCATION_SETTINGS
 } from "../controller/DataService";
 import {LogoRGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
-import {ActiveSliderSelect} from "./OptionsSider/ActiveSliderSelect";
 
 
 export function HeadFrame() {

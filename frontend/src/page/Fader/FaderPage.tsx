@@ -33,11 +33,6 @@ export function FaderPage({setRGBItem}: PropsFaderPage) {
             .then((data: any) => setFaderList(data))
     }, [searchParams])
 
-
-    // useEffect(() => {
-    //     getSimpleFaderPage()
-    //         .then((data: any) => setFaderList(data))
-    // }, [])
     if (faderList && faderList.length) {
         return (
             <div className='FaderPage'>
