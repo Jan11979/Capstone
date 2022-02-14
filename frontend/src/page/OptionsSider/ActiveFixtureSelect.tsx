@@ -16,11 +16,12 @@ import AddIcon from "@mui/icons-material/Add";
 
 interface PropsActiveFixtureSelect {
     list: ActiveFixtureList[],
-    setListfunc: Function
+    setListfunc: Function,
+    setReload: Function
 
 }
 
-export function ActiveFixtureSelect({list, setListfunc}: PropsActiveFixtureSelect) {
+export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveFixtureSelect) {
 
     const handleToggle = (tiggleName: string) => () => {
         let newActiveFixtureList: ActiveFixtureList[] = [];
@@ -43,7 +44,6 @@ export function ActiveFixtureSelect({list, setListfunc}: PropsActiveFixtureSelec
         } else {
             setAddFixtureDialog("OFF")
         }
-
     }
 
     return (
@@ -81,7 +81,7 @@ export function ActiveFixtureSelect({list, setListfunc}: PropsActiveFixtureSelec
                 </div>
                 <div>
                     {addFixtureDialog === "ON" &&
-                    < AddFixture list={list}/>}
+                    < AddFixture list={list} setReload={setReload} />}
                     {addFixtureDialog === "OFF" &&
                     <div/>}
                 </div>

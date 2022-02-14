@@ -43,15 +43,18 @@ function FrameSet() {
     const tmprgb: RGBItem = {red: 255, green: 255, blue: 255};
     const [rgbItem, setRGBItem] = useState(tmprgb);
 
-
+    const [reloadFixtureList, setReloadFixtureList] = React.useState("NO");
     let tmpActiveFixtureList: ActiveFixtureList[] = [];
     const [activeFixtureList, setActiveFixtureList] = useState(tmpActiveFixtureList);
     let tmpActiveFixtureListSelected: string[] = [];
     const [activeFixtureListSelected, setActiveFixtureListSelected] = useState(tmpActiveFixtureListSelected);
     useEffect(() => {
+        if(reloadFixtureList !== "NO"){
+            setReloadFixtureList("NO");
+        }
         getActiveFixtureList()
             .then((data: any) => setActiveFixtureList(data));
-    }, [])
+    }, [reloadFixtureList])
 
     useEffect(() => {
         const listSelected: string[] = [];
@@ -81,7 +84,8 @@ function FrameSet() {
                         <Route path={LOCATION_SETTINGS} element={<div>
                             { idParam === "basic" && <ActiveSliderSelect /> }
                             {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}
-                                                                            setListfunc={setActiveFixtureList}/>}
+                                                                            setListfunc={setActiveFixtureList}
+                                                                            setReload={setReloadFixtureList}/>}
                         </div>}/>
                         <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
                     </Routes>
