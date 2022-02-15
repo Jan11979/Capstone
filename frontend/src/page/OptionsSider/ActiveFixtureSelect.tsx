@@ -12,11 +12,11 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {putSetActiveFixtureChecked} from "../../controller/Fetching";
 import {LoadSaveFixture} from "./LoadSaveFixture";
 
+
 interface PropsActiveFixtureSelect {
-    list: ActiveFixtureItem[],
+    list: ActiveFixtureList[],
     setListfunc: Function,
     setReload: Function
-
 }
 
 export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveFixtureSelect) {
@@ -53,7 +53,6 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
             setLoadAndSaveFixtureDialog(false)
         }
     }
-
 
     return (
         <div>
@@ -110,6 +109,5 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
                 </div>
             </div>
         </div>
-    )
-        ;
+    );
 }

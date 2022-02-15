@@ -81,8 +81,6 @@ export async function putSetActiveFixtureChecked(activeFixtureItem: ActiveFixtur
     });
 }
 
-
-
 export async function getActiveFixtureTemplateList() {
     const rawResponse = await fetch(`/api/fixture/allfixturetemplatelist`, {
         method: 'GET',

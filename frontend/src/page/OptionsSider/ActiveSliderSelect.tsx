@@ -85,6 +85,5 @@ export function ActiveSliderSelect() {
                 />
             </FormControl>
         </div>
-
     )
 }
