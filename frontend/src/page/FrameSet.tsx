@@ -19,6 +19,7 @@ import {LoadSaveUniverse} from "./OptionsSider/LoadSaveUniverse";
 import {ActiveFixtureSelect} from "./OptionsSider/ActiveFixtureSelect";
 import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
 import {ActiveSliderSelect} from "./OptionsSider/ActiveSliderSelect";
+import {LoadSaveFixtureSet} from "./OptionsSider/LoadSaveFixtureSet";
 
 
 function FrameSet() {
@@ -53,7 +54,7 @@ function FrameSet() {
     let tmpActiveFixtureListSelected: string[] = [];
     const [activeFixtureListSelected, setActiveFixtureListSelected] = useState(tmpActiveFixtureListSelected);
     useEffect(() => {
-        if(reloadFixtureList !== true){
+        if(!reloadFixtureList){
             setReloadFixtureList(false);
         }
         getActiveFixtureList()
@@ -84,7 +85,10 @@ function FrameSet() {
             <div className="Body">
                 <div className="LeftBody">
                     <Routes>
-                        <Route path={LOCATION_LOAD_SAVE} element={< LoadSaveUniverse/>}/>
+                        <Route path={LOCATION_LOAD_SAVE} element={<div>
+                            { idParam === "basic" && <LoadSaveUniverse /> }
+                            { idParam === "edit" && <LoadSaveFixtureSet list={activeFixtureList} /> }
+                        </div>}/>
                         <Route path={LOCATION_SETTINGS} element={<div>
                             { idParam === "basic" && <ActiveSliderSelect /> }
                             {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}

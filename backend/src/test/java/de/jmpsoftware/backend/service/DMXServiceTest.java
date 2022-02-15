@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DMXServiceTest {
 
-    private final DMXService dmxService = new DMXService(null, null, null);
+    private final DMXService dmxService = new DMXService(null, null, null, null);
     DMXServiceTest() throws IOException {}
 
 

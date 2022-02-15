@@ -19,7 +19,7 @@ function SubFixtureFader({setRGBItem, faderItem, name}: PropsSubFixtureFader) {
         );
     } else {
         return (
-            <div></div>
+            <div/>
         );
     }
 }
@@ -66,12 +66,5 @@ export function FixtureFaderPage({setRGBItem, list}: PropsFixtureFaderPage) {
                 < SubFixtureFaderPage key={i} name={eName} listFaderItem={faderList} setRGBItem={setRGBItem}/>)}
         </div>
     );
-
-    // return (
-    //     <div className='FaderPage'>
-    //         {faderList.map((elem, i) => < FaderDistributor key={i} faderItem={elem} setRGBItem={setRGBItem} />)}
-    //     </div>
-    // );
-
 }
 

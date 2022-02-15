@@ -30,6 +30,15 @@ public class FixtureDB {
                 .findAny().orElse(null);
     }
 
+    public void cloneIt(FixtureDB other){
+        this.setChecked(other.getChecked());
+        this.setIdName(other.getIdName());
+        this.setTemplateName(other.getTemplateName());
+        this.setUniverse(other.getUniverse());
+        this.setAddress(other.getAddress());
+        this.setFaderList(other.getFaderList());
+    }
+
     public void switchIdToTemplateNameAndSetIdName(String name){
         setTemplateName( getIdName() );
         setIdName( name );

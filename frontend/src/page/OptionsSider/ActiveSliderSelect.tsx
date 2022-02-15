@@ -61,7 +61,7 @@ export function ActiveSliderSelect() {
                     <MenuItem value={2}>3</MenuItem>
                     <MenuItem value={3}>4</MenuItem>
                 </Select>
-                <p></p>
+                <p/>
                 <TextField
                     id="outlined-number"
                     label="StartAddress"
@@ -72,7 +72,7 @@ export function ActiveSliderSelect() {
                     }}
                     onChange={handleOnChangeAddress}
                 />
-                <p></p>
+                <p/>
                 <TextField
                     id="outlined-number"
                     label="Quantity"

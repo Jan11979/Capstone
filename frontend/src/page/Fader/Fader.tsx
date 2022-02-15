@@ -12,7 +12,6 @@ interface PropsFader {
 }
 
 export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) {
-    const universe = faderItem.universe;
     const [value, setValue] = React.useState<number | Array<number> >(
              faderItem.value / 255,
         );
@@ -90,7 +89,7 @@ export function Fader({faderItem, color, overwritePostSingleFader}: PropsFader) 
                     onChange={handleSliderChange}
                 />
                 { faderItem.fixtureName === "STD" &&
-                    <p>{faderItem.channel+1}/{universe+1}</p>
+                    <p>{faderItem.channel+1}</p>
                 }
 
             </Box>

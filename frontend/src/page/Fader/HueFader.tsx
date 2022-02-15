@@ -43,7 +43,6 @@ export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
         colorPicker = new (iro.ColorPicker as any)("#" + colorPickerIdTable[faderItem ? faderItem.channel : 0], {
             width: 300,
             color: "rgb(255, 0, 0)",
-            //color: `rgb(${red}, ${green}, ${blue})`,
             borderWidth: 1,
             borderColor: "#070707",
             layoutDirection: 'horizontal',
@@ -74,3 +73,4 @@ export function HueFader({faderItem, setRGBItem}: PropsColorFader) {
         </div>
     );
 }
+

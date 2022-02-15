@@ -33,7 +33,7 @@ export function FaderDistributor({faderItem, setRGBItem}: PropsFaderDistributor)
             return (<div>< Fader faderItem={faderItem}/></div>);
         case FADER_TYPE_EMPTY:
         default:
-            return (<div></div>);
+            return (<div/>);
 
     }
 }

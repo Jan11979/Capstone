@@ -39,3 +39,7 @@ export interface CreateFixtureItem {
     address: number,
     universe: number
 }
+
+export interface FixtureItem {
+    name: string
+}

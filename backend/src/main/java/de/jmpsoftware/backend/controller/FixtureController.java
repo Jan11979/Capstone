@@ -3,7 +3,6 @@ package de.jmpsoftware.backend.controller;
 import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.CreateFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
-import de.jmpsoftware.backend.model.frontendconnection.FixtureItem;
 import de.jmpsoftware.backend.service.DMXService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -78,13 +77,6 @@ public class FixtureController {
 
         LOG.info("valueFixtureFader" + faderItem );
         dmxService.updateFixture(faderItem);
-    }
-
-
-    @ResponseBody
-    @PutMapping(path = "/loadfixture")
-    public void loadFixture(@RequestBody FixtureItem fixtureItem){
-        LOG.info("load:" + fixtureItem);
     }
 
 
