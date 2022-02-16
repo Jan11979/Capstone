@@ -121,7 +121,7 @@ public class DMXService {
         } );
     }
 
-    public void loadFixturesFromInDB(List<FixtureItem> fixtureItemList){
+    public void loadFixturesFromDB(List<FixtureItem> fixtureItemList){
         fixtureItemList.forEach(item -> {
             FixtureDB newfixtureDB = fixtureRepo.findByIdName(item.getName());
             FixtureDB oldfixtureDB = fixtureList.stream().filter(fixture -> newfixtureDB.getIdName().equals(fixture.getIdName()))

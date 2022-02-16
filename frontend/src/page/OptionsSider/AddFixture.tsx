@@ -5,7 +5,7 @@ import {ActiveFixtureItem, CreateFixtureItem} from "../../model/BackendConnectio
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 
 
-function checkFixtureNameAllowed(list: ActiveFixtureItem[], name: string): string {
+function checkFixtureNameAllowed(list: ActiveFixtureList[], name: string): string {
     if (name.length <= 3) {
         return "short";
     }
@@ -34,7 +34,6 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
         getActiveFixtureTemplateList()
             .then((data: any) => setTemplateFixtureList(data));
     }, [])
-
 
     const checkCreateAllowed = (tmpFixtureName:string) =>{
         let nameAllowedErrorText = checkFixtureNameAllowed(list, tmpFixtureName);
