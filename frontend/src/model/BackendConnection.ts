@@ -1,4 +1,8 @@
 
+export interface LoginData {
+    name: string,
+    password: string
+}
 
 export interface FaderItem {
     type: number,

@@ -1,36 +1,41 @@
 import React, {useEffect} from 'react';
 import './App.scss';
-import FrameSet from "./page/FrameSet";
 import Box from '@mui/material/Box';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {CssBaseline, useMediaQuery} from "@mui/material";
+import AuthProvider from "./page/login/AuthProvider";
+import LoginRootFrame from "./page/login/LoginRootFrame";
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = React.createContext({
+    toggleColorMode: () => {
+    }
+});
 
 function App() {
 
     return (
         <div>
-        <Box
-            sx={{
-                display: 'flex',
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                bgcolor: 'background.default',
-                color: 'text.primary',
-                borderRadius: 1,
-                p: 3,
-            }}
-        >
-            <div className="App">
-                < FrameSet />
-            </div>
-        </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: 'background.default',
+                    color: 'text.primary',
+                    borderRadius: 1,
+                    p: 3,
+                }}
+            >
+                <div className="App">
+                    <LoginRootFrame/>
+                </div>
+            </Box>
 
         </div>
     );
 }
+
 export default function ToggleColorMode() {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const themeSystem = React.useMemo(
@@ -67,8 +72,10 @@ export default function ToggleColorMode() {
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <App />
+                <CssBaseline/>
+                <AuthProvider>
+                    <App/>
+                </AuthProvider>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );

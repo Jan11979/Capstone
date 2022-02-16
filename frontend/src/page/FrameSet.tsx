@@ -23,6 +23,16 @@ import {LoadSaveFixtureSet} from "./OptionsSider/LoadSaveFixtureSet";
 
 
 function FrameSet() {
+
+    // let tmpAuthority: string[] = [AUTHORITY_NO_NOTHING];
+    // const [authority, setAuthority] = useState(tmpAuthority);
+    // useEffect(() => {
+    //     getUserAuthoritie()
+    //         .then(data => setAuthority( data ) )
+    //     console.log("getUserAuthoritie Called :", authority);
+    // }, [])
+
+
     let navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
