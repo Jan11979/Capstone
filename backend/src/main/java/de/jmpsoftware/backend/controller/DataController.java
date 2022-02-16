@@ -68,7 +68,7 @@ public class DataController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not fixtureItemList" );
 
         LOG.info("Load Fixture:" + fixtureItemList);
-        dmxService.loadFixturesFromInDB( fixtureItemList );
+        dmxService.loadFixturesFromDB( fixtureItemList );
     }
 
 
