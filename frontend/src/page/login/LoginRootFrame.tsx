@@ -3,7 +3,7 @@ import {
     STORAGE_KEY_TOKEN
 } from "../../controller/DataService";
 import {AuthContext} from "./AuthProvider";
-import {postLogin} from "../../controller/Fetching";
+import {getActiveFixtureTemplateList, getPing, postLogin} from "../../controller/Fetching";
 import FrameSet from "../FrameSet";
 
 
@@ -19,8 +19,14 @@ export default function LoginRootFrame() {
         let tmpToken = localStorage.getItem(STORAGE_KEY_TOKEN) || "kein Token";
         if (tmpToken !== "kein Token") {
             setJwt(tmpToken);
-            setValidUser(true);
             console.log("Token aus Speicher geholt", jwtDecoded);
+
+            getPing().then((data: any) => {
+                if (data.status === 403) {
+                    console.info("rawResponse.status === 403 Miau");
+                    setValidUser(false);
+                }
+            });
         }
     }, [])
 
