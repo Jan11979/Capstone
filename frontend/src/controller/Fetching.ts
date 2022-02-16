@@ -21,6 +21,14 @@ export const postLogin = (loginData: LoginData) =>
 //     return rawResponse.json();
 // }
 
+export async function getPing() {
+    const rawResponse = await fetch(`/service/ping`, {
+        method: 'GET',
+        headers: {"Authorization": "Bearer" + localStorage.getItem(STORAGE_KEY_TOKEN) || "No Token"},
+    });
+    return rawResponse
+};
+
 export async function postSingleFader(faderItem: FaderItem) {
     await fetch(`/api/faderpage/setvalue`, {
         method: 'POST',
