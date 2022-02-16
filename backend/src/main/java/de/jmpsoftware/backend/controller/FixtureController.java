@@ -1,9 +1,8 @@
 package de.jmpsoftware.backend.controller;
 
-import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureList;
+import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.CreateFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
-import de.jmpsoftware.backend.model.frontendconnection.FixtureItem;
 import de.jmpsoftware.backend.service.DMXService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -41,16 +40,23 @@ public class FixtureController {
             return;
 
         dmxService.createFixtureFromTemplateList(fixtureItem.getTemplateName(),  fixtureItem.getFixtureName(), fixtureItem.getAddress(), fixtureItem.getUniverse());
-
     }
 
-
-
-
-    @GetMapping(path = "/allactivefixture")
-    public List<ActiveFixtureList> returnAllActiveFixture() {
+  @GetMapping(path = "/allactivefixture")
+    public List<ActiveFixtureItem> returnAllActiveFixture() {
         return dmxService.getAllActiveFixture();
     }
+
+
+    @ResponseBody
+    @PutMapping(path = "/setactivefixturechecked")
+    public void createFaderList(@RequestBody ActiveFixtureItem activeFixtureItem){
+        if( activeFixtureItem == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No fixtureList!");
+
+        dmxService.setActiveFixtureChecked(activeFixtureItem);
+    }
+
 
     @ResponseBody
     @PutMapping(path = "/getfixture")
@@ -69,13 +75,6 @@ public class FixtureController {
 
         LOG.info("valueFixtureFader" + faderItem );
         dmxService.updateFixture(faderItem);
-    }
-
-
-    @ResponseBody
-    @PutMapping(path = "/loadfixture")
-    public void loadFixture(@RequestBody FixtureItem fixtureItem){
-        LOG.info("load:" + fixtureItem);
     }
 
 

@@ -1,6 +1,6 @@
 import './ActiveFixtureSelect.scss';
 import React from "react";
-import {ActiveFixtureList} from "../../model/BackendConnection";
+import {ActiveFixtureItem} from "../../model/BackendConnection";
 
 import {Button, Checkbox, List, ListItem, ListItemText} from "@mui/material";
 
@@ -9,36 +9,48 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import {AddFixture} from "./AddFixture";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import {putSetActiveFixtureChecked} from "../../controller/Fetching";
+import {LoadSaveFixture} from "./LoadSaveFixture";
+
 
 interface PropsActiveFixtureSelect {
     list: ActiveFixtureList[],
     setListfunc: Function,
     setReload: Function
-
 }
 
 export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveFixtureSelect) {
+    const [addFixtureDialog, setAddFixtureDialog] = React.useState(false);
+    const [loadAndSaveFixtureDialog, setLoadAndSaveFixtureDialog] = React.useState(false);
 
     const handleToggle = (tiggleName: string) => () => {
-        let newActiveFixtureList: ActiveFixtureList[] = [];
+        let newActiveFixtureList: ActiveFixtureItem[] = [];
         list.forEach((value) => {
             if (value.name === tiggleName) {
                 if (value.checked === -1)
                     value.checked = 0;
                 else
                     value.checked = -1;
+
+                putSetActiveFixtureChecked(value).then();
             }
             newActiveFixtureList.push(value);
         })
         setListfunc(newActiveFixtureList);
     };
 
-    const [addFixtureDialog, setAddFixtureDialog] = React.useState(false);
     const onClickAddFixtures = () => {
         if (!addFixtureDialog) {
             setAddFixtureDialog(true)
         } else {
             setAddFixtureDialog(false)
+        }
+    }
+    const onClickLoadANdSaveFixtures = () => {
+        if (!loadAndSaveFixtureDialog) {
+            setLoadAndSaveFixtureDialog(true)
+        } else {
+            setLoadAndSaveFixtureDialog(false)
         }
     }
 
@@ -49,10 +61,16 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
                 <div>
                     {addFixtureDialog &&
                     <Button variant="outlined" endIcon={<ArrowBackIosIcon fontSize="large"/>}
-                            onClick={onClickAddFixtures}> Hide </Button> }
+                            onClick={onClickAddFixtures}> Hide Add</Button>}
                     {!addFixtureDialog &&
                     <Button variant="outlined" endIcon={<ArrowForwardIosIcon fontSize="large"/>}
-                            onClick={onClickAddFixtures}> Add Fixture </Button> }
+                            onClick={onClickAddFixtures}> Add Fixture </Button>}
+                    {loadAndSaveFixtureDialog &&
+                    <Button variant="outlined" endIcon={<ArrowBackIosIcon fontSize="large"/>}
+                            onClick={onClickLoadANdSaveFixtures}> Hide L&S</Button>}
+                    {!loadAndSaveFixtureDialog &&
+                    <Button variant="outlined" endIcon={<ArrowForwardIosIcon fontSize="large"/>}
+                            onClick={onClickLoadANdSaveFixtures}> Load&Save Fixture </Button>}
                     <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
                         {list.map((value, key) => {
                             const labelId = `checkbox-list-label-${key}`;
@@ -75,11 +93,19 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
                         })}
                     </List>
                 </div>
-                <div>
-                    {addFixtureDialog &&
-                    < AddFixture list={list} setReload={setReload} />}
-                    {!addFixtureDialog &&
-                    <div/>}
+                <div className="dialogsider">
+                    <div>
+                        {addFixtureDialog &&
+                        < AddFixture list={list} setReload={setReload}/>}
+                        {!addFixtureDialog &&
+                        <div/>}
+                    </div>
+                    <div>
+                        {loadAndSaveFixtureDialog &&
+                        < LoadSaveFixture list={list} setReload={setReload}/>}
+                        {!loadAndSaveFixtureDialog &&
+                        <div/>}
+                    </div>
                 </div>
             </div>
         </div>

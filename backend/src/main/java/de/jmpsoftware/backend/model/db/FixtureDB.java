@@ -22,11 +22,21 @@ public class FixtureDB {
     private String templateName;
     private int universe;
     private int address;
+    private int checked;
     private List<FaderBase> faderList = new ArrayList<>();
 
     private FaderBase getFader(int faderId) {
         return faderList.stream().filter(fader -> faderId == fader.getFaderID())
                 .findAny().orElse(null);
+    }
+
+    public void cloneIt(FixtureDB other){
+        this.setChecked(other.getChecked());
+        this.setIdName(other.getIdName());
+        this.setTemplateName(other.getTemplateName());
+        this.setUniverse(other.getUniverse());
+        this.setAddress(other.getAddress());
+        this.setFaderList(other.getFaderList());
     }
 
     public void switchIdToTemplateNameAndSetIdName(String name){

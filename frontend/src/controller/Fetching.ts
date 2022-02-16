@@ -1,4 +1,10 @@
-import {DbCommandItem, FaderItem, FaderPageSelect, CreateFixtureItem} from "../model/BackendConnection";
+import {
+    DbCommandItem,
+    FaderItem,
+    FaderPageSelect,
+    CreateFixtureItem,
+    ActiveFixtureItem, FixtureItem
+} from "../model/BackendConnection";
 
 
 export async function postSingleFader(faderItem: FaderItem) {
@@ -10,7 +16,7 @@ export async function postSingleFader(faderItem: FaderItem) {
 }
 
 export async function postLoadUniverse(dbCommandItem: DbCommandItem) {
-    await fetch(`/api/data/load`, {
+    await fetch(`/api/loadandsave/loaduniverse`, {
         method: 'POST',
         headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
         body: JSON.stringify( dbCommandItem )
@@ -18,12 +24,46 @@ export async function postLoadUniverse(dbCommandItem: DbCommandItem) {
 }
 
 export async function putSaveUniverse(dbCommandItem: DbCommandItem) {
-    await fetch(`/api/data/save`, {
+    await fetch(`/api/loadandsave/saveuniverse`, {
         method: 'PUT',
         headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
         body: JSON.stringify( dbCommandItem )
     });
 }
+
+export async function postLoadFixtures(fixtureItemList:FixtureItem[]) {
+    await fetch(`/api/loadandsave/loadfixtures`, {
+        method: 'POST',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( fixtureItemList )
+    });
+}
+
+export async function putSaveFixtures(fixtureItemList:FixtureItem[]) {
+    await fetch(`/api/loadandsave/savefixtures`, {
+        method: 'PUT',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( fixtureItemList )
+    });
+}
+
+export async function postLoadFixturScene( sceneName:string ) {
+    await fetch(`/api/loadandsave/loadfixturscene/${sceneName}`, {
+        method: 'POST',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+    });
+}
+
+export async function putSaveFixturScene( sceneName:string, fixtureItemList:FixtureItem[]) {
+    await fetch(`/api/loadandsave/savefixturscene/${sceneName}`, {
+        method: 'PUT',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( fixtureItemList )
+    });
+}
+
+
+
 
 export async function getActiveFixtureList() {
     const rawResponse = await fetch(`/api/fixture/allactivefixture`, {
@@ -33,6 +73,13 @@ export async function getActiveFixtureList() {
     return rawResponse.json();
 }
 
+export async function putSetActiveFixtureChecked(activeFixtureItem: ActiveFixtureItem) {
+    await fetch(`/api/fixture/setactivefixturechecked`, {
+        method: 'PUT',
+        headers: {"Authorization": "Bearer" + "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( activeFixtureItem )
+    });
+}
 
 export async function getActiveFixtureTemplateList() {
     const rawResponse = await fetch(`/api/fixture/allfixturetemplatelist`, {

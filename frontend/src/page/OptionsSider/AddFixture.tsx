@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {getActiveFixtureTemplateList, postCreateFixture} from "../../controller/Fetching";
 import AddIcon from '@mui/icons-material/Add';
+import {ActiveFixtureItem, CreateFixtureItem} from "../../model/BackendConnection";
+import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
+
+
+
 import {ActiveFixtureList, CreateFixtureItem} from "../../model/BackendConnection";
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 
@@ -16,7 +21,7 @@ function checkFixtureNameAllowed(list: ActiveFixtureList[], name: string): strin
 }
 
 interface PropsAddFixture {
-    list: ActiveFixtureList[],
+    list: ActiveFixtureItem[],
     setReload: Function
 }
 export function AddFixture({list, setReload}: PropsAddFixture) {
@@ -76,7 +81,7 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
         let createfixture: CreateFixtureItem = { fixtureName:fixtureName, templateName:templateName, address:fixtureAddress, universe:universe };
         postCreateFixture(createfixture).then();
         setCreateButtonAllowed(false)
-        setReload("TRUE");
+        setReload(true);
     }
 
     return (

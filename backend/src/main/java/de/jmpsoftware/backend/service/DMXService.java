@@ -1,15 +1,18 @@
 package de.jmpsoftware.backend.service;
 
 import de.jmpsoftware.backend.model.DMXTable;
+import de.jmpsoftware.backend.model.db.SceneDB;
 import de.jmpsoftware.backend.model.fader.*;
-import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureList;
+import de.jmpsoftware.backend.model.frontendconnection.ActiveFixtureItem;
 import de.jmpsoftware.backend.model.frontendconnection.DbCommandItem;
 import de.jmpsoftware.backend.model.frontendconnection.FaderItem;
 import de.jmpsoftware.backend.model.db.FixtureDB;
+import de.jmpsoftware.backend.model.frontendconnection.FixtureItem;
 import de.jmpsoftware.backend.repo.FixtureRepo;
 import de.jmpsoftware.backend.model.db.FixtureTemplate;
 import de.jmpsoftware.backend.repo.FixtureTemplateRepo;
 import de.jmpsoftware.backend.model.db.UniverseItemDB;
+import de.jmpsoftware.backend.repo.SceneRepo;
 import de.jmpsoftware.backend.repo.UniverseRepo;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -28,15 +31,16 @@ public class DMXService {
     private final FixtureTemplateRepo fixtureTemplateRepo;
     private final FixtureRepo fixtureRepo;
     private final UniverseRepo universeRepo;
+    private final SceneRepo sceneRepo;
     private final ArtNetService artNetService;
     private final List<FixtureDB> fixtureList;
 
 
-    public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTemplateRepo fixtureTemplateRepo) throws IOException {
-
+    public DMXService(UniverseRepo universeRepo, FixtureRepo fixtureRepo, FixtureTemplateRepo fixtureTemplateRepo, SceneRepo sceneRepo ) throws IOException {
         this.universeRepo = universeRepo;
         this.fixtureRepo = fixtureRepo;
         this.fixtureTemplateRepo = fixtureTemplateRepo;
+        this.sceneRepo = sceneRepo;
         this.dmxTableService = new DMXTableService();
         artNetService = new ArtNetService();
         fixtureList = new ArrayList<>();
@@ -110,8 +114,64 @@ public class DMXService {
         dmxTableService.setDMXTable(newDmxTable);
     }
 
-    public List<ActiveFixtureList> getAllActiveFixture() {
-        return fixtureList.stream().map(e -> new ActiveFixtureList(e.getIdName(), 0)).collect(Collectors.toList());
+    public void saveFixtureListInDB(List<FixtureItem> fixtureItemList){
+        fixtureItemList.forEach(item -> {
+            FixtureDB fixtureDB = getFixtureFromList(item.getName() );
+            fixtureRepo.save(fixtureDB);
+        } );
+    }
+
+    public void loadFixturesFromDB(List<FixtureItem> fixtureItemList){
+        fixtureItemList.forEach(item -> {
+            FixtureDB newfixtureDB = fixtureRepo.findByIdName(item.getName());
+            FixtureDB oldfixtureDB = fixtureList.stream().filter(fixture -> newfixtureDB.getIdName().equals(fixture.getIdName()))
+                                                .findAny().orElse(null);
+                    if(oldfixtureDB == null){
+                        fixtureList.add(newfixtureDB);
+                    }else{
+                        //fixtureList.remove(fixtureDB);
+                        oldfixtureDB.cloneIt(newfixtureDB);
+                    }
+        } );
+    }
+
+    public void saveSceneInDB(String sceneName, List<FixtureItem> fixtureItemList){
+        SceneDB sceneDB = new SceneDB();
+        sceneDB.setIdName(sceneName);
+        fixtureItemList.forEach(item -> {
+            FixtureDB fixtureDB = getFixtureFromList(item.getName() );
+            sceneDB.getFixtureList().add(fixtureDB);
+        } );
+        sceneRepo.save(sceneDB);
+    }
+
+    public void loadSceneFromDB(String sceneName){
+        SceneDB sceneDB = sceneRepo.findByIdName(sceneName);
+        sceneDB.getFixtureList().forEach(item -> {
+            FixtureDB oldfixtureDB = fixtureList.stream().filter(fixture -> item.getIdName().equals(fixture.getIdName()))
+                    .findAny().orElse(null);
+
+            if(oldfixtureDB == null){
+                fixtureList.add(item);
+            }else{
+                oldfixtureDB.cloneIt(item);
+            }
+
+        } );
+    }
+
+
+
+
+
+
+    public void setActiveFixtureChecked(ActiveFixtureItem activeFixtureItem) {
+        FixtureDB fixtureDB = getFixtureFromList( activeFixtureItem.getName() );
+        fixtureDB.setChecked( activeFixtureItem.getChecked() );
+    }
+
+    public List<ActiveFixtureItem> getAllActiveFixture() {
+        return fixtureList.stream().map(e -> new ActiveFixtureItem(e.getIdName(), e.getChecked())).collect(Collectors.toList());
     }
 
     public FaderItem getFaderFromFixtureFaderList(FaderBase faderBase, int address, int universe, String fixtureName) {
@@ -153,9 +213,7 @@ public class DMXService {
         return newItem;
     }
 
-
-    public List<FaderItem> getFaderFromFixture(String name) {
-        List<FaderItem> tmpList = new ArrayList<>();
+    public FixtureDB getFixtureFromList(String name) {
 
         FixtureDB fixtureDB = fixtureList.stream()
                 .filter(fixture -> name.equals(fixture.getIdName()))
@@ -163,6 +221,15 @@ public class DMXService {
                 .orElse(null);
 
         assert fixtureDB != null;
+
+        return fixtureDB;
+    }
+
+    public List<FaderItem> getFaderFromFixture(String name) {
+        List<FaderItem> tmpList = new ArrayList<>();
+
+        FixtureDB fixtureDB = getFixtureFromList( name );
+
         fixtureDB.getFaderList().forEach(fader -> tmpList.add(getFaderFromFixtureFaderList(fader, fixtureDB.getAddress(), fixtureDB.getUniverse(), name)));
 
         return tmpList;

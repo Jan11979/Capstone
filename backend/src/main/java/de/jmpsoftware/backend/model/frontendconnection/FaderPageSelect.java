@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class FaderPageSelect {
     private int startAddress;
     private int quantity;
+    private int universe;
 }
