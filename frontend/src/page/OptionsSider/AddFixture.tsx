@@ -5,11 +5,6 @@ import {ActiveFixtureItem, CreateFixtureItem} from "../../model/BackendConnectio
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 
 
-
-import {ActiveFixtureList, CreateFixtureItem} from "../../model/BackendConnection";
-import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
-
-
 function checkFixtureNameAllowed(list: ActiveFixtureList[], name: string): string {
     if (name.length <= 3) {
         return "short";

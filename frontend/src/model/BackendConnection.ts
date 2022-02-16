@@ -1,4 +1,8 @@
 
+export interface LoginData {
+    name: string,
+    password: string
+}
 
 export interface FaderItem {
     type: number,
@@ -39,6 +43,7 @@ export interface CreateFixtureItem {
     address: number,
     universe: number
 }
+
 
 export interface FixtureItem {
     name: string

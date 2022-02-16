@@ -42,6 +42,7 @@ public class FixtureController {
         dmxService.createFixtureFromTemplateList(fixtureItem.getTemplateName(),  fixtureItem.getFixtureName(), fixtureItem.getAddress(), fixtureItem.getUniverse());
     }
 
+
   @GetMapping(path = "/allactivefixture")
     public List<ActiveFixtureItem> returnAllActiveFixture() {
         return dmxService.getAllActiveFixture();

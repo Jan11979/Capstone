@@ -14,3 +14,6 @@ export const LOCATION_ROOT = "/";
 export const LOCATION_LOAD_SAVE = "/data";
 export const LOCATION_SETTINGS = "/edit";
 export const LOCATION_CONNECTION = "/connection";
+
+
+export const STORAGE_KEY_TOKEN = 'wlctokenkey';

@@ -12,9 +12,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {putSetActiveFixtureChecked} from "../../controller/Fetching";
 import {LoadSaveFixture} from "./LoadSaveFixture";
 
-
 interface PropsActiveFixtureSelect {
-    list: ActiveFixtureList[],
+    list: ActiveFixtureItem[],
     setListfunc: Function,
     setReload: Function
 }
