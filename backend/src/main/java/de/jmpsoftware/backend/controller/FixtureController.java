@@ -33,7 +33,6 @@ public class FixtureController {
         return dmxService.getAllFixtureTemplateList();
     }
 
-
     @ResponseBody
     @PostMapping(path = "/createfixture")
     public void postFixtureFader(@RequestBody CreateFixtureItem fixtureItem) {
@@ -44,7 +43,7 @@ public class FixtureController {
     }
 
 
-    @GetMapping(path = "/allactivefixture")
+  @GetMapping(path = "/allactivefixture")
     public List<ActiveFixtureItem> returnAllActiveFixture() {
         return dmxService.getAllActiveFixture();
     }
