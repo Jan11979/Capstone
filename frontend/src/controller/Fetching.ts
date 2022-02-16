@@ -10,17 +10,6 @@ import {STORAGE_KEY_TOKEN} from "./DataService";
 
 
 
-// export async function getUserAuthoritie() {
-//     const rawResponse = await fetch(`/user/authoritie`, {
-//         method: 'GET',
-//         headers: {"Authorization":"Bearer"+localStorage.getItem("STORAGE_KEY_TOKEN") || "kein Token"},
-//     });
-//     const content = await rawResponse.json();
-//     console.log("Miau getUserAuthoritie:",content);
-//     return content;
-// }
-
-
 export const postLogin = (loginData: LoginData) =>
     axios.post(`/auth/login`, loginData).then(response => response.data)
 // export async function postLogin(loginData: LoginData) {
