@@ -13,7 +13,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("service")
 public class ServiceController {
-    private static final Log LOG = LogFactory.getLog(DataController.class);
+    private static final Log LOG = LogFactory.getLog(ServiceController.class);
 
     @GetMapping(path = "/ping")
     public String getPing(Principal principal) {
