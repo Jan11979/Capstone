@@ -129,7 +129,6 @@ public class DMXService {
                     if(oldfixtureDB == null){
                         fixtureList.add(newfixtureDB);
                     }else{
-                        //fixtureList.remove(fixtureDB);
                         oldfixtureDB.cloneIt(newfixtureDB);
                     }
         } );
@@ -164,10 +163,16 @@ public class DMXService {
 
 
 
-
     public void setActiveFixtureChecked(ActiveFixtureItem activeFixtureItem) {
         FixtureDB fixtureDB = getFixtureFromList( activeFixtureItem.getName() );
         fixtureDB.setChecked( activeFixtureItem.getChecked() );
+    }
+
+    public void deleteActiveFixture(List<ActiveFixtureItem> activeFixtureItemList) {
+        activeFixtureItemList.forEach(fixtureItem -> { if( fixtureItem.getChecked() != -1 ){
+            FixtureDB fixtureDB = getFixtureFromList( fixtureItem.getName() );
+            fixtureList.remove( fixtureDB );
+        }});
     }
 
     public List<ActiveFixtureItem> getAllActiveFixture() {

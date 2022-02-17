@@ -37,9 +37,6 @@ export function FaderPage({setRGBItem}: PropsFaderPage) {
 
 
     useEffect(() => {
-        let startAddress = Number(searchParams.get('startaddresse'));
-        let quantity = Number(searchParams.get('faderquantity'));
-        let universe = Number(searchParams.get('universe'));
         const faderPageSelect: FaderPageSelect = {
             startAddress: Number(searchParams.get('startaddresse')),
             quantity: Number(searchParams.get('faderquantity')), 
