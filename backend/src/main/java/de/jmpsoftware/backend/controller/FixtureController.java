@@ -48,6 +48,15 @@ public class FixtureController {
         return dmxService.getAllActiveFixture();
     }
 
+    @ResponseBody
+    @PutMapping(path = "/deleteactivefixture")
+    public void deleteActiveFixtures(@RequestBody List<ActiveFixtureItem> activeFixtureItemList){
+        if( activeFixtureItemList == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No fixtureList!");
+
+        dmxService.deleteActiveFixture(activeFixtureItemList);
+    }
+
 
     @ResponseBody
     @PutMapping(path = "/setactivefixturechecked")

@@ -3,7 +3,7 @@ import {
     STORAGE_KEY_TOKEN
 } from "../../controller/DataService";
 import {AuthContext} from "./AuthProvider";
-import {getActiveFixtureTemplateList, getPing, postLogin} from "../../controller/Fetching";
+import { getPing, postLogin} from "../../controller/Fetching";
 import FrameSet from "../FrameSet";
 
 

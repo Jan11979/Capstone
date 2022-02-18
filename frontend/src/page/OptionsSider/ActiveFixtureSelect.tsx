@@ -11,6 +11,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {putSetActiveFixtureChecked} from "../../controller/Fetching";
 import {LoadSaveFixture} from "./LoadSaveFixture";
+import {DeleteFixture} from "./DeleteFixture";
 
 interface PropsActiveFixtureSelect {
     list: ActiveFixtureItem[],
@@ -21,6 +22,7 @@ interface PropsActiveFixtureSelect {
 export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveFixtureSelect) {
     const [addFixtureDialog, setAddFixtureDialog] = React.useState(false);
     const [loadAndSaveFixtureDialog, setLoadAndSaveFixtureDialog] = React.useState(false);
+    const [deleteFixtureDialog, setDeleteFixtureDialog] = React.useState(false);
 
     const handleToggle = (tiggleName: string) => () => {
         let newActiveFixtureList: ActiveFixtureItem[] = [];
@@ -52,6 +54,13 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
             setLoadAndSaveFixtureDialog(false)
         }
     }
+    const onClickDeleteFixtures = () => {
+        if (!deleteFixtureDialog) {
+            setDeleteFixtureDialog(true)
+        } else {
+            setDeleteFixtureDialog(false)
+        }
+    }
 
     return (
         <div>
@@ -70,6 +79,16 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
                     {!loadAndSaveFixtureDialog &&
                     <Button variant="outlined" endIcon={<ArrowForwardIosIcon fontSize="large"/>}
                             onClick={onClickLoadANdSaveFixtures}> Load&Save Fixture </Button>}
+
+                    {deleteFixtureDialog &&
+                    <Button variant="outlined" endIcon={<ArrowBackIosIcon fontSize="large"/>}
+                            onClick={onClickDeleteFixtures}> Hide Delete</Button>}
+                    {!deleteFixtureDialog &&
+                    <Button variant="outlined" endIcon={<ArrowForwardIosIcon fontSize="large"/>}
+                            onClick={onClickDeleteFixtures}> Delete Fixture </Button>}
+
+
+
                     <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
                         {list.map((value, key) => {
                             const labelId = `checkbox-list-label-${key}`;
@@ -103,6 +122,12 @@ export function ActiveFixtureSelect({list, setListfunc, setReload}: PropsActiveF
                         {loadAndSaveFixtureDialog &&
                         < LoadSaveFixture list={list} setReload={setReload}/>}
                         {!loadAndSaveFixtureDialog &&
+                        <div/>}
+                    </div>
+                    <div>
+                        {deleteFixtureDialog &&
+                        < DeleteFixture list={list} setReload={setReload}/>}
+                        {!deleteFixtureDialog &&
                         <div/>}
                     </div>
                 </div>

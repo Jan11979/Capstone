@@ -22,12 +22,11 @@ export const postLogin = (loginData: LoginData) =>
 // }
 
 export async function getPing() {
-    const rawResponse = await fetch(`/service/ping`, {
+    return await fetch(`/service/ping`, {
         method: 'GET',
         headers: {"Authorization": "Bearer" + localStorage.getItem(STORAGE_KEY_TOKEN) || "No Token"},
     });
-    return rawResponse
-};
+}
 
 export async function postSingleFader(faderItem: FaderItem) {
     await fetch(`/api/faderpage/setvalue`, {
@@ -86,6 +85,14 @@ export async function putSaveFixturScene( sceneName:string, fixtureItemList:Fixt
 
 
 
+
+export async function putDeleteActiveFixturesChecked(activeFixtureItem: ActiveFixtureItem[]) {
+    await fetch(`/api/fixture/deleteactivefixture`, {
+        method: 'PUT',
+        headers: {"Authorization": "Bearer" + localStorage.getItem(STORAGE_KEY_TOKEN) || "No Token",'Content-Type': 'application/json'},
+        body: JSON.stringify( activeFixtureItem )
+    });
+}
 
 export async function getActiveFixtureList() {
     const rawResponse = await fetch(`/api/fixture/allactivefixture`, {
