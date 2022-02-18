@@ -7,6 +7,7 @@ import de.jmpsoftware.backend.service.JWTUtils;
 import de.jmpsoftware.backend.service.MongoUserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -42,21 +43,22 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
-    public String login(@RequestBody LoginData data) {
+    public ResponseEntity<String> login(@RequestBody LoginData data) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(data.getName(), data.getPassword())
             );
-            return jwtService.createToken(new HashMap<>(), data.getName());
+            return ResponseEntity.ok(jwtService.createToken(new HashMap<>(), data.getName()));
         } catch (AuthenticationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
         }
     }
 
     @PostMapping(path = "/signup") // User Registration
-    public String signup(@RequestBody LoginData data) {
+    public ResponseEntity<String> signup(@RequestBody LoginData data) {
         if( data == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Login");
+
         if(!adminName.equals(data.getName()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid Login");
 
@@ -65,13 +67,10 @@ public class AuthController {
             final UserDataDB user = UserDataDB.newUser(data.getName(), encodedPassword,
                     List.of(new SimpleGrantedAuthority(MongoUserDetailsService.AUTHORITY_ADMIN)));
             repositoryUser.insert(user);
-            return "OK";
+            return ResponseEntity.ok().build();
         }
         else{
-            if(!adminName.equals(data.getName()))
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid Login");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid Login");
         }
-
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid Login");
     }
 }

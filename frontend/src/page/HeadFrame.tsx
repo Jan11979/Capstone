@@ -17,7 +17,7 @@ import {
     LOCATION_ROOT,
     LOCATION_SETTINGS
 } from "../controller/DataService";
-import {LogoRGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
+import {LogoRGBMixerCircle} from "./rgbmixerpicture/RGBMixerPicture";
 
 
 export function HeadFrame() {

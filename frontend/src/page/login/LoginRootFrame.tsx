@@ -10,10 +10,12 @@ import FrameSet from "../FrameSet";
 export default function LoginRootFrame() {
     const [name, setName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+    const [validUser, setValidUser] = useState<boolean>(false)
+    const [infoText, setInfoText] = useState<string>("")
 
     const {setJwt, jwtDecoded} = useContext(AuthContext)
 
-    const [validUser, setValidUser] = useState<boolean>(false)
+
 
     useEffect(() => {
         let tmpToken = localStorage.getItem(STORAGE_KEY_TOKEN) || "kein Token";
@@ -22,9 +24,12 @@ export default function LoginRootFrame() {
             console.log("Token aus Speicher geholt", jwtDecoded);
 
             getPing().then((data: any) => {
-                if (data.status === 403) {
-                    console.info("rawResponse.status === 403 Miau");
+                if (data.status > 399) {
+                    setInfoText(data.status + " : " + data.message )
                     setValidUser(false);
+                }
+                else{
+                    setValidUser(true);
                 }
             });
         }
@@ -43,10 +48,16 @@ export default function LoginRootFrame() {
         event.preventDefault()
 
         postLogin({name, password}).then((data: any) => {
-            console.log("Login" + data);
-            setJwt(data)
-            setValidUser(true);
-            localStorage.setItem(STORAGE_KEY_TOKEN, data); // ? data = Token
+            if (data.status > 399) {
+                setInfoText(data.status + " : " + data.message )
+                setValidUser(false);
+            }
+            else {
+                console.log("Login" + data);
+                setJwt(data)
+                setValidUser(true);
+                localStorage.setItem(STORAGE_KEY_TOKEN, data); // ? data = Token
+            }
         })
     }
     return (
@@ -54,6 +65,8 @@ export default function LoginRootFrame() {
             {validUser && < FrameSet/>}
             {!validUser && <div>
                 <h2>Login</h2>
+                <h4>{infoText}</h4>
+
                 <form onSubmit={onSubmit}>
                     <input type="text" placeholder="username" onChange={onUserNameChange} value={name}/>
                     <input type="password" placeholder="password" onChange={onPasswordChange} value={password}/>

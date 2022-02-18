@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DMXService {
@@ -51,7 +50,6 @@ public class DMXService {
     public void initService(){
         LOG.info("Init DMX Service");
         createDummyTemplates();
-        createDummyFixtures();
     }
     public ArtNetService getArtNetService() {
         return artNetService;
@@ -176,10 +174,10 @@ public class DMXService {
     }
 
     public List<ActiveFixtureItem> getAllActiveFixture() {
-        return fixtureList.stream().map(e -> new ActiveFixtureItem(e.getIdName(), e.getChecked())).collect(Collectors.toList());
+          return fixtureList.stream().map(e -> new ActiveFixtureItem(e.getIdName(), e.getChecked())).toList();
     }
 
-    public FaderItem getFaderFromFixtureFaderList(FaderBase faderBase, int address, int universe, String fixtureName) {
+    public FaderItem getFaderFromFixtureFaderList(FaderBase faderBase, int address, int universe, String fixtureName) throws Exception {
         FaderItem newItem = new FaderItem();
         newItem.setFixtureName(fixtureName);
         newItem.setType(faderBase.getFaderType());
@@ -214,6 +212,7 @@ public class DMXService {
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
             }
+            default -> { throw new Exception("Try to generate FaderItem with invalid FaderType:" + faderBase.getFaderType());  }
         }
         return newItem;
     }
@@ -235,7 +234,13 @@ public class DMXService {
 
         FixtureDB fixtureDB = getFixtureFromList( name );
 
-        fixtureDB.getFaderList().forEach(fader -> tmpList.add(getFaderFromFixtureFaderList(fader, fixtureDB.getAddress(), fixtureDB.getUniverse(), name)));
+        fixtureDB.getFaderList().forEach(fader -> {
+            try {
+                tmpList.add(getFaderFromFixtureFaderList(fader, fixtureDB.getAddress(), fixtureDB.getUniverse(), name));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         return tmpList;
     }

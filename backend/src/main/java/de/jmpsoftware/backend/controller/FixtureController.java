@@ -7,6 +7,7 @@ import de.jmpsoftware.backend.service.DMXService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,74 +30,76 @@ public class FixtureController {
 
 
     @GetMapping(path = "/allfixturetemplatelist")
-    public List<String> returnAllFixtureTemplateList() {
-        return dmxService.getAllFixtureTemplateList();
-    }
+    public ResponseEntity<List<String>> returnAllFixtureTemplateList() {return ResponseEntity.ok( dmxService.getAllFixtureTemplateList());}
 
     @ResponseBody
     @PostMapping(path = "/createfixture")
-    public void postFixtureFader(@RequestBody CreateFixtureItem fixtureItem) {
+    public ResponseEntity<String> postFixtureFader(@RequestBody CreateFixtureItem fixtureItem) {
         if (fixtureItem == null)
-            return;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not fixtureItem" );
 
         dmxService.createFixtureFromTemplateList(fixtureItem.getTemplateName(),  fixtureItem.getFixtureName(), fixtureItem.getAddress(), fixtureItem.getUniverse());
+        return ResponseEntity.ok().build();
     }
 
 
   @GetMapping(path = "/allactivefixture")
-    public List<ActiveFixtureItem> returnAllActiveFixture() {
-        return dmxService.getAllActiveFixture();
+    public ResponseEntity<List<ActiveFixtureItem>> returnAllActiveFixture() {
+      return ResponseEntity.ok(dmxService.getAllActiveFixture());
     }
 
     @ResponseBody
     @PutMapping(path = "/deleteactivefixture")
-    public void deleteActiveFixtures(@RequestBody List<ActiveFixtureItem> activeFixtureItemList){
+    public ResponseEntity<String> deleteActiveFixtures(@RequestBody List<ActiveFixtureItem> activeFixtureItemList){
         if( activeFixtureItemList == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No fixtureList!");
 
         dmxService.deleteActiveFixture(activeFixtureItemList);
+        return ResponseEntity.ok().build();
     }
 
 
     @ResponseBody
     @PutMapping(path = "/setactivefixturechecked")
-    public void createFaderList(@RequestBody ActiveFixtureItem activeFixtureItem){
+    public ResponseEntity<String> createFaderList(@RequestBody ActiveFixtureItem activeFixtureItem){
         if( activeFixtureItem == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No fixtureList!");
 
         dmxService.setActiveFixtureChecked(activeFixtureItem);
+        return ResponseEntity.ok().build();
     }
 
 
     @ResponseBody
     @PutMapping(path = "/getfixture")
-    public List<FaderItem> createFaderList(@RequestBody List<String> fixtureList){
+    public ResponseEntity<List<FaderItem>> createFaderList(@RequestBody List<String> fixtureList){
         if( fixtureList == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No fixtureList!");
 
-        return dmxService.getFaderFromFixtureList(fixtureList);
+        return ResponseEntity.ok(dmxService.getFaderFromFixtureList(fixtureList));
     }
 
     @ResponseBody
     @PostMapping(path = "/setfixturevalue")
-    public void postFixtureFader(@RequestBody FaderItem faderItem, Principal principal) throws IOException {
+    public ResponseEntity<String> postFixtureFader(@RequestBody FaderItem faderItem, Principal principal) throws IOException {
         if( faderItem == null)
-            return;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not faderItem" );
 
         LOG.info("valueFixtureFader" + faderItem );
         dmxService.updateFixture(faderItem);
+        return ResponseEntity.ok().build();
     }
 
 
     @GetMapping(path = "/createdummytemplates")
-    public String createDummyTemplates() {
+    public ResponseEntity<String> createDummyTemplates() {
         dmxService.createDummyTemplates();
-        return "Done dummy Templates";
+        return ResponseEntity.ok().build();
     }
     @SuppressWarnings("SameReturnValue")
     @GetMapping(path = "/createdummyfixtures")
-    public String createDummyFixtures() {
+    public ResponseEntity<String> createDummyFixtures() {
         dmxService.createDummyFixtures();
-        return "Done dummy Fixtures";
+        return ResponseEntity.ok().build();
     }
 }

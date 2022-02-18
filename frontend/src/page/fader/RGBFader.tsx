@@ -1,7 +1,7 @@
 import {FaderItem, RGBItem} from "../../model/BackendConnection";
 import {Fader} from "./Fader";
 import React, {useState} from "react";
-import {RGBMixerRectangle} from "../RGBMixerPicture/RGBMixerPicture";
+import {RGBMixerRectangle} from "../rgbmixerpicture/RGBMixerPicture";
 import {postFixtureFader, postSingleFader} from "../../controller/Fetching";
 
 function CreateRGBFaderItem(channeloffset:number, faderItem:FaderItem ) :FaderItem {

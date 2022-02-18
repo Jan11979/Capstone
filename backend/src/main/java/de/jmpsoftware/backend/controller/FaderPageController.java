@@ -7,7 +7,10 @@ import de.jmpsoftware.backend.service.ArtNetService;
 import de.jmpsoftware.backend.service.DMXService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -27,20 +30,21 @@ public class FaderPageController {
 
     @ResponseBody
     @PostMapping(path = "/setvalue")
-    public void getSingleValue(@RequestBody FaderItem faderItem, Principal principal) throws IOException {
+    public ResponseEntity<String> getSingleValue(@RequestBody FaderItem faderItem, Principal principal) throws IOException {
         if( faderItem == null)
-            return;
+            return ResponseEntity.badRequest().build();
 
         LOG.info("NewSingleValue" + faderItem );
         dmxService.setValueToTable(faderItem);
+        return ResponseEntity.ok().build();
     }
 
     @ResponseBody
     @PostMapping(path = "/simpleselectpage")
-    public List<FaderItem> postGenerateSelectFaderPage(@RequestBody FaderPageSelect faderPageSelect) {
+    public ResponseEntity<List<FaderItem>> postGenerateSelectFaderPage(@RequestBody FaderPageSelect faderPageSelect) {
         List<FaderItem> tmpList = new ArrayList<>();
         if( faderPageSelect == null)
-            return tmpList;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not faderPageSelect" );
         LOG.info("postGenerateSelectFaderPage" + faderPageSelect );
 
         for (int i = faderPageSelect.getStartAddress()-1; i < faderPageSelect.getStartAddress()+faderPageSelect.getQuantity()-1; i++ ) {
@@ -49,7 +53,7 @@ public class FaderPageController {
             newItem.setValue(dmxService.getValueFromTable(i, faderPageSelect.getUniverse()) );
             tmpList.add(newItem);
         }
-        return tmpList;
+        return ResponseEntity.ok(tmpList);
     }
 
 
@@ -57,10 +61,8 @@ public class FaderPageController {
      *  Test
      */
     @GetMapping(path = "/simplepage")
-    public List<FaderItem> getSimplePage(Principal principal) {
+    public ResponseEntity<List<FaderItem>> getSimplePage(Principal principal) {
         List<FaderItem> tmpList = new ArrayList<>();
-
-
 
         for (int i = 0; i <= 5; i++ ) {
             FaderItem newItem = FaderItem.builder()
@@ -85,6 +87,6 @@ public class FaderPageController {
         newItem3.setValue(dmxService.getValueFromTable(12));
         tmpList.add(newItem3);
 
-        return tmpList;
+        return ResponseEntity.ok(tmpList);
     }
 }

@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 
 public class ArtNetThread extends Thread {
     private static final Log LOG = LogFactory.getLog(ArtNetThread.class);
-    public static final int ARTNET_FORCE_BROADCAST_TIME = 500;
+    public static final int ARTNET_FORCE_BROADCAST_TIME = 100;
     public static final int ACTIVE_ARTNET_DOZY_TIME = 50;
     public static final int SLEEPING_ARTNET_DOZY_TIME = 1000;
 
@@ -115,6 +115,7 @@ public class ArtNetThread extends Thread {
     public void broadcastDmx() {
         // UNIVERSE Startet mit 1 !!!!!!!!!
         // ToDO Active Universe Handling
+        //LOG.warn("Update Universe C1(" + dmxData[0][0] + ") C2("+ dmxData[0][1] + ") C3("+ dmxData[0][3] + ")" );
         artnet.broadcastDmx(0, 1, dmxData[0]);
         artnet.broadcastDmx(0, 2, dmxData[1]);
         artnet.broadcastDmx(0, 3, dmxData[2]);
