@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DMXService {
@@ -176,7 +175,7 @@ public class DMXService {
     }
 
     public List<ActiveFixtureItem> getAllActiveFixture() {
-        return fixtureList.stream().map(e -> new ActiveFixtureItem(e.getIdName(), e.getChecked())).collect(Collectors.toList());
+        return fixtureList.stream().map(e -> new ActiveFixtureItem(e.getIdName(), e.getChecked())).toList();
     }
 
     public FaderItem getFaderFromFixtureFaderList(FaderBase faderBase, int address, int universe, String fixtureName) {
@@ -214,6 +213,7 @@ public class DMXService {
                 newItem.setFixtureID(faderBase.getFaderID());
                 newItem.setChannel(address);
             }
+            default -> LOG.error("Try to generate FaderItem with invalid FaderType:" + faderBase.getFaderType());
         }
         return newItem;
     }
