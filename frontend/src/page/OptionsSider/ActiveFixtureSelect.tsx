@@ -2,16 +2,11 @@
 import React from "react";
 import {ActiveFixtureItem} from "../../model/BackendConnection";
 
-import {Button, Checkbox, List, ListItem, ListItemText} from "@mui/material";
+import { Checkbox, List, ListItem, ListItemText} from "@mui/material";
 
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import {AddFixture} from "./AddFixture";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {putSetActiveFixtureChecked} from "../../controller/Fetching";
-import {LoadSaveFixture} from "./LoadSaveFixture";
-import {DeleteFixture} from "./DeleteFixture";
 
 
 interface PropsActiveFixtureSelect {
