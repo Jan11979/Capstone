@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 
 public class ArtNetThread extends Thread {
     private static final Log LOG = LogFactory.getLog(ArtNetThread.class);
-    public static final int ARTNET_FORCE_BROADCAST_TIME = 500;
+    public static final int ARTNET_FORCE_BROADCAST_TIME = 100;
     public static final int ACTIVE_ARTNET_DOZY_TIME = 50;
     public static final int SLEEPING_ARTNET_DOZY_TIME = 1000;
 
