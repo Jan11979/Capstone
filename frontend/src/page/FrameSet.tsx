@@ -14,24 +14,15 @@ import {FaderPage} from "./Fader/FaderPage";
 import {RGBMixerCircle} from "./RGBMixerPicture/RGBMixerPicture";
 import {ActiveFixtureItem, RGBItem} from "../model/BackendConnection";
 import {Route, Routes, useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {Typography} from "@mui/material";
 import {LoadSaveUniverse} from "./OptionsSider/LoadSaveUniverse";
 import {ActiveFixtureSelect} from "./OptionsSider/ActiveFixtureSelect";
 import {FixtureFaderPage} from "./Fader/FixtureFaderPage";
 import {ActiveSliderSelect} from "./OptionsSider/ActiveSliderSelect";
 import {LoadSaveFixtureSet} from "./OptionsSider/LoadSaveFixtureSet";
+import {ActiveFixtureSelectEdit} from "./OptionsSider/ActiveFixtureSelectEdit";
 
 
 function FrameSet() {
-
-    // let tmpAuthority: string[] = [AUTHORITY_NO_NOTHING];
-    // const [authority, setAuthority] = useState(tmpAuthority);
-    // useEffect(() => {
-    //     getUserAuthoritie()
-    //         .then(data => setAuthority( data ) )
-    //     console.log("getUserAuthoritie Called :", authority);
-    // }, [])
-
 
     let navigate = useNavigate();
     const location = useLocation();
@@ -64,7 +55,7 @@ function FrameSet() {
     let tmpActiveFixtureListSelected: string[] = [];
     const [activeFixtureListSelected, setActiveFixtureListSelected] = useState(tmpActiveFixtureListSelected);
     useEffect(() => {
-        if(!reloadFixtureList){
+        if(reloadFixtureList){
             setReloadFixtureList(false);
         }
         getActiveFixtureList()
@@ -101,11 +92,15 @@ function FrameSet() {
                         </div>}/>
                         <Route path={LOCATION_SETTINGS} element={<div>
                             { idParam === "basic" && <ActiveSliderSelect /> }
-                            {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}
+                            {idParam === "edit" && < ActiveFixtureSelectEdit list={activeFixtureList}
                                                                             setListfunc={setActiveFixtureList}
                                                                             setReload={setReloadFixtureList}/>}
                         </div>}/>
-                        <Route path={LOCATION_CONNECTION} element={<Typography variant="h1">Con</Typography>}/>
+                        <Route path={LOCATION_CONNECTION} element={<div>
+                            { idParam === "basic" && <ActiveSliderSelect /> }
+                            {idParam === "edit" && < ActiveFixtureSelect list={activeFixtureList}
+                                                                         setListfunc={setActiveFixtureList}/>}
+                        </div>}/>
                     </Routes>
                 </div>
                 <div className="MidBody">

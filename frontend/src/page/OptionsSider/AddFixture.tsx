@@ -73,7 +73,7 @@ export function AddFixture({list, setReload}: PropsAddFixture) {
     };
     const handleOnClickCreate: React.MouseEventHandler<HTMLButtonElement> = () => {
         console.log("handleOnClickCreate");
-        let createfixture: CreateFixtureItem = { fixtureName:fixtureName, templateName:templateName, address:fixtureAddress, universe:universe };
+        let createfixture: CreateFixtureItem = { fixtureName:fixtureName, templateName:templateName, address:fixtureAddress-1, universe:universe };
         postCreateFixture(createfixture).then();
         setCreateButtonAllowed(false)
         setReload(true);
